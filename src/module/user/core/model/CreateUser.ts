@@ -1,7 +1,10 @@
+import { UserRole } from './UserRole';
+
 export type CreateUser = {
     name: string;
     email: string;
     password: string;
-    roleId: string;
+    companyId: string;
+    roleId: UserRole;
     companyRoleId: string;
 }
