@@ -1,12 +1,13 @@
 import validator from 'validator';
+import { BaseException } from '../model/BaseException';
 
-class ValidationError extends Error {
+class ValidationError extends BaseException {
     constructor(
         field: string,
         validationText?: string
     ) {
         const errorText = `Field is not valid: ${field}. Message:${validationText ?? '...'}`
-        super(errorText);
+        super(errorText, 400);
     }
 }
 
