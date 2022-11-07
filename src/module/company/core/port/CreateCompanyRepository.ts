@@ -1,4 +1,4 @@
-import { Company } from '../core/model/Company';
+import { Company } from '../model/Company';
 
 export interface CreateCompanyRepository {
     createCompany(company: Company): Promise<void>

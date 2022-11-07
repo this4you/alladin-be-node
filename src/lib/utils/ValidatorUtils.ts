@@ -6,17 +6,63 @@ class ValidationError extends BaseException {
         field: string,
         validationText?: string
     ) {
-        const errorText = `Field is not valid: ${field}. Message:${validationText ?? '...'}`
+        const errorText = `Field is not valid: ${field}. Message: ${validationText ?? '...'}`
         super(errorText, 400);
     }
 }
 
 export class ValidatorUtils {
-    email(field: string, email: string) {
-        if (validator.isEmail(email)) {
-            return;
+    validate(field: string, value: any) {
+       return new ValidatorFieldUtils(field, value);
+    }
+}
+
+class ValidatorFieldUtils {
+    constructor(
+        private fieldName: string,
+        private fieldValue: any
+    ) {}
+
+    email() {
+        if (!this.fieldValue) {
+            return this;
         }
 
-        throw new ValidationError(field);
+        if (validator.isEmail(this.fieldValue)) {
+            return this;
+        }
+
+        throw new ValidationError(this.fieldName, 'Incorrect email');
+    }
+
+    notEmpty() {
+        if (this.fieldValue === 0 || this.fieldValue) {
+            return this;
+        }
+
+        throw new ValidationError(this.fieldName, 'Value is empty');
+    }
+
+    maxLength(max: number) {
+        if (this.fieldValue.toString().length <= max) {
+            return this;
+        }
+
+        throw new ValidationError(this.fieldName, `Max length ${max}`);
+    }
+
+    password() {
+        if (!this.fieldValue) {
+            return this;
+        }
+
+        if (validator.isStrongPassword(this.fieldValue, {
+            minLength: 8,
+            minSymbols: 0
+        })) {
+            return this;
+        }
+
+        throw new ValidationError(this.fieldName, `You need to create another password`);
     }
 }

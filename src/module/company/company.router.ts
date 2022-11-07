@@ -1,13 +1,18 @@
 import { Router } from 'express';
+import { Request } from 'express';
+import { CreateCompany } from './core/model/CreateCompany';
+import { getCompanyContext } from './config/factory';
 
-const userRouter = Router();
+const companyRouter = Router();
+const {createCompanyUseCase} = getCompanyContext();
 
-userRouter.get("/", (req, res) => {
-
+companyRouter.post('/', async (req: Request<{}, string, CreateCompany>, res, next) => {
+    try {
+       const companyId = await createCompanyUseCase.execute(req.body);
+       return res.send(companyId);
+    } catch (e) {
+        next(e);
+    }
 });
 
-userRouter.post("/", async (req, res,next) => {
-
-});
-
-export default userRouter;
+export default companyRouter;

@@ -3,7 +3,7 @@ import { User } from '../core/model/User';
 
 export class FakeCreateUserRepository implements CreateUserRepository {
     async createUser(user: User): Promise<void> {
-        console.log('USER WAS CREATED');
+        console.log('USER WAS CREATED', user);
     }
 
 }

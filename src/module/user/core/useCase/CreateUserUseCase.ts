@@ -30,7 +30,26 @@ export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promis
     }
 
     protected validate(data: CreateUser): void {
-        this.validateUtils.email('email', data.email);
+        this.validateUtils.validate('name', data.name)
+            .notEmpty()
+            .maxLength(50);
+
+        this.validateUtils.validate('email', data.email)
+            .notEmpty()
+            .email();
+
+        this.validateUtils.validate('password', data.password)
+            .notEmpty()
+            .password();
+
+        this.validateUtils.validate('companyId', data.companyId)
+            .notEmpty();
+
+        this.validateUtils.validate('roleId', data.roleId)
+            .notEmpty();
+
+        this.validateUtils.validate('companyRoleId', data.companyRoleId)
+            .notEmpty();
     }
 
 }

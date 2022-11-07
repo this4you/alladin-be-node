@@ -3,12 +3,14 @@ import { CreateCompany } from '../model/CreateCompany';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateUserUseCase } from '../../../user/core/useCase/CreateUserUseCase';
 import { UserRole } from '../../../user/core/model/UserRole';
-import { CreateCompanyRepository } from '../../port/CreateCompanyRepository';
+import { CreateCompanyRepository } from '../port/CreateCompanyRepository';
+import { ValidatorUtils } from '../../../../lib/utils/ValidatorUtils';
 
 export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, Promise<string>> {
     constructor(
         private createUserUseCase: CreateUserUseCase,
-        private createCompanyRepository: CreateCompanyRepository
+        private createCompanyRepository: CreateCompanyRepository,
+        private validateUtils: ValidatorUtils
     ) {
         super();
     }
@@ -31,6 +33,19 @@ export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, 
     }
 
     protected validate(data: CreateCompany): void {
-        //TODO ADD create company validation
+        this.validateUtils.validate('name', data.name)
+            .notEmpty()
+            .maxLength(50);
+
+        this.validateUtils.validate('email', data.user.email)
+            .notEmpty()
+            .email();
+
+        this.validateUtils.validate('password', data.user.password)
+            .notEmpty()
+            .password();
+
+        this.validateUtils.validate('companyRoleId', data.user.companyRoleId)
+            .notEmpty();
     }
 }
