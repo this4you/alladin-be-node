@@ -4,15 +4,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { CreateUserUseCase } from '../../../user/core/useCase/CreateUserUseCase';
 import { UserRole } from '../../../user/core/model/UserRole';
 import { CreateCompanyRepository } from '../port/CreateCompanyRepository';
-import { ValidatorUtils } from '../../../../lib/utils/ValidatorUtils';
+import { Validator } from '../../../../lib/model/Validator';
 
 export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, Promise<string>> {
     constructor(
-        private createUserUseCase: CreateUserUseCase,
+        private createUserUseCase: CreateUserUseCase, //TODO move similar to module service
         private createCompanyRepository: CreateCompanyRepository,
-        private validateUtils: ValidatorUtils
+        private validateUtils: Validator<CreateCompany>
     ) {
-        super();
+        super(validateUtils);
     }
 
     protected async validatedExecute(data: CreateCompany): Promise<string> {
@@ -30,22 +30,5 @@ export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, 
         });
 
         return companyId;
-    }
-
-    protected validate(data: CreateCompany): void {
-        this.validateUtils.validate('name', data.name)
-            .notEmpty()
-            .maxLength(50);
-
-        this.validateUtils.validate('email', data.user.email)
-            .notEmpty()
-            .email();
-
-        this.validateUtils.validate('password', data.user.password)
-            .notEmpty()
-            .password();
-
-        this.validateUtils.validate('companyRoleId', data.user.companyRoleId)
-            .notEmpty();
     }
 }

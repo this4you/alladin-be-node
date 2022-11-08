@@ -1,2 +1,6 @@
-Add company module
-Add auth logic
+Add password hash
+Add logic to check company uniq
+Fix imports
+Add sql simple db // orm
+Add swagger
+Add tests
