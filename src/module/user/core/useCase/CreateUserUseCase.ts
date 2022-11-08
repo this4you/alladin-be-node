@@ -1,12 +1,11 @@
 import { User } from '../model/User';
-import { v4 as uuidv4 } from 'uuid';
 import { CreateUser } from '../model/CreateUser';
 import { ValidateCommandUseCase } from '../../../../lib/model/ValidateCommandUseCase';
 import { CreateUserRepository } from '../port/CreateUserRepository';
 import { PasswordHashing } from '../port/PasswordHashing';
 import { Validator } from '../../../../lib/model/Validator';
 
-export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promise<string>> {
+export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promise<User>> {
     constructor(
         private repository: CreateUserRepository,
         private passwordHashing: PasswordHashing,
@@ -15,17 +14,13 @@ export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promis
         super(validator);
     }
 
-    protected override async validatedExecute (data: CreateUser): Promise<string> {
-        const id = uuidv4();
+    protected override async validatedExecute (data: CreateUser): Promise<User> {
         const password = this.passwordHashing.hash(data.password);
-        const user: User = {
+        const user = {
             ...data,
-            id,
             password
         };
 
-        await this.repository.createUser(user); // return id
-
-        return id;
+        return await this.repository.createUser(user);
     }
 }

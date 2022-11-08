@@ -5,8 +5,9 @@ import { CreateUserUseCase } from '../../../user/core/useCase/CreateUserUseCase'
 import { UserRole } from '../../../user/core/model/UserRole';
 import { CreateCompanyRepository } from '../port/CreateCompanyRepository';
 import { Validator } from '../../../../lib/model/Validator';
+import { Company } from '../model/Company';
 
-export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, Promise<string>> {
+export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, Promise<Company>> {
     constructor(
         private createUserUseCase: CreateUserUseCase, //TODO move similar to module service
         private createCompanyRepository: CreateCompanyRepository,
@@ -15,20 +16,15 @@ export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, 
         super(validateUtils);
     }
 
-    protected async validatedExecute(data: CreateCompany): Promise<string> {
-        const companyId = uuidv4();
-
-        await this.createCompanyRepository.createCompany({
-            id: companyId,
-            name: data.name
-        });
+    protected async validatedExecute(data: CreateCompany): Promise<Company> {
+        const company = await this.createCompanyRepository.createCompany(data);
 
         await this.createUserUseCase.execute({
             ...data.user,
-            companyId: companyId,
+            companyId: company.id,
             roleId: UserRole.ADMIN
         });
 
-        return companyId;
+        return company;
     }
 }
