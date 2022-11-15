@@ -34,11 +34,13 @@
     }
   },
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
     "@types/uuid": "^8.3.4",
     "@types/validator": "^13.7.10",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jest-ts-auto-mock": "^2.1.0",
+    "mongoose": "^6.7.2",
     "ts-auto-mock": "^3.6.2",
     "ts-mockito": "^2.6.1",
     "ts-node": "^10.9.1",
