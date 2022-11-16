@@ -1,10 +1,12 @@
 import { PasswordHashing } from '../core/port/PasswordHashing';
+import bcrypt from 'bcrypt';
+
 //infrastructure
 export class BcryptPasswordHashing implements PasswordHashing {
-    hash(password: string): string {
-        console.log("PASSWORD WAS HASHED");
+    async hash(password: string): Promise<string> {
+        return await bcrypt.hash(password, 10);
 
-        return password;
+       // const result = await bcrypt.compare(password, hash);
     }
 
 }

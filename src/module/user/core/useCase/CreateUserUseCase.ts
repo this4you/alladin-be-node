@@ -15,7 +15,7 @@ export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promis
     }
 
     protected override async validatedExecute (data: CreateUser): Promise<Omit<User, 'password'>> {
-        const password = this.passwordHashing.hash(data.password);
+        const password = await this.passwordHashing.hash(data.password);
         const user = {
             ...data,
             password
