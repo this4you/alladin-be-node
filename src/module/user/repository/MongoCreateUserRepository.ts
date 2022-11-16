@@ -28,4 +28,9 @@ export class MongoCreateUserRepository implements CreateUserRepository {
         };
     }
 
+    async isUserExsists(email: string): Promise<boolean> {
+        const user = await UserEntity.findOne({email: email}).exec();
+        return !!user;
+    }
+
 }

@@ -1,6 +1,6 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { BaseException } from './lib/model/BaseException';
+import { BaseException } from './lib/model/exception/BaseException';
 import companyRouter from './module/company/company.router';
 import { connectToDb } from './db/mongo/index';
 

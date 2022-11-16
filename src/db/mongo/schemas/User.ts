@@ -12,7 +12,7 @@ interface IUser {
 const schema = new Schema<IUser>(
     {
         name: { type: String, required: true },
-        email: { type: String, required: true },
+        email: { type: String, unique: true, required: true },
         password: { type: String, required: true },
         company: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
         role: { type: String, enum: UserRole, required: true, default: 'user' }

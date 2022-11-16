@@ -4,6 +4,7 @@ import { ValidateCommandUseCase } from '../../../../lib/model/ValidateCommandUse
 import { CreateUserRepository } from '../port/CreateUserRepository';
 import { PasswordHashing } from '../port/PasswordHashing';
 import { Validator } from '../../../../lib/model/Validator';
+import { UniqueException } from '../../../../lib/model/exception/UniqueException';
 
 export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promise<Omit<User, 'password'>>> {
     constructor(
@@ -14,8 +15,14 @@ export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promis
         super(validator);
     }
 
-    protected override async validatedExecute (data: CreateUser): Promise<Omit<User, 'password'>> {
+    protected override async validatedExecute(data: CreateUser): Promise<Omit<User, 'password'>> {
         const password = await this.passwordHashing.hash(data.password);
+        const isUserExsists = await this.repository.isUserExsists(data.email);
+
+        if (isUserExsists) {
+            throw new UniqueException(`User with email ${data.email} already existed`)
+        }
+
         const user = {
             ...data,
             password

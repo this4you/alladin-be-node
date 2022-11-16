@@ -1,15 +1,6 @@
 import validator from 'validator';
-import { BaseException } from '../model/BaseException';
+import { ValidationException } from '../model/exception/ValidationException';
 
-class ValidationError extends BaseException {
-    constructor(
-        field: string,
-        validationText?: string
-    ) {
-        const errorText = `Field is not valid: ${field}. Message: ${validationText ?? '...'}`
-        super(errorText, 400);
-    }
-}
 
 export class ValidatorUtils {
     validate(field: string, value: any) {
@@ -32,7 +23,7 @@ class ValidatorFieldUtils {
             return this;
         }
 
-        throw new ValidationError(this.fieldName, 'Incorrect email');
+        throw new ValidationException(this.fieldName, 'Incorrect email');
     }
 
     notEmpty() {
@@ -40,7 +31,7 @@ class ValidatorFieldUtils {
             return this;
         }
 
-        throw new ValidationError(this.fieldName, 'Value is empty');
+        throw new ValidationException(this.fieldName, 'Value is empty');
     }
 
     maxLength(max: number) {
@@ -48,7 +39,7 @@ class ValidatorFieldUtils {
             return this;
         }
 
-        throw new ValidationError(this.fieldName, `Max length ${max}`);
+        throw new ValidationException(this.fieldName, `Max length ${max}`);
     }
 
     password() {
@@ -63,6 +54,6 @@ class ValidatorFieldUtils {
             return this;
         }
 
-        throw new ValidationError(this.fieldName, `You need to create another password`);
+        throw new ValidationException(this.fieldName, `You need to create another password`);
     }
 }
