@@ -5,7 +5,7 @@ import { CreateUserRepository } from '../port/CreateUserRepository';
 import { PasswordHashing } from '../port/PasswordHashing';
 import { Validator } from '../../../../lib/model/Validator';
 
-export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promise<User>> {
+export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promise<Omit<User, 'password'>>> {
     constructor(
         private repository: CreateUserRepository,
         private passwordHashing: PasswordHashing,
@@ -14,7 +14,7 @@ export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promis
         super(validator);
     }
 
-    protected override async validatedExecute (data: CreateUser): Promise<User> {
+    protected override async validatedExecute (data: CreateUser): Promise<Omit<User, 'password'>> {
         const password = this.passwordHashing.hash(data.password);
         const user = {
             ...data,
