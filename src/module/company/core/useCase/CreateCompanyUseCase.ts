@@ -1,8 +1,7 @@
 import { ValidateCommandUseCase } from '../../../../lib/model/ValidateCommandUseCase';
 import { CreateCompany } from '../model/CreateCompany';
-import { v4 as uuidv4 } from 'uuid';
 import { CreateUserUseCase } from '../../../user/core/useCase/CreateUserUseCase';
-import { UserRole } from '../../../user/core/model/UserRole';
+import { UserRole } from '../../../../lib/model/UserRole';
 import { CompanyRepository } from '../port/CompanyRepository';
 import { Validator } from '../../../../lib/model/Validator';
 import { Company } from '../model/Company';

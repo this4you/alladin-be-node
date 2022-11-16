@@ -5,3 +5,7 @@ Add swagger
 Add tests
 Fix imports
 Add eslint
+
+//al-1
+Register company with admin -> save data to db -> return token -> auth as admin with this token
+//al-1 end

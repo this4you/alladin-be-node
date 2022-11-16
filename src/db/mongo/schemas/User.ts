@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { UserRole } from '../../../module/user/core/model/UserRole';
+import { UserRole } from '../../../lib/model/UserRole';
 
 interface IUser {
     name: string;

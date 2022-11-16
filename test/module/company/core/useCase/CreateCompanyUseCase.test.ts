@@ -7,7 +7,7 @@ import { CreateCompanyUseCase } from '../../../../../src/module/company/core/use
 import { createMock } from 'ts-auto-mock';
 import { Company } from '../../../../../src/module/company/core/model/Company';
 import { CreateUser } from '../../../../../src/module/user/core/model/CreateUser';
-import { UserRole } from '../../../../../src/module/user/core/model/UserRole';
+import { UserRole } from '../../../../../src/lib/model/UserRole';
 
 describe('CreateCompanyUseCase test', function () {
     it('should create company', async () => {
