@@ -10,7 +10,8 @@ export class MongoCreateUserRepository implements CreateUserRepository {
             name: user.name,
             email:  user.email,
             password: user.password,
-            company: user.companyId
+            company: user.companyId,
+            role: user.role
         });
 
         await userEntity.save();
@@ -23,7 +24,7 @@ export class MongoCreateUserRepository implements CreateUserRepository {
             email: userEntity.email,
             companyRoleId: user.companyRoleId,
             companyId: user.companyId,
-            roleId: user.roleId
+            roleId: user.role
         };
     }
 

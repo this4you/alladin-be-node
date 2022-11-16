@@ -1,10 +1,12 @@
 import { Schema, model } from 'mongoose';
+import { UserRole } from '../../../module/user/core/model/UserRole';
 
 interface IUser {
     name: string;
     email: string;
     password: string;
-    company: Schema.Types.ObjectId
+    company: Schema.Types.ObjectId;
+    role: string;
 }
 
 const schema = new Schema<IUser>(
@@ -13,6 +15,7 @@ const schema = new Schema<IUser>(
         email: { type: String, required: true },
         password: { type: String, required: true },
         company: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+        role: { type: String, enum: UserRole, required: true, default: 'user' }
     },
     {
         id: true,

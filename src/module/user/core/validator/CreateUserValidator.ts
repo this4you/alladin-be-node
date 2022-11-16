@@ -23,7 +23,7 @@ export class CreateUserValidator implements Validator<CreateUser> {
         this.validateUtils.validate('companyId', data.companyId)
             .notEmpty();
 
-        this.validateUtils.validate('roleId', data.roleId)
+        this.validateUtils.validate('roleId', data.role)
             .notEmpty();
 
         this.validateUtils.validate('companyRoleId', data.companyRoleId)

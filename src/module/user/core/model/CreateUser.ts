@@ -5,6 +5,6 @@ export type CreateUser = {
     email: string;
     password: string;
     companyId: string;
-    roleId: UserRole;
+    role: UserRole;
     companyRoleId: string;
 }

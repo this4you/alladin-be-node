@@ -15,6 +15,7 @@ const settingExpressApp =  (): Express => {
     const app: Express = express();
 
     app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
 
     app.use('/company', companyRouter);
 

@@ -23,7 +23,7 @@ describe('CreateCompanyUseCase test', function () {
         const createUserModel = createMock<CreateUser>({
             ...createCompany.user,
             companyId: expected.id,
-            roleId: UserRole.ADMIN
+            role: UserRole.ADMIN
         });
 
         const useCase = new CreateCompanyUseCase(

@@ -22,7 +22,7 @@ export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, 
         await this.createUserUseCase.execute({
             ...data.user,
             companyId: company.id,
-            roleId: UserRole.ADMIN
+            role: UserRole.ADMIN
         });
 
         return company;
