@@ -9,18 +9,18 @@ export class CreateCompanyValidator implements Validator<CreateCompany> {
 
     validate(data: CreateCompany): void {
         this.validateUtils.validate('name', data.name)
-            .notEmpty()
+            .required()
             .maxLength(50);
 
         this.validateUtils.validate('user.email', data.user.email)
-            .notEmpty()
+            .required()
             .email();
 
         this.validateUtils.validate('user.password', data.user.password)
-            .notEmpty()
+            .required()
             .password();
 
         this.validateUtils.validate('user.companyRoleId', data.user.companyRoleId)
-            .notEmpty();
+            .required();
     }
 }

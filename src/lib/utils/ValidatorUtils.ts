@@ -26,7 +26,7 @@ class ValidatorFieldUtils {
         throw new ValidationException(this.fieldName, 'Incorrect email');
     }
 
-    notEmpty() {
+    required() {
         if (this.fieldValue === 0 || this.fieldValue) {
             return this;
         }

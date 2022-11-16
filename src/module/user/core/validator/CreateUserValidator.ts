@@ -9,25 +9,25 @@ export class CreateUserValidator implements Validator<CreateUser> {
     }
     validate(data: CreateUser): void {
         this.validateUtils.validate('name', data.name)
-            .notEmpty()
+            .required()
             .maxLength(50);
 
         this.validateUtils.validate('email', data.email)
-            .notEmpty()
+            .required()
             .email();
 
         this.validateUtils.validate('password', data.password)
-            .notEmpty()
+            .required()
             .password();
 
         this.validateUtils.validate('companyId', data.companyId)
-            .notEmpty();
+            .required();
 
         this.validateUtils.validate('roleId', data.role)
-            .notEmpty();
+            .required();
 
         this.validateUtils.validate('companyRoleId', data.companyRoleId)
-            .notEmpty();
+            .required();
     }
 
 }
