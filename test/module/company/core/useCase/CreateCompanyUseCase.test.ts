@@ -1,6 +1,6 @@
 import { CreateUserUseCase } from '../../../../../src/module/user/core/useCase/CreateUserUseCase';
 import { anything, deepEqual, instance, mock, verify, when } from 'ts-mockito';
-import { CreateCompanyRepository } from '../../../../../src/module/company/core/port/CreateCompanyRepository';
+import { CompanyRepository } from '../../../../../src/module/company/core/port/CompanyRepository';
 import { Validator } from '../../../../../src/lib/model/Validator';
 import { CreateCompany } from '../../../../../src/module/company/core/model/CreateCompany';
 import { CreateCompanyUseCase } from '../../../../../src/module/company/core/useCase/CreateCompanyUseCase';
@@ -13,7 +13,7 @@ describe('CreateCompanyUseCase test', function () {
     it('should create company', async () => {
         //Given
         const createUserUseCase = mock<CreateUserUseCase>();
-        const createCompanyRepository = mock<CreateCompanyRepository>();
+        const createCompanyRepository = mock<CompanyRepository>();
         const validateUtils = mock<Validator<CreateCompany>>();
 
         const createCompany = createMock<CreateCompany>();

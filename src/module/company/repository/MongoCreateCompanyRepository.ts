@@ -1,11 +1,10 @@
-import { CreateCompanyRepository } from '../core/port/CreateCompanyRepository';
+import { CompanyRepository } from '../core/port/CompanyRepository';
 import { Company } from '../core/model/Company';
 import { CreateCompany } from '../core/model/CreateCompany';
 import { CompanyEntity } from '../../../db/mongo/schemas/Company';
 
-export class MongoCreateCompanyRepository implements CreateCompanyRepository {
+export class MongoCreateCompanyRepository implements CompanyRepository {
     async createCompany(company: CreateCompany): Promise<Company> {
-
         const companyEntity = new CompanyEntity({
             name: company.name
         });
@@ -18,5 +17,9 @@ export class MongoCreateCompanyRepository implements CreateCompanyRepository {
             id: companyEntity.id,
             name: companyEntity.name
         }
+    }
+
+    async dropCompany(companyId: string): Promise<void> {
+        await CompanyEntity.findByIdAndDelete(companyId).exec()
     }
 }
