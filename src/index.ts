@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { BaseException } from './lib/model/exception/BaseException';
 import companyRouter from './module/company/company.router';
 import { connectToDb } from './db/mongo/index';
+import userRouter from './module/user/user.router';
 
 
 
@@ -18,6 +19,7 @@ const settingExpressApp =  (): Express => {
     app.use(express.urlencoded({ extended: true }));
 
     app.use('/company', companyRouter);
+    app.use('/user', userRouter);
 
     app.get('/', (req, res) => {
         res.send('SERVER WORKS!')

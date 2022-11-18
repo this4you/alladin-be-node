@@ -5,16 +5,20 @@ import { NotFoundException } from '../../../../lib/model/exception/NotFoundExcep
 import { ValidationException } from '../../../../lib/model/exception/ValidationException';
 import { PasswordValidator } from '../port/PasswordValidator';
 import { UserRepository } from '../port/UserRepository';
+import { TokenGenerator } from '../port/TokenGenerator';
+import { Token } from '../model/Token';
 
-export class AuthUseCase extends ValidateCommandUseCase<AuthUser, Promise<string>> {
+export class AuthUseCase extends ValidateCommandUseCase<AuthUser, Promise<Token>> {
     constructor(
         private userRepository: UserRepository,
         private passwordValidator: PasswordValidator,
+        private tokenGenerator: TokenGenerator,
         validator: Validator<AuthUser>,
     ) {
         super(validator);
     }
-    protected async validatedExecute(data: AuthUser): Promise<string> {
+
+    protected async validatedExecute(data: AuthUser): Promise<Token> {
         const user = await this.userRepository.getUser(data.email);
 
         if (user === null) {
@@ -27,8 +31,6 @@ export class AuthUseCase extends ValidateCommandUseCase<AuthUser, Promise<string
             throw new ValidationException('password', 'Password is not valid')
         }
 
-        return JSON.stringify(user);
+        return this.tokenGenerator.generate(user);
     }
-
-
 }
