@@ -2,6 +2,7 @@ import { CompanyRepository } from '../core/port/CompanyRepository';
 import { Company } from '../core/model/Company';
 import { CreateCompany } from '../core/model/CreateCompany';
 import { CompanyEntity } from '../../../db/mongo/schemas/Company';
+import { UserEntity } from '../../../db/mongo/schemas/User';
 
 export class MongoCreateCompanyRepository implements CompanyRepository {
     async createCompany(company: CreateCompany): Promise<Company> {
@@ -19,7 +20,8 @@ export class MongoCreateCompanyRepository implements CompanyRepository {
         }
     }
 
-    async dropCompany(companyId: string): Promise<void> {
-        await CompanyEntity.findByIdAndDelete(companyId).exec()
+    async isUserExsists(email: string): Promise<boolean> {
+        const user = await UserEntity.findOne({email: email}).exec();
+        return !!user;
     }
 }
