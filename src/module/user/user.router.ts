@@ -17,4 +17,15 @@ userRouter.post('/auth', async (req: Request<{}, Token, AuthUser>, res, next) =>
     }
 });
 
+userRouter.get('/', async (req: Request, res, next) => {
+    req.vlad = "2";
+    try {
+        const token = await authUseCase.execute(req.body);
+
+        return res.send(token);
+    } catch (e) {
+        next(e);
+    }
+})
+
 export default userRouter;
