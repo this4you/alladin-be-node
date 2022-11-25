@@ -1,33 +1,31 @@
 import { Router } from 'express';
+import { Request } from 'express';
 import { getUserContext } from './config/factory';
+import { AuthUser } from './core/model/AuthUser';
+import { Token } from './core/model/Token';
+import { auth } from '../../infrastructure/middleware/auth';
 
 const userRouter = Router();
+const { authUseCase } = getUserContext();
 
-const { createUserUseCase} = getUserContext();
-
-userRouter.get("/", (req, res) => {
-    res.send("Get user Info")
-});
-
-userRouter.post("/auth", (req, res) => {
-    res.send("Auth user")
-});
-
-userRouter.post("/create", async (req, res,next) => {
+userRouter.post('/auth', async (req: Request<{}, Token, AuthUser>, res, next) => {
     try {
-        await createUserUseCase.execute({
-            email: '',
-            password: '',
-            name: '',
-            companyRoleId: '',
-            roleId: ''
-        });
+        const token = await authUseCase.execute(req.body);
 
-        res.send("User created")
-
+        return res.send(token);
     } catch (e) {
         next(e);
     }
 });
+
+userRouter.get('/', auth, async (req: Request, res, next) => {
+    try {
+        console.log('AUTH_SUCCESS', req.user);
+
+        res.send(req.user);
+    } catch (e) {
+        next(e);
+    }
+})
 
 export default userRouter;

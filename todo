@@ -1,2 +1,3 @@
-Add company module
-Add auth logic
+Add swagger
+Fix imports
+Add eslint

@@ -1,22 +1,59 @@
 import validator from 'validator';
-import { BaseException } from '../model/BaseException';
+import { ValidationException } from '../model/exception/ValidationException';
 
-class ValidationError extends BaseException {
-    constructor(
-        field: string,
-        validationText?: string
-    ) {
-        const errorText = `Field is not valid: ${field}. Message:${validationText ?? '...'}`
-        super(errorText, 400);
+
+export class ValidatorUtils {
+    validate(field: string, value: any) {
+       return new ValidatorFieldUtils(field, value);
     }
 }
 
-export class ValidatorUtils {
-    email(field: string, email: string) {
-        if (validator.isEmail(email)) {
-            return;
+class ValidatorFieldUtils {
+    constructor(
+        private fieldName: string,
+        private fieldValue: any
+    ) {}
+
+    email() {
+        if (!this.fieldValue) {
+            return this;
         }
 
-        throw new ValidationError(field);
+        if (validator.isEmail(this.fieldValue)) {
+            return this;
+        }
+
+        throw new ValidationException(this.fieldName, 'Incorrect email');
+    }
+
+    required() {
+        if (this.fieldValue === 0 || this.fieldValue) {
+            return this;
+        }
+
+        throw new ValidationException(this.fieldName, 'Value is empty');
+    }
+
+    maxLength(max: number) {
+        if (this.fieldValue.toString().length <= max) {
+            return this;
+        }
+
+        throw new ValidationException(this.fieldName, `Max length ${max}`);
+    }
+
+    password() {
+        if (!this.fieldValue) {
+            return this;
+        }
+
+        if (validator.isStrongPassword(this.fieldValue, {
+            minLength: 8,
+            minSymbols: 0
+        })) {
+            return this;
+        }
+
+        throw new ValidationException(this.fieldName, `You need to create another password`);
     }
 }

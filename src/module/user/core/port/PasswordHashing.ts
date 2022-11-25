@@ -1,3 +1,3 @@
 export interface PasswordHashing {
-    hash(password: string): string;
+    hash(password: string): Promise<string>;
 }

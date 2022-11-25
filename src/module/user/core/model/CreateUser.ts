@@ -1,7 +1,10 @@
+import { UserRole } from '../../../../lib/model/UserRole';
+
 export type CreateUser = {
     name: string;
     email: string;
     password: string;
-    roleId: string;
+    companyId: string;
+    role: UserRole;
     companyRoleId: string;
 }
