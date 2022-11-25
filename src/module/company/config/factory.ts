@@ -5,7 +5,7 @@ import { CreateCompanyValidator } from '../core/validator/CreateCompanyValidator
 import { MongoCreateCompanyRepository } from '../repository/MongoCreateCompanyRepository';
 
 export const getCompanyContext = () => {
-    const {createUserUseCase} = getUserContext();
+    const { createUserUseCase } = getUserContext();
     const createCompanyRepository = new MongoCreateCompanyRepository();
     const validationUtils = new ValidatorUtils();
     const validator = new CreateCompanyValidator(validationUtils);

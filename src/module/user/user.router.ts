@@ -3,6 +3,7 @@ import { Request } from 'express';
 import { getUserContext } from './config/factory';
 import { AuthUser } from './core/model/AuthUser';
 import { Token } from './core/model/Token';
+import { auth } from '../../infrastructure/middleware/auth';
 
 const userRouter = Router();
 const { authUseCase } = getUserContext();
@@ -17,12 +18,11 @@ userRouter.post('/auth', async (req: Request<{}, Token, AuthUser>, res, next) =>
     }
 });
 
-userRouter.get('/', async (req: Request, res, next) => {
-    req.userTXT = "2";
+userRouter.get('/', auth, async (req: Request, res, next) => {
     try {
-        const token = await authUseCase.execute(req.body);
+        console.log('AUTH_SUCCESS', req.user);
 
-        return res.send(token);
+        res.send(req.user);
     } catch (e) {
         next(e);
     }
