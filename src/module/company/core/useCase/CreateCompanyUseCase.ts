@@ -23,6 +23,12 @@ export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, 
             throw new UniqueException(`User with email ${data.user.email} already existed`)
         }
 
+        const isCompanyExsists = await this.repository.isCompanyExsists(data.name);
+
+        if (isCompanyExsists) {
+            throw new UniqueException(`Company name ${data.name} already existed`)
+        }
+
         const company = await this.repository.createCompany(data);
 
         await this.createUserUseCase.execute({
