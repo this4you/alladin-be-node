@@ -1,11 +1,11 @@
-import express, { Express, NextFunction, Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { BaseException } from './lib/model/exception/BaseException';
 import companyRouter from './module/company/company.router';
-import { connectToDb } from './db/mongo/index';
+import { connectToDb } from './db/mongo';
 import userRouter from './module/user/user.router';
-
-
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../swagger-output.json';
 
 const configs = async () => {
     dotenv.config();
@@ -18,6 +18,8 @@ const settingExpressApp =  (): Express => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
     app.use('/company', companyRouter);
     app.use('/user', userRouter);
 
@@ -25,7 +27,7 @@ const settingExpressApp =  (): Express => {
         res.send('SERVER WORKS!')
     });
 
-    app.use((err: BaseException, req: Request, res: Response, next: NextFunction) => {
+    app.use((err: BaseException, req: Request, res: Response) => {
         res.status(err.statusCode || 400).send(err.message);
     });
 

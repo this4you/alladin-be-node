@@ -24,4 +24,9 @@ export class MongoCreateCompanyRepository implements CompanyRepository {
         const user = await UserEntity.findOne({email: email}).exec();
         return !!user;
     }
+
+    async isCompanyExsists(companyName: string): Promise<boolean> {
+        const company = await CompanyEntity.findOne({name: companyName}).exec();
+        return !!company;
+    }
 }
