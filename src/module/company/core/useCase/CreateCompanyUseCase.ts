@@ -31,7 +31,7 @@ export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, 
 
         const company = await this.repository.createCompany(data);
 
-        await this.createUserUseCase.execute({
+        await this.createUserUseCase.execute({ //send event
             ...data.user,
             companyId: company.id,
             role: UserRole.ADMIN
