@@ -1,4 +1,3 @@
-import '@types/jest';
 import { CreateUserUseCase } from '../../../../../src/module/user/core/useCase/CreateUserUseCase';
 import { anything, deepEqual, instance, mock, verify, when } from 'ts-mockito';
 import { CompanyRepository } from '../../../../../src/module/company/core/port/CompanyRepository';
