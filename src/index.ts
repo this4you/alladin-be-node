@@ -1,20 +1,25 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { BaseException } from './lib/model/exception/BaseException';
+import { BaseException } from './lib/model/app-exception/BaseException';
 import companyRouter from './module/company/company.router';
 import { connectToDb } from './db/mongo';
 import userRouter from './module/user/user.router';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger-output.json';
+import cors from 'cors';
+import { ResponseError } from './lib/model/ResponseError';
+import { ValidationException } from './lib/model/app-exception/ValidationException';
+import { errorHandler } from './infrastructure/middleware/errorHandler';
 
 const configs = async () => {
     dotenv.config();
     await connectToDb();
 }
 
-const settingExpressApp =  (): Express => {
+const settingExpressApp = (): Express => {
     const app: Express = express();
 
+    app.use(cors())
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
@@ -27,9 +32,7 @@ const settingExpressApp =  (): Express => {
         res.send('SERVER WORKS!')
     });
 
-    app.use((err: BaseException, req: Request, res: Response) => {
-        res.status(err.statusCode || 400).send(err.message);
-    });
+    app.use(errorHandler);
 
     return app;
 }

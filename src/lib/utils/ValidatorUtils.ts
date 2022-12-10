@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { ValidationException } from '../model/exception/ValidationException';
+import { ValidationException } from '../model/app-exception/ValidationException';
 
 
 export class ValidatorUtils {

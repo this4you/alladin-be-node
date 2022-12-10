@@ -20,8 +20,6 @@ userRouter.post('/auth', async (req: Request<{}, Token, AuthUser>, res, next) =>
 
 userRouter.get('/', auth, async (req: Request, res, next) => {
     try {
-        console.log('AUTH_SUCCESS', req.user);
-
         res.send(req.user);
     } catch (e) {
         next(e);

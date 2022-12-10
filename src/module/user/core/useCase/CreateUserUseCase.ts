@@ -4,7 +4,7 @@ import { ValidateCommandUseCase } from '../../../../lib/model/ValidateCommandUse
 import { CreateUserRepository } from '../port/CreateUserRepository';
 import { PasswordHashing } from '../port/PasswordHashing';
 import { Validator } from '../../../../lib/model/Validator';
-import { UniqueException } from '../../../../lib/model/exception/UniqueException';
+import { UniqueException } from '../../../../lib/model/app-exception/UniqueException';
 
 export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promise<Omit<User, 'password'>>> {
     constructor(
