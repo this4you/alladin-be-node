@@ -20,7 +20,9 @@ userRouter.post('/auth', async (req: Request<{}, Token, AuthUser>, res, next) =>
 
 userRouter.get('/', auth, async (req: Request, res, next) => {
     try {
-        res.send(req.user);
+        res.json({
+            id: req.user.userId
+        });
     } catch (e) {
         next(e);
     }
