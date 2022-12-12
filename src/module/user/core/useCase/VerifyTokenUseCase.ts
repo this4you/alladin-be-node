@@ -1,6 +1,6 @@
 import { CommandUseCase } from '../../../../lib/model/CommandUseCase';
 import { TokenUser } from '../model/TokenUser';
-import { UnauthorizedException } from '../../../../lib/model/exception/UnauthorizedException';
+import { UnauthorizedException } from '../../../../lib/model/app-exception/UnauthorizedException';
 import { TokenVerifier } from '../port/TokenVerifier';
 
 export class VerifyTokenUseCase implements CommandUseCase<string, TokenUser> {

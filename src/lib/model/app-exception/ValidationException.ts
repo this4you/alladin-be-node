@@ -5,7 +5,7 @@ export class ValidationException extends BaseException {
         field: string,
         validationText?: string
     ) {
-        const errorText = `Field is not valid: ${field}. Message: ${validationText ?? '...'}`
+        const errorText = `Field is not valid: ${field}. ${validationText ?? '...'}`
         super(errorText, 400);
     }
 }

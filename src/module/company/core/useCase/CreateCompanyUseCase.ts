@@ -5,7 +5,7 @@ import { UserRole } from '../../../../lib/model/UserRole';
 import { CompanyRepository } from '../port/CompanyRepository';
 import { Validator } from '../../../../lib/model/Validator';
 import { Company } from '../model/Company';
-import { UniqueException } from '../../../../lib/model/exception/UniqueException';
+import { UniqueException } from '../../../../lib/model/app-exception/UniqueException';
 
 export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, Promise<Company>> {
     constructor(
