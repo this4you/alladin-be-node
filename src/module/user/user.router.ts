@@ -6,7 +6,7 @@ import { Token } from './core/model/Token';
 import { auth } from '../../infrastructure/middleware/auth';
 
 const userRouter = Router();
-const { authUseCase } = getUserContext();
+const { authUseCase, getUserUseCase } = getUserContext();
 
 userRouter.post('/auth', async (req: Request<{}, Token, AuthUser>, res, next) => {
     try {
@@ -20,9 +20,9 @@ userRouter.post('/auth', async (req: Request<{}, Token, AuthUser>, res, next) =>
 
 userRouter.get('/', auth, async (req: Request, res, next) => {
     try {
-        res.json({
-            id: req.user.userId
-        });
+        const user = await getUserUseCase.execute(req.user.userId);
+
+        res.json(user);
     } catch (e) {
         next(e);
     }

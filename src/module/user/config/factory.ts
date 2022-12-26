@@ -9,6 +9,7 @@ import { AuthUserValidator } from '../core/validator/AuthUserValidator';
 import { JWTGenerator } from '../utils/JWTGenerator';
 import { VerifyTokenUseCase } from '../core/useCase/VerifyTokenUseCase';
 import { JWTVerify } from '../utils/TokenVerifier';
+import { GetUserUseCase } from '../core/useCase/GetUserUseCase';
 
 export const getUserContext = () => {
     const createUserRepository = new MongoCreateUserRepository();
@@ -23,12 +24,14 @@ export const getUserContext = () => {
     const authUserValidator = new AuthUserValidator(validateUtils);
 
     const createUserUseCase = new CreateUserUseCase(createUserRepository, passwordHashing, createUserValidator);
-    const authUseCase = new AuthUseCase(userRepository, passwordHashing, tokenGenerator, authUserValidator)
-    const verifyTokenUseCase = new VerifyTokenUseCase(tokenVerifier)
+    const authUseCase = new AuthUseCase(userRepository, passwordHashing, tokenGenerator, authUserValidator);
+    const verifyTokenUseCase = new VerifyTokenUseCase(tokenVerifier);
+    const getUserUseCase = new GetUserUseCase(userRepository);
 
     return {
         createUserUseCase,
         authUseCase,
-        verifyTokenUseCase
+        verifyTokenUseCase,
+        getUserUseCase
     }
 }
