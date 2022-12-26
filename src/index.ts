@@ -1,14 +1,11 @@
-import express, { Express, NextFunction, Request, Response } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
-import { BaseException } from './lib/model/app-exception/BaseException';
 import companyRouter from './module/company/company.router';
 import { connectToDb } from './db/mongo';
 import userRouter from './module/user/user.router';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger-output.json';
 import cors from 'cors';
-import { ResponseError } from './lib/model/ResponseError';
-import { ValidationException } from './lib/model/app-exception/ValidationException';
 import { errorHandler } from './infrastructure/middleware/errorHandler';
 
 const configs = async () => {

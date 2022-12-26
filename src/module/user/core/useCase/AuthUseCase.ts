@@ -19,7 +19,7 @@ export class AuthUseCase extends ValidateCommandUseCase<AuthUser, Promise<Token>
     }
 
     protected async validatedExecute(data: AuthUser): Promise<Token> {
-        const user = await this.userRepository.getUser(data.email);
+        const user = await this.userRepository.getUserByEmail(data.email);
 
         if (user === null) {
             throw new NotFoundException(`User with email ${data.email} not found.`)

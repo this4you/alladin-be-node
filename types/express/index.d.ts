@@ -8,7 +8,6 @@ declare namespace Express {
         userRole: UserRole;
     }
     export interface Request {
-        userTXT: string,
         user: TokenUser
     }
 }
