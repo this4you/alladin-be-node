@@ -1,12 +1,13 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import companyRouter from './module/company/company.router';
-import { connectToDb } from './db/mongo';
+import { connectToDb } from './db/postgre';
 import userRouter from './module/user/user.router';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger-output.json';
 import cors from 'cors';
 import { errorHandler } from './infrastructure/middleware/errorHandler';
+import "reflect-metadata"
 
 const configs = async () => {
     dotenv.config();
