@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { CompanyEntity } from './CompanyEntity';
 import { BaseEntity } from './BaseEntity';
+import { UserRole } from '../../../lib/model/UserRole';
 
 @Entity({name: 'Users'})
 export class UserEntity extends BaseEntity {
@@ -17,4 +18,10 @@ export class UserEntity extends BaseEntity {
     @JoinColumn()
     company: CompanyEntity;
 
+    @Column({
+        type: "enum",
+        enum: UserRole,
+        default: UserRole.USER
+    })
+    role: UserRole;
 }

@@ -17,7 +17,8 @@ export class PostgreCreateUserRepository implements CreateUserRepository {
             name: user.name,
             email: user.email,
             password: user.password,
-            company: company
+            company: company,
+            role: user.role
         });
 
         await userRepository.save(userEntity);
@@ -28,9 +29,8 @@ export class PostgreCreateUserRepository implements CreateUserRepository {
             id: userEntity.id,
             name: userEntity.name,
             email: userEntity.email,
-            companyRoleId: user.companyRoleId,
             companyId: userEntity.company.id,
-            roleId: user.role
+            role: userEntity.role
         };
     }
 

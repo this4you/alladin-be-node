@@ -24,8 +24,7 @@ export class MongoUserRepository implements UserRepository {
             email: user.email,
             password: user.password,
             companyId: user?.company._id,
-            companyRoleId: '',
-            roleId: user.role as UserRole,
+            role: user.role as UserRole,
         }
     }
 }

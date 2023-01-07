@@ -22,9 +22,8 @@ export class MongoCreateUserRepository implements CreateUserRepository {
             id: userEntity.id,
             name: userEntity.name,
             email: userEntity.email,
-            companyRoleId: user.companyRoleId,
             companyId: user.companyId,
-            roleId: user.role
+            role: user.role
         };
     }
 

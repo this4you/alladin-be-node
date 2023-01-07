@@ -1,6 +1,5 @@
 import { UserRepository } from '../core/port/UserRepository';
 import { User } from '../core/model/User';
-import { UserRole } from '../../../lib/model/UserRole';
 import userRepository from '../../../db/postgre/repositories/userRepository';
 import { UserEntity } from '../../../db/postgre/entities/UserEntity';
 
@@ -19,7 +18,14 @@ export class PostgreUserRepository implements UserRepository {
     }
 
     async getUserById(id: string): Promise<User | null> {
-        const user = await userRepository.findOneBy({ id: id });
+        const user = await userRepository.findOne({
+            where: {
+                id: id
+            },
+            relations: {
+                company: true
+            }
+        });
 
         return this.mapUserModel(user);
     }
@@ -31,8 +37,7 @@ export class PostgreUserRepository implements UserRepository {
             email: user.email,
             password: user.password,
             companyId: user.company.id,
-            companyRoleId: '',
-            roleId: UserRole.USER, //TODO fix it
+            role: user.role
         }
     }
 }
