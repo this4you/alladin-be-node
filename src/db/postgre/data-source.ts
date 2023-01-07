@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
-import { User } from './entities/User';
-import { Company } from './entities/Company';
+import { UserEntity } from './entities/UserEntity';
+import { CompanyEntity } from './entities/CompanyEntity';
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
     database: 'alladin',
     synchronize: true,
     logging: true,
-    entities: [User, Company],
+    entities: [UserEntity, CompanyEntity],
     subscribers: [],
     migrations: [],
 })
