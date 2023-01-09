@@ -2,18 +2,18 @@ import { CreateUserUseCase } from '../core/useCase/CreateUserUseCase';
 import { BcryptPasswordUtils } from '../utils/BcryptPasswordUtils';
 import { ValidatorUtils } from '../../../lib/utils/ValidatorUtils';
 import { CreateUserValidator } from '../core/validator/CreateUserValidator';
-import { MongoCreateUserRepository } from '../repository/MongoCreateUserRepository';
 import { AuthUseCase } from '../core/useCase/AuthUseCase';
-import { MongoUserRepository } from '../repository/MongoUserRepository';
 import { AuthUserValidator } from '../core/validator/AuthUserValidator';
 import { JWTGenerator } from '../utils/JWTGenerator';
 import { VerifyTokenUseCase } from '../core/useCase/VerifyTokenUseCase';
 import { JWTVerify } from '../utils/TokenVerifier';
 import { GetUserUseCase } from '../core/useCase/GetUserUseCase';
+import { PostgreCreateUserRepository } from '../repository/PostgreCreateUserRepository';
+import { PostgreUserRepository } from '../repository/PostgreUserRepository';
 
 export const getUserContext = () => {
-    const createUserRepository = new MongoCreateUserRepository();
-    const userRepository = new MongoUserRepository();
+    const createUserRepository = new PostgreCreateUserRepository();
+    const userRepository = new PostgreUserRepository();
 
     const passwordHashing = new BcryptPasswordUtils();
     const validateUtils = new ValidatorUtils();

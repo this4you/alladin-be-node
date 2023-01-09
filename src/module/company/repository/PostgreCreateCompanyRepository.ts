@@ -1,16 +1,16 @@
 import { CompanyRepository } from '../core/port/CompanyRepository';
 import { Company } from '../core/model/Company';
 import { CreateCompany } from '../core/model/CreateCompany';
-import { CompanyEntity } from '../../../db/mongo/schemas/Company';
-import { UserEntity } from '../../../db/mongo/schemas/User';
+import companyRepository from '../../../db/postgre/repositories/companyRepository';
+import userRepository from '../../../db/postgre/repositories/userRepository';
 
-export class MongoCreateCompanyRepository implements CompanyRepository {
+export class PostgreCreateCompanyRepository implements CompanyRepository {
     async createCompany(company: CreateCompany): Promise<Company> {
-        const companyEntity = new CompanyEntity({
+        const companyEntity = companyRepository.create({
             name: company.name
         });
 
-        await companyEntity.save();
+        await companyRepository.save(companyEntity);
 
         console.log('COMPANY WAS CREATED', companyEntity);
 
@@ -21,12 +21,12 @@ export class MongoCreateCompanyRepository implements CompanyRepository {
     }
 
     async isUserExsists(email: string): Promise<boolean> {
-        const user = await UserEntity.findOne({email: email}).exec();
+        const user = await userRepository.findOneBy({email: email});
         return !!user;
     }
 
     async isCompanyExsists(companyName: string): Promise<boolean> {
-        const company = await CompanyEntity.findOne({name: companyName}).exec();
+        const company = await companyRepository.findOneBy({name: companyName});
         return !!company;
     }
 }

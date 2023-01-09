@@ -6,6 +6,5 @@ export type User = {
     email: string;
     password: string;
     companyId: string;
-    companyRoleId: string;
-    roleId: UserRole;
+    role: UserRole;
 }
