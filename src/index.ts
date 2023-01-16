@@ -8,6 +8,7 @@ import swaggerDocument from '../swagger-output.json';
 import cors from 'cors';
 import { errorHandler } from './infrastructure/middleware/errorHandler';
 import "reflect-metadata"
+import interviewTemplateRouter from "./module/interview-template/interview-template.router";
 
 const configs = async () => {
     dotenv.config();
@@ -25,6 +26,7 @@ const settingExpressApp = (): Express => {
 
     app.use('/company', companyRouter);
     app.use('/user', userRouter);
+    app.use('/interview-template', interviewTemplateRouter);
 
     app.get('/', (req, res) => {
         res.send('SERVER WORKS!')
