@@ -8,7 +8,8 @@ export class JWTGenerator implements TokenGenerator {
     generate(user: User): Token {
         const payload: TokenUser = {
             userId: user.id,
-            userRole: user.role
+            userRole: user.role,
+            companyId: user.companyId,
         }
         const token = jwt.sign(
             payload,
