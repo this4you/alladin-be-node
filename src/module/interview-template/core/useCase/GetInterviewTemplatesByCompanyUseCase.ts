@@ -8,11 +8,11 @@ export class GetInterviewTemplatesByCompanyUseCase implements CommandUseCase<str
         private  interviewTemplateRepository: InterviewTemplateRepository
     ) {}
 
-    async execute(id: string): Promise<InterviewTemplateEntity[]> {
-        const interviewTemplate = await this.interviewTemplateRepository.getInterviewTemplatesByCompany(id);
+    async execute(companyId: string): Promise<InterviewTemplateEntity[]> {
+        const interviewTemplate = await this.interviewTemplateRepository.getInterviewTemplatesByCompany(companyId);
 
         if (interviewTemplate == null) {
-            throw new NotFoundException(`InterviewTemplate with id: ${id} was not found!`)
+            throw new NotFoundException(`InterviewTemplate with id: ${companyId} was not found!`)
         }
 
         return interviewTemplate;
