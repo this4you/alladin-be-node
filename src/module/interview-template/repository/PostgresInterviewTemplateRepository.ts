@@ -5,6 +5,7 @@ import interviewTemplateRepository from "../../../db/postgre/repositories/interv
 import companyRepository from "../../../db/postgre/repositories/companyRepository";
 import {NotFoundException} from "../../../lib/model/app-exception/NotFoundException";
 import {InterviewTemplateEntity} from "../../../db/postgre/entities/InterviewTemplateEntity";
+import {DeleteResult} from "typeorm";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
@@ -35,6 +36,10 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
 
     async getInterviewTemplate(id: string): Promise<InterviewTemplateEntity> {
         return await interviewTemplateRepository.findOneOrFail({where:{id: id}});
+    }
+
+    async deleteInterviewTemplate(id: string): Promise<DeleteResult> {
+        return await interviewTemplateRepository.delete(id);
     }
 
     async isInterviewTemplate(interviewTemplateName: string): Promise<boolean> {

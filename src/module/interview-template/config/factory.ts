@@ -4,6 +4,7 @@ import {CreateInterviewTemplateUseCase} from "../core/useCase/CreateInterviewTem
 import {PostgresInterviewTemplateRepository} from "../repository/PostgresInterviewTemplateRepository";
 import {GetInterviewTemplatesByCompanyUseCase} from "../core/useCase/GetInterviewTemplatesByCompanyUseCase";
 import {GetInterviewTemplateUseCase} from "../core/useCase/GetInterviewTemplateUseCase";
+import {DeleteInterviewTemplateUseCase} from "../core/useCase/DeleteInterviewTemplateUseCase";
 
 
 export const getInterviewTemplateContext = () => {
@@ -14,10 +15,12 @@ export const getInterviewTemplateContext = () => {
     const createInterviewTemplateUseCase = new CreateInterviewTemplateUseCase(interviewTemplateRepository, validator);
     const getInterviewTemplateUseCase = new GetInterviewTemplateUseCase(interviewTemplateRepository);
     const getInterviewTemplateByCompanyUseCase = new GetInterviewTemplatesByCompanyUseCase(interviewTemplateRepository);
+    const deleteInterviewTemplateUseCase = new DeleteInterviewTemplateUseCase(interviewTemplateRepository);
 
     return {
         createInterviewTemplateUseCase,
         getInterviewTemplateUseCase,
-        getInterviewTemplateByCompanyUseCase
+        getInterviewTemplateByCompanyUseCase,
+        deleteInterviewTemplateUseCase
     }
 }

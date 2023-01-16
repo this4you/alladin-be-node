@@ -6,7 +6,7 @@ import {InterviewTemplate} from "./core/model/InterviewTemplate";
 import {InterviewTemplateEntity} from "../../db/postgre/entities/InterviewTemplateEntity";
 
 const interviewTemplateRouter = Router();
-const {createInterviewTemplateUseCase, getInterviewTemplateUseCase, getInterviewTemplateByCompanyUseCase} = getInterviewTemplateContext();
+const {createInterviewTemplateUseCase, getInterviewTemplateUseCase, getInterviewTemplateByCompanyUseCase, deleteInterviewTemplateUseCase} = getInterviewTemplateContext();
 
 interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplate, Omit<CreateInterviewTemplate, 'companyId'>>, res, next) => {
     try {
@@ -32,6 +32,15 @@ interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplate
 interviewTemplateRouter.get('/:id', auth, async (req, res, next) => {
     try {
         const interviewTemplate = await getInterviewTemplateUseCase.execute(req.params.id);
+        res.json(interviewTemplate);
+    } catch (e) {
+        next(e);
+    }
+})
+
+interviewTemplateRouter.delete('/:id', auth, async (req, res, next) => {
+    try {
+        const interviewTemplate = await deleteInterviewTemplateUseCase.execute(req.params.id);
         res.json(interviewTemplate);
     } catch (e) {
         next(e);
