@@ -1,14 +1,14 @@
 import {CommandUseCase} from "../../../../lib/model/CommandUseCase";
 import {NotFoundException} from "../../../../lib/model/app-exception/NotFoundException";
 import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
-import {InterviewTemplateEntity} from "../../../../db/postgre/entities/InterviewTemplateEntity";
+import {InterviewTemplate} from "../model/InterviewTemplate";
 
-export class GetInterviewTemplateUseCase implements CommandUseCase<string, Promise<InterviewTemplateEntity>> {
+export class GetInterviewTemplateUseCase implements CommandUseCase<string, Promise<InterviewTemplate>> {
     constructor(
         private  interviewTemplateRepository: InterviewTemplateRepository
     ) {}
 
-    async execute(id: string): Promise<InterviewTemplateEntity> {
+    async execute(id: string): Promise<InterviewTemplate> {
         const interviewTemplate = await this.interviewTemplateRepository.getInterviewTemplate(id);
 
         if (interviewTemplate == null) {

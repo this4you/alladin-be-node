@@ -1,20 +1,16 @@
 import {CreateInterviewTemplate} from "../model/CreateInterviewTemplate";
 import {InterviewTemplate} from "../model/InterviewTemplate";
-import {InterviewTemplateEntity} from "../../../../db/postgre/entities/InterviewTemplateEntity";
-import {DeleteResult} from "typeorm";
 
 export interface InterviewTemplateRepository {
     createInterviewTemplate(interviewTemplate: CreateInterviewTemplate): Promise<InterviewTemplate>
 
-    isInterviewTemplate(id: string): Promise<boolean>
-
     isInterviewTemplateByName(name: string): Promise<boolean>
 
-    getInterviewTemplate(id: string): Promise<InterviewTemplateEntity>
+    getInterviewTemplate(id: string): Promise<InterviewTemplate>
 
-    getInterviewTemplatesByCompany(companyId: string): Promise<InterviewTemplateEntity[]>
+    getInterviewTemplatesByCompany(companyId: string): Promise<InterviewTemplate[]>
 
-    updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate>
+    updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<void>
 
-    deleteInterviewTemplate(id: string): Promise<DeleteResult>
+    deleteInterviewTemplate(id: string): Promise<void>
 }

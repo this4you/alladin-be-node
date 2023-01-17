@@ -4,8 +4,6 @@ import {CreateInterviewTemplate} from "../core/model/CreateInterviewTemplate";
 import interviewTemplateRepository from "../../../db/postgre/repositories/interviewTemplateRepository";
 import companyRepository from "../../../db/postgre/repositories/companyRepository";
 import {NotFoundException} from "../../../lib/model/app-exception/NotFoundException";
-import {InterviewTemplateEntity} from "../../../db/postgre/entities/InterviewTemplateEntity";
-import {DeleteResult} from "typeorm";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
@@ -30,20 +28,20 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         }
     }
 
-    async getInterviewTemplatesByCompany(id: string): Promise<InterviewTemplateEntity[]> {
+    async getInterviewTemplatesByCompany(id: string): Promise<InterviewTemplate[]> {
         return await interviewTemplateRepository.find({where:{id: id}});
     }
 
-    async getInterviewTemplate(id: string): Promise<InterviewTemplateEntity> {
+    async getInterviewTemplate(id: string): Promise<InterviewTemplate> {
         return await interviewTemplateRepository.findOneOrFail({where:{id: id}});
     }
 
-    async deleteInterviewTemplate(id: string): Promise<DeleteResult> {
-        return await interviewTemplateRepository.delete(id);
+    async deleteInterviewTemplate(id: string): Promise<void> {
+        await interviewTemplateRepository.delete(id);
     }
 
-    async updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate> {
-        return await interviewTemplateRepository.save({
+    async updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<void> {
+        await interviewTemplateRepository.save({
             id: interviewTemplate.id,
             name: interviewTemplate.name,
         });
@@ -53,7 +51,4 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         return !!await interviewTemplateRepository.findOneBy({name: name});
     }
 
-    async isInterviewTemplate(id: string): Promise<boolean> {
-        return !!await interviewTemplateRepository.findOneBy({id: id});
-    }
 }

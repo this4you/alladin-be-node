@@ -3,7 +3,6 @@ import {getInterviewTemplateContext} from "./config/factory";
 import {auth} from "../../infrastructure/middleware/auth";
 import {CreateInterviewTemplate} from "./core/model/CreateInterviewTemplate";
 import {InterviewTemplate} from "./core/model/InterviewTemplate";
-import {InterviewTemplateEntity} from "../../db/postgre/entities/InterviewTemplateEntity";
 
 const interviewTemplateRouter = Router();
 const {
@@ -26,7 +25,7 @@ interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplat
     }
 });
 
-interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplateEntity[]>, res, next) => {
+interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplate[]>, res, next) => {
     try {
         const companyInterviewTemplates = await getInterviewTemplateByCompanyUseCase.execute(req.body.companyId);
         res.json(companyInterviewTemplates);
