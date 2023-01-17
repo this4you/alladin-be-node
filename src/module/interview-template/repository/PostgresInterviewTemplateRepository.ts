@@ -42,9 +42,18 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         return await interviewTemplateRepository.delete(id);
     }
 
-    async isInterviewTemplate(interviewTemplateName: string): Promise<boolean> {
-        const interviewTemplate = await interviewTemplateRepository.findOneBy({name: interviewTemplateName});
-        return !!interviewTemplate;
+    async updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate> {
+        return await interviewTemplateRepository.save({
+            id: interviewTemplate.id,
+            name: interviewTemplate.name,
+        });
     }
 
+    async isInterviewTemplateByName(name: string): Promise<boolean> {
+        return !!await interviewTemplateRepository.findOneBy({name: name});
+    }
+
+    async isInterviewTemplate(id: string): Promise<boolean> {
+        return !!await interviewTemplateRepository.findOneBy({id: id});
+    }
 }
