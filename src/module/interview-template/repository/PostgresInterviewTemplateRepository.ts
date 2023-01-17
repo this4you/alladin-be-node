@@ -29,7 +29,7 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
     }
 
     async getInterviewTemplatesByCompany(id: string): Promise<InterviewTemplate[]> {
-        return await interviewTemplateRepository.find({where:{id: id}});
+        return await interviewTemplateRepository.findBy({id: id});
     }
 
     async getInterviewTemplate(id: string): Promise<InterviewTemplate> {
