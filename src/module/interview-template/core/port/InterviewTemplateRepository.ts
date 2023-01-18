@@ -10,7 +10,7 @@ export interface InterviewTemplateRepository {
 
     getInterviewTemplatesByCompany(companyId: string): Promise<InterviewTemplate[]>
 
-    updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<void>
+    updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate>
 
     deleteInterviewTemplate(id: string): Promise<void>
 }
