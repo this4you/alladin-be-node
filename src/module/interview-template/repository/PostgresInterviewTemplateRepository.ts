@@ -40,8 +40,8 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         await interviewTemplateRepository.delete(id);
     }
 
-    async updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<void> {
-        await interviewTemplateRepository.save({
+    async updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate> {
+        return await interviewTemplateRepository.save({
             id: interviewTemplate.id,
             name: interviewTemplate.name,
         });
