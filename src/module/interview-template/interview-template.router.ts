@@ -15,7 +15,7 @@ const {
 } = getInterviewTemplateContext();
 
 interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplate, Omit<CreateInterviewTemplate, 'companyId'>>, res, next) => {
-    tryExecute(next, async () => {
+    await tryExecute(next, async () => {
         const interviewTemplate = await createInterviewTemplateUseCase.execute({
             name: req.body.name,
             companyId: req.user.companyId,
@@ -26,42 +26,34 @@ interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplat
 });
 
 interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplate[]>, res, next) => {
-    try {
+    await tryExecute(next, async () => {
         const companyInterviewTemplates = await getInterviewTemplateByCompanyUseCase.execute(req.body.companyId);
         res.json(companyInterviewTemplates);
-    } catch (e) {
-        next(e);
-    }
-})
+    });
+});
 
 interviewTemplateRouter.get('/:id', auth, async (req, res, next) => {
-    try {
+    await tryExecute(next, async () => {
         const interviewTemplate = await getInterviewTemplateUseCase.execute(req.params.id);
         res.json(interviewTemplate);
-    } catch (e) {
-        next(e);
-    }
-})
+    });
+});
 
 interviewTemplateRouter.delete('/:id', auth, async (req, res, next) => {
-    try {
+    await tryExecute(next, async () => {
         const interviewTemplate = await deleteInterviewTemplateUseCase.execute(req.params.id);
         res.json(interviewTemplate);
-    } catch (e) {
-        next(e);
-    }
-})
+    });
+});
 
 interviewTemplateRouter.put('/:id', auth, async (req, res, next) => {
-    try {
+    await tryExecute(next, async () => {
         const interviewTemplate = await updateInterviewTemplateUseCase.execute({
             id: req.params.id,
             name: req.body.name
         });
         res.json(interviewTemplate);
-    } catch (e) {
-        next(e);
-    }
-})
+    });
+});
 
 export default interviewTemplateRouter
