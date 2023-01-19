@@ -1,8 +1,9 @@
-import {Request, Router} from "express";
-import {getInterviewTemplateContext} from "./config/factory";
-import {auth} from "../../infrastructure/middleware/auth";
-import {CreateInterviewTemplate} from "./core/model/CreateInterviewTemplate";
-import {InterviewTemplate} from "./core/model/InterviewTemplate";
+import { Request, Router } from 'express';
+import { getInterviewTemplateContext } from './config/factory';
+import { auth } from '../../infrastructure/middleware/auth';
+import { CreateInterviewTemplate } from './core/model/CreateInterviewTemplate';
+import { InterviewTemplate } from './core/model/InterviewTemplate';
+import { tryExecute } from '../../infrastructure/utils/tryExecute';
 
 const interviewTemplateRouter = Router();
 const {
@@ -14,15 +15,14 @@ const {
 } = getInterviewTemplateContext();
 
 interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplate, Omit<CreateInterviewTemplate, 'companyId'>>, res, next) => {
-    try {
+    tryExecute(next, async () => {
         const interviewTemplate = await createInterviewTemplateUseCase.execute({
             name: req.body.name,
             companyId: req.user.companyId,
         });
+
         return res.send(interviewTemplate);
-    } catch (e) {
-        next(e);
-    }
+    });
 });
 
 interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplate[]>, res, next) => {
@@ -54,7 +54,10 @@ interviewTemplateRouter.delete('/:id', auth, async (req, res, next) => {
 
 interviewTemplateRouter.put('/:id', auth, async (req, res, next) => {
     try {
-        const interviewTemplate = await updateInterviewTemplateUseCase.execute({id: req.params.id, name: req.body.name});
+        const interviewTemplate = await updateInterviewTemplateUseCase.execute({
+            id: req.params.id,
+            name: req.body.name
+        });
         res.json(interviewTemplate);
     } catch (e) {
         next(e);
