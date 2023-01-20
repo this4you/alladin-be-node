@@ -27,7 +27,7 @@ interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplat
 
 interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplate[]>, res, next) => {
     await tryExecute(next, async () => {
-        const companyInterviewTemplates = await getInterviewTemplateByCompanyUseCase.execute(req.body.companyId);
+        const companyInterviewTemplates = await getInterviewTemplateByCompanyUseCase.execute(req.user.companyId);
         res.json(companyInterviewTemplates);
     });
 });

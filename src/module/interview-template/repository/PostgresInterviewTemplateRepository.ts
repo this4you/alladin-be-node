@@ -1,9 +1,10 @@
 import {InterviewTemplateRepository} from "../core/port/InterviewTemplateRepository";
 import {InterviewTemplate} from "../core/model/InterviewTemplate";
 import {CreateInterviewTemplate} from "../core/model/CreateInterviewTemplate";
+import {NotFoundException} from "../../../lib/model/app-exception/NotFoundException";
+
 import interviewTemplateRepository from "../../../db/postgre/repositories/interviewTemplateRepository";
 import companyRepository from "../../../db/postgre/repositories/companyRepository";
-import {NotFoundException} from "../../../lib/model/app-exception/NotFoundException";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
@@ -28,8 +29,8 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         }
     }
 
-    async getInterviewTemplatesByCompany(id: string): Promise<InterviewTemplate[]> {
-        return await interviewTemplateRepository.findBy({id: id});
+    async getInterviewTemplatesByCompany(companyId: string): Promise<InterviewTemplate[]> {
+        return await interviewTemplateRepository.findBy({company: {id: companyId}});
     }
 
     async getInterviewTemplate(id: string): Promise<InterviewTemplate> {
