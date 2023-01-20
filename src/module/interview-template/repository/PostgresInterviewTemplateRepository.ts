@@ -33,10 +33,6 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         return await interviewTemplateRepository.findBy({company: {id: companyId}});
     }
 
-    async getInterviewTemplate(id: string): Promise<InterviewTemplate> {
-        return await interviewTemplateRepository.findOneOrFail({where:{id: id}});
-    }
-
     async deleteInterviewTemplate(id: string): Promise<void> {
         await interviewTemplateRepository.delete(id);
     }

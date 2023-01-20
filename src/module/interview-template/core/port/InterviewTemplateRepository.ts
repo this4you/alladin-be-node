@@ -6,8 +6,6 @@ export interface InterviewTemplateRepository {
 
     isInterviewTemplateByName(name: string): Promise<boolean>
 
-    getInterviewTemplate(id: string): Promise<InterviewTemplate>
-
     getInterviewTemplatesByCompany(companyId: string): Promise<InterviewTemplate[]>
 
     updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate>

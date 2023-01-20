@@ -8,7 +8,6 @@ import { tryExecute } from '../../infrastructure/utils/tryExecute';
 const interviewTemplateRouter = Router();
 const {
     createInterviewTemplateUseCase,
-    getInterviewTemplateUseCase,
     getInterviewTemplateByCompanyUseCase,
     updateInterviewTemplateUseCase,
     deleteInterviewTemplateUseCase
@@ -29,13 +28,6 @@ interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplate
     await tryExecute(next, async () => {
         const companyInterviewTemplates = await getInterviewTemplateByCompanyUseCase.execute(req.user.companyId);
         res.json(companyInterviewTemplates);
-    });
-});
-
-interviewTemplateRouter.get('/:id', auth, async (req, res, next) => {
-    await tryExecute(next, async () => {
-        const interviewTemplate = await getInterviewTemplateUseCase.execute(req.params.id);
-        res.json(interviewTemplate);
     });
 });
 
