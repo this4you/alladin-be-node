@@ -2,13 +2,13 @@ import {CreateInterviewTemplate} from "../model/CreateInterviewTemplate";
 import {InterviewTemplate} from "../model/InterviewTemplate";
 
 export interface InterviewTemplateRepository {
-    createInterviewTemplate(interviewTemplate: CreateInterviewTemplate): Promise<InterviewTemplate>
+    create(interviewTemplate: CreateInterviewTemplate): Promise<InterviewTemplate>
 
-    isInterviewTemplateByName(name: string): Promise<boolean>
+    isExists(name: string, companyId: string): Promise<boolean>
 
-    getInterviewTemplatesByCompany(companyId: string): Promise<InterviewTemplate[]>
+    get(companyId: string): Promise<InterviewTemplate[]>
 
-    updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate>
+    update(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate>
 
-    deleteInterviewTemplate(id: string): Promise<void>
+    delete(id: string): Promise<void>
 }

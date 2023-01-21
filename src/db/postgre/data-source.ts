@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { UserEntity } from './entities/UserEntity';
 import { CompanyEntity } from './entities/CompanyEntity';
 import {InterviewTemplateEntity} from "./entities/InterviewTemplateEntity";
+import {InterviewTemplateStepEntity} from "./entities/InterviewTemplateStepEntity";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
     database: 'alladin',
     synchronize: true,
     logging: true,
-    entities: [UserEntity, CompanyEntity, InterviewTemplateEntity],
+    entities: [UserEntity, CompanyEntity, InterviewTemplateEntity, InterviewTemplateStepEntity],
     subscribers: [],
     migrations: [],
 })

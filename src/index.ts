@@ -9,6 +9,7 @@ import cors from 'cors';
 import { errorHandler } from './infrastructure/middleware/errorHandler';
 import "reflect-metadata"
 import interviewTemplateRouter from "./module/interview-template/interview-template.router";
+import interviewTemplateStepRouter from "./module/interview-template-step/interview-template-step.router";
 
 const configs = async () => {
     dotenv.config();
@@ -27,6 +28,7 @@ const settingExpressApp = (): Express => {
     app.use('/company', companyRouter);
     app.use('/user', userRouter);
     app.use('/interview-template', interviewTemplateRouter);
+    app.use('/interview-template-step', interviewTemplateStepRouter);
 
     app.get('/', (req, res) => {
         res.send('SERVER WORKS!')
