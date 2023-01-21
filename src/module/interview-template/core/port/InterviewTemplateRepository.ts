@@ -4,7 +4,7 @@ import {InterviewTemplate} from "../model/InterviewTemplate";
 export interface InterviewTemplateRepository {
     createInterviewTemplate(interviewTemplate: CreateInterviewTemplate): Promise<InterviewTemplate>
 
-    isInterviewTemplateByName(name: string): Promise<boolean>
+    isInterviewTemplateByName(createInterviewTemplate: CreateInterviewTemplate): Promise<boolean>
 
     getInterviewTemplatesByCompany(companyId: string): Promise<InterviewTemplate[]>
 

@@ -14,7 +14,7 @@ export class CreateInterviewTemplateUseCase extends ValidateCommandUseCase<Creat
     }
 
     protected async validatedExecute(data: CreateInterviewTemplate): Promise<InterviewTemplate> {
-        const isInterviewTemplate = await this.repository.isInterviewTemplateByName(data.name);
+        const isInterviewTemplate = await this.repository.isInterviewTemplateByName(data);
 
         if (isInterviewTemplate) {
             throw new UniqueException(`Interview name ${data.name} already existed`)

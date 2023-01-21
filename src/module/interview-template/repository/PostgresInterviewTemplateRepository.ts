@@ -44,8 +44,11 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         });
     }
 
-    async isInterviewTemplateByName(name: string): Promise<boolean> {
-        return !!await interviewTemplateRepository.findOneBy({name: name});
+    async isInterviewTemplateByName(createInterviewTemplate: CreateInterviewTemplate): Promise<boolean> {
+        return !!await interviewTemplateRepository.findOneBy({
+            company: {id: createInterviewTemplate.companyId},
+            name: createInterviewTemplate.name
+        });
     }
 
 }
