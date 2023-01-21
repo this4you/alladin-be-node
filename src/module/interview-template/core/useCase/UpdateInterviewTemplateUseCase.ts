@@ -8,6 +8,6 @@ export class UpdateInterviewTemplateUseCase implements CommandUseCase<InterviewT
     ) {}
 
     async execute(data: InterviewTemplate): Promise<InterviewTemplate> {
-        return await this.interviewTemplateRepository.updateInterviewTemplate(data);
+        return await this.interviewTemplateRepository.update(data);
     }
 }

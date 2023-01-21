@@ -2,13 +2,13 @@ import {CreateInterviewTemplateStep} from "../model/CreateInterviewTemplateStep"
 import {InterviewTemplateStep} from "../model/InterviewTemplateStep";
 
 export interface InterviewTemplateStepRepository {
-    createInterviewTemplateStep(interviewTemplateStep: CreateInterviewTemplateStep): Promise<InterviewTemplateStep>
+    create(interviewTemplateStep: CreateInterviewTemplateStep): Promise<InterviewTemplateStep>
 
-    isInterviewTemplateStepByName(createInterviewTemplateStep: CreateInterviewTemplateStep): Promise<boolean>
+    isExists(name: string, interviewTemplateId: string): Promise<boolean>
 
-    getInterviewTemplateStepsByInterviewTemplate(interviewTemplateId: string): Promise<InterviewTemplateStep[]>
+    get(interviewTemplateId: string): Promise<InterviewTemplateStep[]>
 
-    updateInterviewTemplateStep(interviewTemplateStep: InterviewTemplateStep): Promise<InterviewTemplateStep>
+    update(interviewTemplateStep: InterviewTemplateStep): Promise<InterviewTemplateStep>
 
-    deleteInterviewTemplateStep(id: string): Promise<void>
+    delete(id: string): Promise<void>
 }

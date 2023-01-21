@@ -9,6 +9,6 @@ export class UpdateInterviewTemplateStepUseCase implements CommandUseCase<Interv
     }
 
     async execute(data: InterviewTemplateStep): Promise<InterviewTemplateStep> {
-        return await this.interviewTemplateStepRepository.updateInterviewTemplateStep(data);
+        return await this.interviewTemplateStepRepository.update(data);
     }
 }

@@ -7,7 +7,7 @@ import interviewTemplateRepository from "../../../db/postgre/repositories/interv
 import interviewTemplateStepRepository from "../../../db/postgre/repositories/interviewTemplateStepRepository";
 
 export class PostgresInterviewTemplateStepRepository implements InterviewTemplateStepRepository {
-    async createInterviewTemplateStep(createInterviewTemplateStep: CreateInterviewTemplateStep): Promise<InterviewTemplateStep> {
+    async create(createInterviewTemplateStep: CreateInterviewTemplateStep): Promise<InterviewTemplateStep> {
         const interviewTemplate = await interviewTemplateRepository.findOneBy({id: createInterviewTemplateStep.interviewTemplateId})
 
         if (interviewTemplate == null) {
@@ -29,27 +29,27 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
 
     }
 
-    async getInterviewTemplateStepsByInterviewTemplate(interviewTemplateId: string): Promise<InterviewTemplateStep[]> {
+    async get(interviewTemplateId: string): Promise<InterviewTemplateStep[]> {
         return await interviewTemplateStepRepository.findBy({
             interviewTemplate: {id: interviewTemplateId}
         });
     }
 
-    async deleteInterviewTemplateStep(id: string): Promise<void> {
+    async delete(id: string): Promise<void> {
         await interviewTemplateStepRepository.delete(id);
     }
 
-    async updateInterviewTemplateStep(interviewTemplateStep: InterviewTemplateStep): Promise<InterviewTemplateStep> {
+    async update(interviewTemplateStep: InterviewTemplateStep): Promise<InterviewTemplateStep> {
         return await interviewTemplateStepRepository.save({
             id: interviewTemplateStep.id,
             name: interviewTemplateStep.name,
         });
     }
 
-    async isInterviewTemplateStepByName(createInterviewTemplateStep: CreateInterviewTemplateStep): Promise<boolean> {
+    async isExists(name: string, interviewTemplateId: string): Promise<boolean> {
         return !!await interviewTemplateStepRepository.findOneBy( {
-            interviewTemplate: {id: createInterviewTemplateStep.interviewTemplateId},
-            name: createInterviewTemplateStep.name
+            interviewTemplate: {id: interviewTemplateId},
+            name: name
         });
     }
 }

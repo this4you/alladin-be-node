@@ -14,12 +14,12 @@ export class CreateInterviewTemplateUseCase extends ValidateCommandUseCase<Creat
     }
 
     protected async validatedExecute(data: CreateInterviewTemplate): Promise<InterviewTemplate> {
-        const isInterviewTemplate = await this.repository.isInterviewTemplateByName(data);
+        const isInterviewTemplate = await this.repository.isExists(data.name, data.companyId);
 
         if (isInterviewTemplate) {
             throw new UniqueException(`Interview name ${data.name} already existed`)
         }
 
-        return await this.repository.createInterviewTemplate(data);
+        return await this.repository.create(data);
     }
 }

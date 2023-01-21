@@ -8,6 +8,6 @@ export class GetInterviewTemplatesByCompanyUseCase implements CommandUseCase<str
     ) {}
 
     async execute(companyId: string): Promise<InterviewTemplate[]> {
-        return await this.interviewTemplateRepository.getInterviewTemplatesByCompany(companyId);
+        return await this.interviewTemplateRepository.get(companyId);
     }
 }

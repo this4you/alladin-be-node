@@ -7,6 +7,6 @@ export class DeleteInterviewTemplateStepUseCase implements CommandUseCase<string
     ) {
     }
     async execute(id: string): Promise<void> {
-        await this.interviewTemplateStepRepository.deleteInterviewTemplateStep(id)
+        await this.interviewTemplateStepRepository.delete(id)
     }
 }

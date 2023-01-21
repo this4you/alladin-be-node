@@ -7,6 +7,6 @@ export class DeleteInterviewTemplateUseCase implements CommandUseCase<string, Pr
     ) {}
 
     async execute(id: string): Promise<void> {
-        await this.interviewTemplateRepository.deleteInterviewTemplate(id);
+        await this.interviewTemplateRepository.delete(id);
     }
 }

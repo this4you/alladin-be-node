@@ -8,6 +8,6 @@ export class GetInterviewTemplateStepByInterviewTemplateUseCase implements Comma
     ) {}
 
     async execute(interviewTemplateId: string): Promise<InterviewTemplateStep[]> {
-        return await this.interviewTemplateStepRepository.getInterviewTemplateStepsByInterviewTemplate(interviewTemplateId);
+        return await this.interviewTemplateStepRepository.get(interviewTemplateId);
     }
 }

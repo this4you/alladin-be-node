@@ -8,7 +8,7 @@ import interviewTemplateRepository from "../../../db/postgre/repositories/interv
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
-    async createInterviewTemplate(interviewTemplate: CreateInterviewTemplate): Promise<InterviewTemplate> {
+    async create(interviewTemplate: CreateInterviewTemplate): Promise<InterviewTemplate> {
         const company = await companyRepository.findOneBy({id: interviewTemplate.companyId })
 
         if (company == null) {
@@ -29,25 +29,25 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         }
     }
 
-    async getInterviewTemplatesByCompany(companyId: string): Promise<InterviewTemplate[]> {
+    async get(companyId: string): Promise<InterviewTemplate[]> {
         return await interviewTemplateRepository.findBy({company: {id: companyId}});
     }
 
-    async deleteInterviewTemplate(id: string): Promise<void> {
+    async delete(id: string): Promise<void> {
         await interviewTemplateRepository.delete(id);
     }
 
-    async updateInterviewTemplate(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate> {
+    async update(interviewTemplate: InterviewTemplate): Promise<InterviewTemplate> {
         return await interviewTemplateRepository.save({
             id: interviewTemplate.id,
             name: interviewTemplate.name,
         });
     }
 
-    async isInterviewTemplateByName(createInterviewTemplate: CreateInterviewTemplate): Promise<boolean> {
+    async isExists(name: string, companyId: string): Promise<boolean> {
         return !!await interviewTemplateRepository.findOneBy({
-            company: {id: createInterviewTemplate.companyId},
-            name: createInterviewTemplate.name
+            company: {id: companyId},
+            name: name
         });
     }
 
