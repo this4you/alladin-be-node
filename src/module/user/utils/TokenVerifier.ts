@@ -8,7 +8,8 @@ export class JWTVerify implements TokenVerifier {
 
         return {
             userId: decoded.userId,
-            userRole: decoded.userRole
+            userRole: decoded.userRole,
+            companyId: decoded.companyId
         };
     }
 

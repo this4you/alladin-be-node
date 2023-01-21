@@ -7,10 +7,10 @@ export const errorHandler = (err: BaseException, req: Request, res: Response, ne
 
     switch (true) {
         case err instanceof ValidationException:
-            responseError = { code: 1, string: err.message }
+            responseError = { code: 1, message: err.message }
             break;
         default:
-            responseError = { code: 9, string: err.message }
+            responseError = { code: 9, message: err.message }
     }
 
     res.status(err.statusCode || 400).json(responseError)

@@ -6,6 +6,7 @@ declare namespace Express {
     type TokenUser = {
         userId: string;
         userRole: UserRole;
+        companyId: string;
     }
     export interface Request {
         user: TokenUser
