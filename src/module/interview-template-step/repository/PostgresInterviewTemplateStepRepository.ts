@@ -7,15 +7,15 @@ import interviewTemplateRepository from "../../../db/postgre/repositories/interv
 import interviewTemplateStepRepository from "../../../db/postgre/repositories/interviewTemplateStepRepository";
 
 export class PostgresInterviewTemplateStepRepository implements InterviewTemplateStepRepository {
-    async createInterviewTemplateStep(interviewTemplateStep: CreateInterviewTemplateStep): Promise<InterviewTemplateStep> {
-        const interviewTemplate = await interviewTemplateRepository.findOneBy({id: interviewTemplateStep.interviewTemplateId})
+    async createInterviewTemplateStep(createInterviewTemplateStep: CreateInterviewTemplateStep): Promise<InterviewTemplateStep> {
+        const interviewTemplate = await interviewTemplateRepository.findOneBy({id: createInterviewTemplateStep.interviewTemplateId})
 
         if (interviewTemplate == null) {
             throw new NotFoundException("InterviewTemplate is not found!")
         }
 
         const interviewTemplateStepEntity = interviewTemplateStepRepository.create({
-            name: interviewTemplateStep.name,
+            name: createInterviewTemplateStep.name,
             interviewTemplate: interviewTemplate,
         });
 
@@ -30,7 +30,9 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
     }
 
     async getInterviewTemplateStepsByInterviewTemplate(interviewTemplateId: string): Promise<InterviewTemplateStep[]> {
-        return await interviewTemplateStepRepository.findBy({interviewTemplate: {id: interviewTemplateId}});
+        return await interviewTemplateStepRepository.findBy({
+            interviewTemplate: {id: interviewTemplateId}
+        });
     }
 
     async deleteInterviewTemplateStep(id: string): Promise<void> {
@@ -44,7 +46,10 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
         });
     }
 
-    async isInterviewTemplateStepByName(name: string): Promise<boolean> {
-        return !!await interviewTemplateStepRepository.findOneBy({name: name});
+    async isInterviewTemplateStepByName(createInterviewTemplateStep: CreateInterviewTemplateStep): Promise<boolean> {
+        return !!await interviewTemplateStepRepository.findOneBy( {
+            interviewTemplate: {id: createInterviewTemplateStep.interviewTemplateId},
+            name: createInterviewTemplateStep.name
+        });
     }
 }

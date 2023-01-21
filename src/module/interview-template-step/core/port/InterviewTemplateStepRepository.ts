@@ -2,9 +2,9 @@ import {CreateInterviewTemplateStep} from "../model/CreateInterviewTemplateStep"
 import {InterviewTemplateStep} from "../model/InterviewTemplateStep";
 
 export interface InterviewTemplateStepRepository {
-    createInterviewTemplateStep(InterviewTemplateStep: CreateInterviewTemplateStep): Promise<InterviewTemplateStep>
+    createInterviewTemplateStep(interviewTemplateStep: CreateInterviewTemplateStep): Promise<InterviewTemplateStep>
 
-    isInterviewTemplateStepByName(name: string): Promise<boolean>
+    isInterviewTemplateStepByName(createInterviewTemplateStep: CreateInterviewTemplateStep): Promise<boolean>
 
     getInterviewTemplateStepsByInterviewTemplate(interviewTemplateId: string): Promise<InterviewTemplateStep[]>
 
