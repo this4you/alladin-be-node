@@ -3,8 +3,8 @@ import {InterviewTemplate} from "../core/model/InterviewTemplate";
 import {CreateInterviewTemplate} from "../core/model/CreateInterviewTemplate";
 import {NotFoundException} from "../../../lib/model/app-exception/NotFoundException";
 
-import interviewTemplateRepository from "../../../db/postgre/repositories/interviewTemplateRepository";
 import companyRepository from "../../../db/postgre/repositories/companyRepository";
+import interviewTemplateRepository from "../../../db/postgre/repositories/interviewTemplateRepository";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
@@ -20,7 +20,7 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
             company: company,
         });
 
-        await interviewTemplateRepository.save(interviewTemplateEntity)
+        await interviewTemplateRepository.save(interviewTemplateEntity);
         console.log('INTERVIEW-TEMPLATE WAS CREATED', interviewTemplateEntity);
 
         return {
