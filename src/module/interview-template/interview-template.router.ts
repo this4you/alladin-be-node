@@ -1,9 +1,10 @@
 import { Request, Router } from 'express';
 import { getInterviewTemplateContext } from './config/factory';
 import { auth } from '../../infrastructure/middleware/auth';
+import { tryExecute } from '../../infrastructure/utils/tryExecute';
+
 import { CreateInterviewTemplate } from './core/model/CreateInterviewTemplate';
 import { InterviewTemplate } from './core/model/InterviewTemplate';
-import { tryExecute } from '../../infrastructure/utils/tryExecute';
 
 const interviewTemplateRouter = Router();
 const {
@@ -48,4 +49,4 @@ interviewTemplateRouter.put('/:id', auth, async (req, res, next) => {
     });
 });
 
-export default interviewTemplateRouter
+export default interviewTemplateRouter;
