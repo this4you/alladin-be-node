@@ -1,15 +1,18 @@
+import "reflect-metadata"
+import cors from 'cors';
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
-import companyRouter from './module/company/company.router';
-import { connectToDb } from './db/postgre';
-import userRouter from './module/user/user.router';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger-output.json';
-import cors from 'cors';
+import { connectToDb } from './db/postgre';
 import { errorHandler } from './infrastructure/middleware/errorHandler';
-import "reflect-metadata"
-import interviewTemplateRouter from "./module/interview-template/interview-template.router";
-import interviewTemplateStepRouter from "./module/interview-template-step/interview-template-step.router";
+
+import userRouter from './module/auth/user/user.router';
+import companyRouter from './module/auth/company/company.router';
+import interviewTemplateRouter from "./module/interview-template/template/interview-template.router";
+import interviewTemplateStepRouter from "./module/interview-template/step/interview-template-step.router";
+import questionCategoryRouter from "./module/question/question-category/question-category.router";
+import questionCategoryInStepRouter from "./module/question/question-category-in-step/question-category-in-step.router";
 
 const configs = async () => {
     dotenv.config();
@@ -28,7 +31,9 @@ const settingExpressApp = (): Express => {
     app.use('/company', companyRouter);
     app.use('/user', userRouter);
     app.use('/interview-template', interviewTemplateRouter);
-    app.use('/interview-template-step', interviewTemplateStepRouter);
+    app.use('/step', interviewTemplateStepRouter);
+    app.use('/question-category', questionCategoryRouter)
+    app.use('/question-category-in-step', questionCategoryInStepRouter)
 
     app.get('/', (req, res) => {
         res.send('SERVER WORKS!')
