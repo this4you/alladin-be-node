@@ -4,6 +4,6 @@ import {QuestionCategory} from "../core/model/QuestionCategory";
 
 export class PostgresQuestionCategoryRepository implements QuestionCategoryRepository {
     async getAll(): Promise<QuestionCategory[]> {
-        return await questionCategoryRepository.findBy({});
+        return await questionCategoryRepository.find();
     }
 }
