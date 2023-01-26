@@ -9,7 +9,7 @@ const questionCategoryInStepRouter = Router();
 const {
     createQuestionCategoryInStepUseCase,
     deleteQuestionCategoryInStepUseCase,
-    getQuestionCategoryInStepUseCase
+    getQuestionCategoriesInStepUseCase
 } = getQuestionCategoryInStepContext()
 
 questionCategoryInStepRouter.post('/', auth, async (req: Request<{}, QuestionCategoryInStep>, res, next) => {
@@ -25,7 +25,7 @@ questionCategoryInStepRouter.post('/', auth, async (req: Request<{}, QuestionCat
 
 questionCategoryInStepRouter.get('/', auth, async (req: Request<{}, QuestionCategoryInStep[]>, res, next) => {
     await tryExecute(next, async () => {
-        const questionCategoryInStep = await getQuestionCategoryInStepUseCase.execute(req.body.interviewTemplateStepId);
+        const questionCategoryInStep = await getQuestionCategoriesInStepUseCase.execute(req.body.interviewTemplateStepId);
         res.json(questionCategoryInStep);
     });
 });
