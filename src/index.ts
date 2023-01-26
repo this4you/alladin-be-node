@@ -11,8 +11,8 @@ import userRouter from './module/auth/user/user.router';
 import companyRouter from './module/auth/company/company.router';
 import interviewTemplateRouter from "./module/interview-template/template/interview-template.router";
 import interviewTemplateStepRouter from "./module/interview-template/step/interview-template-step.router";
-import questionCategoryRouter from "./module/question/question-category/question-category.router";
-import questionCategoryInStepRouter from "./module/question/question-category-in-step/question-category-in-step.router";
+import questionCategoryRouter from "./module/interview-template/question/question-category/question-category.router";
+import questionCategoryInStepRouter from "./module/interview-template/question/question-category-in-step/question-category-in-step.router";
 
 const configs = async () => {
     dotenv.config();

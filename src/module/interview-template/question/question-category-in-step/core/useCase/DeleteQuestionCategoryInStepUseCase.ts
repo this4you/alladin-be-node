@@ -1,4 +1,4 @@
-import {CommandUseCase} from "../../../../../lib/model/CommandUseCase";
+import {CommandUseCase} from "../../../../../../lib/model/CommandUseCase";
 import {QuestionCategoryInStepRepository} from "../port/QuestionCategoryInStepRepository";
 
 export class DeleteQuestionCategoryInStepUseCase implements CommandUseCase<string, Promise<void>> {

@@ -1,7 +1,7 @@
 import {Request, Router} from "express";
 import {getQuestionCategoryInStepContext} from "./config/factory";
-import {auth} from "../../../infrastructure/middleware/auth";
-import {tryExecute} from "../../../infrastructure/utils/tryExecute";
+import {auth} from "../../../../infrastructure/middleware/auth";
+import {tryExecute} from "../../../../infrastructure/utils/tryExecute";
 
 import {QuestionCategoryInStep} from "./core/model/QuestionCategoryInStep";
 

@@ -1,4 +1,4 @@
-import {CommandUseCase} from "../../../../../lib/model/CommandUseCase";
+import {CommandUseCase} from "../../../../../../lib/model/CommandUseCase";
 import {QuestionCategoryInStep} from "../model/QuestionCategoryInStep";
 import {QuestionCategoryInStepRepository} from "../port/QuestionCategoryInStepRepository";
 

@@ -1,4 +1,4 @@
-import {CommandUseCase} from "../../../../../lib/model/CommandUseCase";
+import {CommandUseCase} from "../../../../../../lib/model/CommandUseCase";
 import {QuestionCategory} from "../model/QuestionCategory";
 import {QuestionCategoryRepository} from "../port/QuestionCategoryRepository";
 
