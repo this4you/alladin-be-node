@@ -24,115 +24,289 @@
     },
     "/company/": {
       "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "auth"
+        ],
+        "summary": "Create company with user",
+        "description": "Returns company id and name",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Add company and user",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Test company"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "TestUser"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "test.user@mail.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "TestPa$$word43"
+                    },
+                    "companyRoleId": {
+                      "type": "string",
+                      "example": "companyRoleId"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company successfully created.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "uuid4"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Test company"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       }
     },
     "/user/auth": {
       "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "auth"
+        ],
+        "summary": "Auth user into the system",
+        "description": "Returns user x-access-token",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Add company and user",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "test.user@mail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "TestPa$$word43"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company successfully created.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "x-access-token"
+                },
+                "refreshToken": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       }
     },
     "/user/": {
       "get": {
-        "description": "",
+        "tags": [
+          "auth"
+        ],
+        "summary": "Find user by x-access-token",
+        "description": "Returns a single user object",
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": true,
+            "description": "Add user x-access-token",
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Company successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "x-access-token"
+                },
+                "refreshToken": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/interview-template/": {
       "post": {
-        "description": "",
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Create interview-template by companyId",
+        "description": "Returns interview-template id and name",
         "parameters": [
           {
             "name": "x-access-token",
             "in": "header",
+            "required": true,
+            "description": "Add user x-access-token",
             "type": "string"
           },
           {
             "name": "body",
             "in": "body",
+            "required": true,
+            "description": "Add InterviewTemplate name",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Auto QA"
                 }
               }
             }
           }
         ],
-        "responses": {}
-      },
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/interview-template/{id}": {
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "InterviewTemplate successfully created.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "uuid4"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Auto QA"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
+      "get": {
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Get all interview-templates by companyId",
+        "description": "Returns interview-templates array",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "description": "Add user x-access-token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "InterviewTemplates successfully obtained.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "uuid4"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Auto QA"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/interview-template/{id}": {
       "put": {
-        "description": "",
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Update interview-template by ID",
+        "description": "Returns interview-template id and name",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "InterviewTemplate ID"
           },
           {
             "name": "x-access-token",
             "in": "header",
+            "required": true,
+            "description": "Add user x-access-token",
             "type": "string"
           },
           {
             "name": "body",
             "in": "body",
+            "required": true,
+            "description": "Add InterviewTemplate name",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Frontend Developer"
                 }
               }
             }
@@ -140,14 +314,65 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "InterviewTemplate successfully updated.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "uuid4"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Frontend Developer"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Delete interview-template by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "InterviewTemplate ID"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "description": "Add user x-access-token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "InterviewTemplate successfully deleted."
           }
         }
       }
     },
     "/step/": {
       "post": {
-        "description": "",
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Create step by interviewTemplateId",
+        "description": "Returns step id and name",
         "parameters": [
           {
             "name": "x-access-token",
@@ -173,7 +398,11 @@
         "responses": {}
       },
       "get": {
-        "description": "",
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Get all steps by interviewTemplateId",
+        "description": "Returns steps array",
         "parameters": [
           {
             "name": "x-access-token",
@@ -185,29 +414,12 @@
       }
     },
     "/step/{id}": {
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "x-access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "put": {
-        "description": "",
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Update step by interviewTemplateId",
+        "description": "Returns step id and name",
         "parameters": [
           {
             "name": "id",
@@ -238,11 +450,40 @@
             "description": "OK"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Delete step by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/question-category/": {
       "get": {
-        "description": "",
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Get all questionCategories",
+        "description": "Returns questionCategories array",
         "parameters": [
           {
             "name": "x-access-token",
@@ -255,7 +496,11 @@
     },
     "/question-category-in-step/": {
       "post": {
-        "description": "",
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Create questionCategoryInStep by step",
+        "description": "Returns step id and name",
         "parameters": [
           {
             "name": "x-access-token",
@@ -281,7 +526,11 @@
         "responses": {}
       },
       "get": {
-        "description": "",
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Get all questionCategoriesInStep",
+        "description": "Returns questionCategoriesInStep array",
         "parameters": [
           {
             "name": "x-access-token",
@@ -294,6 +543,10 @@
     },
     "/question-category-in-step/{id}": {
       "delete": {
+        "tags": [
+          "interview-template"
+        ],
+        "summary": "Delete questionCategoryInStep by ID",
         "description": "",
         "parameters": [
           {

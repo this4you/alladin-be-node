@@ -15,6 +15,9 @@ const {
 } = getInterviewTemplateStepContext();
 
 interviewTemplateStepRouter.post('/', auth, async (req: Request<{}, InterviewTemplateStep, CreateInterviewTemplateStep>, res, next) => {
+    // #swagger.tags = ['interview-template']
+    // #swagger.summary = 'Create step by interviewTemplateId'
+    // #swagger.description = 'Returns step id and name'
     await tryExecute(next, async () => {
         const interviewTemplateStep = await createInterviewTemplateStepUseCase.execute({
             name: req.body.name,
@@ -26,25 +29,34 @@ interviewTemplateStepRouter.post('/', auth, async (req: Request<{}, InterviewTem
 });
 
 interviewTemplateStepRouter.get('/', auth, async (req: Request<{}, InterviewTemplateStep[]>, res, next) => {
+    // #swagger.tags = ['interview-template']
+    // #swagger.summary = 'Get all steps by interviewTemplateId'
+    // #swagger.description = 'Returns steps array'
     await tryExecute(next, async () => {
         const stepsOfInterviewTemplate = await getInterviewTemplateStepByInterviewTemplateUseCase.execute(req.body.interviewTemplateId);
         res.json(stepsOfInterviewTemplate);
     });
 });
 
-interviewTemplateStepRouter.delete('/:id', auth, async (req, res, next) => {
-    await tryExecute(next, async () => {
-        const interviewTemplateStep = await deleteInterviewTemplateStepUseCase.execute(req.params.id);
-        res.json(interviewTemplateStep);
-    });
-});
-
 interviewTemplateStepRouter.put('/:id', auth, async (req, res, next) => {
+    // #swagger.tags = ['interview-template']
+    // #swagger.summary = 'Update step by interviewTemplateId'
+    // #swagger.description = 'Returns step id and name'
     await tryExecute(next, async () => {
         const interviewTemplateStep = await updateInterviewTemplateStepUseCase.execute({
             id: req.params.id,
             name: req.body.name
         });
+        res.json(interviewTemplateStep);
+    });
+});
+
+interviewTemplateStepRouter.delete('/:id', auth, async (req, res, next) => {
+    // #swagger.tags = ['interview-template']
+    // #swagger.summary = 'Delete step by ID'
+    // #swagger.description = ''
+    await tryExecute(next, async () => {
+        const interviewTemplateStep = await deleteInterviewTemplateStepUseCase.execute(req.params.id);
         res.json(interviewTemplateStep);
     });
 });

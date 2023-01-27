@@ -13,7 +13,10 @@ const {
 } = getQuestionCategoryInStepContext()
 
 questionCategoryInStepRouter.post('/', auth, async (req: Request<{}, QuestionCategoryInStep>, res, next) => {
-   await tryExecute(next, async () => {
+    // #swagger.tags = ['interview-template']
+    // #swagger.summary = 'Create questionCategoryInStep by step'
+    // #swagger.description = 'Returns step id and name'
+    await tryExecute(next, async () => {
        const questionCategoryInStep = await createQuestionCategoryInStepUseCase.execute({
            questionCategoryId: req.body.questionCategoryId,
            interviewTemplateStepId: req.body.interviewTemplateStepId
@@ -24,13 +27,19 @@ questionCategoryInStepRouter.post('/', auth, async (req: Request<{}, QuestionCat
 });
 
 questionCategoryInStepRouter.get('/', auth, async (req: Request<{}, QuestionCategoryInStep[]>, res, next) => {
+    // #swagger.tags = ['interview-template']
+    // #swagger.summary = 'Get all questionCategoriesInStep'
+    // #swagger.description = 'Returns questionCategoriesInStep array'
     await tryExecute(next, async () => {
-        const questionCategoryInStep = await getQuestionCategoriesInStepUseCase.execute(req.body.interviewTemplateStepId);
-        res.json(questionCategoryInStep);
+        const questionCategoriesInStep = await getQuestionCategoriesInStepUseCase.execute(req.body.interviewTemplateStepId);
+        res.json(questionCategoriesInStep);
     });
 });
 
 questionCategoryInStepRouter.delete('/:id', auth, async (req, res, next) => {
+    // #swagger.tags = ['interview-template']
+    // #swagger.summary = 'Delete questionCategoryInStep by ID'
+    // #swagger.description = ''
     await tryExecute(next, async () => {
         const questionCategoryInStep = await deleteQuestionCategoryInStepUseCase.execute(req.params.id);
         res.json(questionCategoryInStep);

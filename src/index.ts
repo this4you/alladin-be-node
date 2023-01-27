@@ -2,6 +2,7 @@ import "reflect-metadata"
 import cors from 'cors';
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
+import swaggerAutogen from 'swagger-autogen';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger-output.json';
 import { connectToDb } from './db/postgre';
