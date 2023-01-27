@@ -4,7 +4,8 @@ import { getUserContext } from '../../module/auth/user/config/factory';
 const { verifyTokenUseCase } = getUserContext();
 
 export const auth = (req: Request, res: Response, next: NextFunction) => {
-    const token: any = req.headers['x-access-token'] || '';
+    const bearerToken: any = req.headers['authorization'] || '';
+    const token = bearerToken.split(' ')[1] || '';
 
     req.user = verifyTokenUseCase.execute(token);
 
