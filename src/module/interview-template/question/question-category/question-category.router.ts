@@ -9,12 +9,12 @@ const questionCategoryRouter = Router();
 export default questionCategoryRouter;
 
 const {
-    getAllQuestionCategory,
+    getAllQuestionCategories,
 } = getQuestionCategoryContext();
 
 questionCategoryRouter.get('/', auth, async (req: Request<{}, QuestionCategory[]>, res, next) => {
     await tryExecute(next, async () => {
-        const questionCategories = await getAllQuestionCategory.execute();
+        const questionCategories = await getAllQuestionCategories.execute();
         res.json(questionCategories);
     });
 });

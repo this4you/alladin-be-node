@@ -1,11 +1,11 @@
 import {PostgresQuestionCategoryRepository} from "../repository/PostgresQuestionCategoryRepository";
-import {GetAllQuestionCategoryUseCase} from "../core/useCase/GetAllQuestionCategoryUseCase";
+import {GetAllQuestionCategoriesUseCase} from "../core/useCase/GetAllQuestionCategoriesUseCase";
 
 export const getQuestionCategoryContext = () => {
     const questionCategory = new PostgresQuestionCategoryRepository();
 
-    const getAllQuestionCategory = new GetAllQuestionCategoryUseCase(questionCategory);
+    const getAllQuestionCategories = new GetAllQuestionCategoriesUseCase(questionCategory);
     return {
-        getAllQuestionCategory,
+        getAllQuestionCategories,
     }
 }
