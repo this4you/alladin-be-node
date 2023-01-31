@@ -4,10 +4,10 @@ import {InterviewTemplate} from "../model/InterviewTemplate";
 
 export class GetInterviewTemplatesByCompanyUseCase implements CommandUseCase<string, Promise<InterviewTemplate[]>> {
     constructor(
-        private  interviewTemplateRepository: InterviewTemplateRepository
+        private  repository: InterviewTemplateRepository
     ) {}
 
     async execute(id: string): Promise<InterviewTemplate[]> {
-        return await this.interviewTemplateRepository.getByCompany(id);
+        return await this.repository.getByCompany(id);
     }
 }

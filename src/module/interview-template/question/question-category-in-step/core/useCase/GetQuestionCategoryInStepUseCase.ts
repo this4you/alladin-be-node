@@ -4,11 +4,11 @@ import {QuestionCategoryInStepRepository} from "../port/QuestionCategoryInStepRe
 
 export class GetQuestionCategoryInStepUseCase implements CommandUseCase<string, Promise<QuestionCategoryInStep[]>> {
     constructor(
-        private  questionCategoryInStepRepository: QuestionCategoryInStepRepository
+        private  repository: QuestionCategoryInStepRepository
     ) {}
 
     async execute(interviewTemplateStepId: string): Promise<QuestionCategoryInStep[]> {
-        return await this.questionCategoryInStepRepository.get(interviewTemplateStepId);
+        return await this.repository.get(interviewTemplateStepId);
     }
 
 }

@@ -31,8 +31,11 @@ export class PostgresQuestionCategoryInStepRepository implements QuestionCategor
         return {id: questionCategoryInStep.id}
     }
 
-    async delete(id: string): Promise<void> {
-        await questionCategoryInStepRepository.delete(id);
+    async isExists(questionCategoryId: string, interviewTemplateStepId: string): Promise<boolean> {
+        return !!await questionCategoryInStepRepository.findOneBy({
+            questionCategory: {id: questionCategoryId},
+            interviewTemplateStep: {id: interviewTemplateStepId}
+        });
     }
 
     async get(interviewTemplateStepId: string): Promise<QuestionCategoryInStep[]> {
@@ -41,11 +44,8 @@ export class PostgresQuestionCategoryInStepRepository implements QuestionCategor
         });
     }
 
-    async isExists(questionCategoryId: string, interviewTemplateStepId: string): Promise<boolean> {
-        return !!await questionCategoryInStepRepository.findOneBy({
-            questionCategory: {id: questionCategoryId},
-            interviewTemplateStep: {id: interviewTemplateStepId}
-        });
+    async delete(id: string): Promise<void> {
+        await questionCategoryInStepRepository.delete(id);
     }
 
 }

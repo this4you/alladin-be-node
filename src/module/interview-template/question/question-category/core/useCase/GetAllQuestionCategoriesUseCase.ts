@@ -4,10 +4,10 @@ import {QuestionCategoryRepository} from "../port/QuestionCategoryRepository";
 
 export class GetAllQuestionCategoriesUseCase implements CommandUseCase<string, Promise<QuestionCategory[]>> {
     constructor(
-        private questionCategoryRepository: QuestionCategoryRepository
+        private repository: QuestionCategoryRepository
     ) {}
 
     async execute(): Promise<QuestionCategory[]> {
-        return await this.questionCategoryRepository.getAll();
+        return await this.repository.getAll();
     }
 }

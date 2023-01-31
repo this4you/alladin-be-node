@@ -29,20 +29,17 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
 
     }
 
+    async isExists(name: string, interviewTemplateId: string): Promise<boolean> {
+        return !!await interviewTemplateStepRepository.findOneBy( {
+            interviewTemplate: {id: interviewTemplateId},
+            name: name
+        });
+    }
+
     async getByInterviewTemplate(id: string): Promise<InterviewTemplateStep[]> {
         return await interviewTemplateStepRepository.findBy({
             interviewTemplate: {id: id}
         });
-    }
-
-    async delete(id: string): Promise<void> {
-        const interviewTemplateStep = await interviewTemplateStepRepository.findOneBy({id: id});
-
-        if (interviewTemplateStep == null) {
-            throw new NotFoundException("InterviewTemplateStep is not found!")
-        }
-
-        await interviewTemplateStepRepository.delete(id);
     }
 
     async update(data: InterviewTemplateStep): Promise<InterviewTemplateStep> {
@@ -61,10 +58,13 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
         };
     }
 
-    async isExists(name: string, interviewTemplateId: string): Promise<boolean> {
-        return !!await interviewTemplateStepRepository.findOneBy( {
-            interviewTemplate: {id: interviewTemplateId},
-            name: name
-        });
+    async delete(id: string): Promise<void> {
+        const interviewTemplateStep = await interviewTemplateStepRepository.findOneBy({id: id});
+
+        if (interviewTemplateStep == null) {
+            throw new NotFoundException("InterviewTemplateStep is not found!")
+        }
+
+        await interviewTemplateStepRepository.delete(id);
     }
 }

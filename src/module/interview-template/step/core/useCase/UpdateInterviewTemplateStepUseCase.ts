@@ -4,11 +4,10 @@ import {InterviewTemplateStepRepository} from "../port/InterviewTemplateStepRepo
 
 export class UpdateInterviewTemplateStepUseCase implements CommandUseCase<InterviewTemplateStep> {
     constructor(
-        private interviewTemplateStepRepository: InterviewTemplateStepRepository
-    ) {
-    }
+        private repository: InterviewTemplateStepRepository
+    ) {}
 
     async execute(data: InterviewTemplateStep): Promise<InterviewTemplateStep> {
-        return await this.interviewTemplateStepRepository.update(data);
+        return await this.repository.update(data);
     }
 }

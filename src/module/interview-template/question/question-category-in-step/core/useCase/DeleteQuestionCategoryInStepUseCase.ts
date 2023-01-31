@@ -3,9 +3,10 @@ import {QuestionCategoryInStepRepository} from "../port/QuestionCategoryInStepRe
 
 export class DeleteQuestionCategoryInStepUseCase implements CommandUseCase<string, Promise<void>> {
     constructor(
-        private  questionCategoryInStepRepository: QuestionCategoryInStepRepository
+        private  repository: QuestionCategoryInStepRepository
     ) {}
+
     async execute(id: string): Promise<void> {
-        await this.questionCategoryInStepRepository.delete(id);
+        await this.repository.delete(id);
     }
 }
