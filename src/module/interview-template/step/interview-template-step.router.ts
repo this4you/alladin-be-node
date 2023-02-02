@@ -25,9 +25,10 @@ interviewTemplateStepRouter.post('/', auth, async (req: Request<{}, InterviewTem
     });
 });
 
-interviewTemplateStepRouter.get('/', auth, async (req: Request<{}, InterviewTemplateStep[]>, res, next) => {
+interviewTemplateStepRouter.get('/', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
-        const stepsOfInterviewTemplate = await getInterviewTemplateStepByInterviewTemplateUseCase.execute(req.body.interviewTemplateId);
+        const interviewTemplate = req.query.interviewTemplate && req.query.interviewTemplate.toString() || '';
+        const stepsOfInterviewTemplate = await getInterviewTemplateStepByInterviewTemplateUseCase.execute(interviewTemplate);
         res.json(stepsOfInterviewTemplate);
     });
 });
