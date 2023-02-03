@@ -1,7 +1,8 @@
-import { UserRepository } from '../core/port/UserRepository';
+import userRepository from '@db/postgre/repositories/userRepository';
+import { UserEntity } from '@db/postgre/entities/UserEntity';
+
 import { User } from '../core/model/User';
-import userRepository from '../../../../db/postgre/repositories/userRepository';
-import { UserEntity } from '../../../../db/postgre/entities/UserEntity';
+import { UserRepository } from '../core/port/UserRepository';
 
 export class PostgreUserRepository implements UserRepository {
     async getUserByEmail(email: string): Promise<User | null> {

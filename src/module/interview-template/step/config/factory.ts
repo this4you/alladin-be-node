@@ -1,4 +1,5 @@
-import {ValidatorUtils} from "../../../../lib/utils/ValidatorUtils";
+import {ValidatorUtils} from "@lib/utils/ValidatorUtils";
+
 import {CreateInterviewTemplateStepValidator} from "../core/validator/CreateInterviewTemplateStepValidator";
 import {PostgresInterviewTemplateStepRepository} from "../repository/PostgresInterviewTemplateStepRepository";
 import {CreateInterviewTemplateStepUseCase} from "../core/useCase/CreateInterviewTemplateStepUseCase";

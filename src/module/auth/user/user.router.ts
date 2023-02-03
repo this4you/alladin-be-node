@@ -1,7 +1,8 @@
 import { Router, Request } from 'express';
 
-import { tryExecute } from "../../../infrastructure/utils/tryExecute";
-import { auth } from '../../../infrastructure/middleware/auth';
+import { auth } from '@infrastructure/middleware/auth';
+import { tryExecute } from "@infrastructure/utils/tryExecute";
+
 import { getUserContext } from './config/factory';
 import { AuthUser } from './core/model/AuthUser';
 import { Token } from './core/model/Token';

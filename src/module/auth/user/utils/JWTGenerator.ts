@@ -1,8 +1,9 @@
-import { TokenGenerator } from '../core/port/TokenGenerator';
+import jwt from 'jsonwebtoken';
+
 import { User } from '../core/model/User';
 import { Token } from '../core/model/Token';
-import jwt from 'jsonwebtoken';
 import { TokenUser } from '../core/model/TokenUser';
+import { TokenGenerator } from '../core/port/TokenGenerator';
 
 export class JWTGenerator implements TokenGenerator {
     generate(user: User): Token {

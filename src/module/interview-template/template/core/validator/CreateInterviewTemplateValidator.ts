@@ -1,6 +1,7 @@
-import {Validator} from "../../../../../lib/model/Validator";
+import {Validator} from "@lib/model/Validator";
+import {ValidatorUtils} from "@lib/utils/ValidatorUtils";
+
 import {CreateInterviewTemplate} from "../model/CreateInterviewTemplate";
-import {ValidatorUtils} from "../../../../../lib/utils/ValidatorUtils";
 
 export class CreateInterviewTemplateValidator implements Validator<CreateInterviewTemplate> {
     constructor(

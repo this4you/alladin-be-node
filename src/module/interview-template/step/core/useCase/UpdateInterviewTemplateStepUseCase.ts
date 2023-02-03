@@ -1,4 +1,5 @@
-import {CommandUseCase} from "../../../../../lib/model/CommandUseCase";
+import {CommandUseCase} from "@lib/model/CommandUseCase";
+
 import {InterviewTemplateStep} from "../model/InterviewTemplateStep";
 import {InterviewTemplateStepRepository} from "../port/InterviewTemplateStepRepository";
 

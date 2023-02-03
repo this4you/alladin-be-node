@@ -1,6 +1,7 @@
-import { CommandUseCase } from '../../../../../lib/model/CommandUseCase';
+import { CommandUseCase } from '@lib/model/CommandUseCase';
+import { NotFoundException } from '@lib/model/app-exception/NotFoundException';
+
 import { UserRepository } from '../port/UserRepository';
-import { NotFoundException } from '../../../../../lib/model/app-exception/NotFoundException';
 import { ReturnUser } from '../model/ReturnUser';
 
 export class GetUserUseCase implements CommandUseCase<string, Promise<ReturnUser>> {
@@ -19,4 +20,5 @@ export class GetUserUseCase implements CommandUseCase<string, Promise<ReturnUser
 
         return userWithoutPassword;
     }
+
 }

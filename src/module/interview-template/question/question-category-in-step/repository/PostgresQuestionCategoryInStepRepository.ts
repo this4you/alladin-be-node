@@ -1,10 +1,11 @@
+import {NotFoundException} from "@lib/model/app-exception/NotFoundException";
+import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
+import questionCategoryRepository from "@db/postgre/repositories/questionCategoryRepository";
+import questionCategoryInStepRepository from "@db/postgre/repositories/questionCategoryInStepRepository";
+
 import {QuestionCategoryInStep} from "../core/model/QuestionCategoryInStep";
 import {QuestionCategoryInStepRepository} from "../core/port/QuestionCategoryInStepRepository";
 import {CreateQuestionCategoryInStep} from "../core/model/CreateQuestionCategoryInStep";
-import {NotFoundException} from "../../../../../lib/model/app-exception/NotFoundException";
-import interviewTemplateStepRepository from "../../../../../db/postgre/repositories/interviewTemplateStepRepository";
-import questionCategoryInStepRepository from "../../../../../db/postgre/repositories/questionCategoryInStepRepository";
-import questionCategoryRepository from "../../../../../db/postgre/repositories/questionCategoryRepository";
 
 export class PostgresQuestionCategoryInStepRepository implements QuestionCategoryInStepRepository {
     async create(data: CreateQuestionCategoryInStep): Promise<QuestionCategoryInStep> {

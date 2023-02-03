@@ -1,6 +1,7 @@
-import {CommandUseCase} from "../../../../../lib/model/CommandUseCase";
-import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
+import {CommandUseCase} from "@lib/model/CommandUseCase";
+
 import {InterviewTemplate} from "../model/InterviewTemplate";
+import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
 
 export class UpdateInterviewTemplateUseCase implements CommandUseCase<InterviewTemplate> {
     constructor(

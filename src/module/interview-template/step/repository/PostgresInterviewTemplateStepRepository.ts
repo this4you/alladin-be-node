@@ -1,10 +1,10 @@
+import {NotFoundException} from "@lib/model/app-exception/NotFoundException";
+import interviewTemplateRepository from "@db/postgre/repositories/interviewTemplateRepository";
+import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
+
 import {InterviewTemplateStepRepository} from "../core/port/InterviewTemplateStepRepository";
 import {InterviewTemplateStep} from "../core/model/InterviewTemplateStep";
 import {CreateInterviewTemplateStep} from "../core/model/CreateInterviewTemplateStep";
-
-import {NotFoundException} from "../../../../lib/model/app-exception/NotFoundException";
-import interviewTemplateRepository from "../../../../db/postgre/repositories/interviewTemplateRepository";
-import interviewTemplateStepRepository from "../../../../db/postgre/repositories/interviewTemplateStepRepository";
 
 export class PostgresInterviewTemplateStepRepository implements InterviewTemplateStepRepository {
     async create(data: CreateInterviewTemplateStep): Promise<InterviewTemplateStep> {

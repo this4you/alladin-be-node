@@ -1,4 +1,5 @@
 import {DataSource} from 'typeorm';
+
 import {UserEntity} from './entities/UserEntity';
 import {CompanyEntity} from './entities/CompanyEntity';
 import {InterviewTemplateEntity} from "./entities/InterviewTemplateEntity";
