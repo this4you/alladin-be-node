@@ -1,5 +1,6 @@
-import { PasswordHashing } from '../core/port/PasswordHashing';
 import bcrypt from 'bcrypt';
+
+import { PasswordHashing } from '../core/port/PasswordHashing';
 import { PasswordValidator } from '../core/port/PasswordValidator';
 
 //infrastructure

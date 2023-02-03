@@ -1,4 +1,5 @@
 import {Entity, JoinColumn, ManyToOne} from "typeorm";
+
 import {BaseEntity} from "./BaseEntity";
 import {InterviewTemplateStepEntity} from "./InterviewTemplateStepEntity";
 import {QuestionCategoryEntity} from "./QuestionCategoryEntity";

@@ -1,6 +1,7 @@
+import jwt from 'jsonwebtoken';
+
 import { TokenVerifier } from '../core/port/TokenVerifier';
 import { TokenUser } from '../core/model/TokenUser';
-import jwt from 'jsonwebtoken';
 
 export class JWTVerify implements TokenVerifier {
     verify(token: string): TokenUser {

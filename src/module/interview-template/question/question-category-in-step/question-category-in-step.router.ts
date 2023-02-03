@@ -1,8 +1,9 @@
 import {Request, Router} from "express";
-import {getQuestionCategoryInStepContext} from "./config/factory";
-import {auth} from "../../../../infrastructure/middleware/auth";
-import {tryExecute} from "../../../../infrastructure/utils/tryExecute";
 
+import {auth} from "@infrastructure/middleware/auth";
+import {tryExecute} from "@infrastructure/utils/tryExecute";
+
+import {getQuestionCategoryInStepContext} from "./config/factory";
 import {QuestionCategoryInStep} from "./core/model/QuestionCategoryInStep";
 
 const questionCategoryInStepRouter = Router();
@@ -23,9 +24,10 @@ questionCategoryInStepRouter.post('/', auth, async (req: Request<{}, QuestionCat
    });
 });
 
-questionCategoryInStepRouter.get('/', auth, async (req: Request<{}, QuestionCategoryInStep[]>, res, next) => {
+questionCategoryInStepRouter.get('/', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
-        const questionCategoryInStep = await getQuestionCategoriesInStepUseCase.execute(req.body.interviewTemplateStepId);
+        const interviewTemplateStep = req.query.interviewTemplateStep && req.query.interviewTemplateStep.toString() || '';
+        const questionCategoryInStep = await getQuestionCategoriesInStepUseCase.execute(interviewTemplateStep);
         res.json(questionCategoryInStep);
     });
 });

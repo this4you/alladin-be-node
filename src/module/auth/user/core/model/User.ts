@@ -1,4 +1,4 @@
-import { UserRole } from '../../../../../lib/model/UserRole';
+import { UserRole } from '@lib/model/UserRole';
 
 export type User = {
     id: string;
