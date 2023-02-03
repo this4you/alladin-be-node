@@ -12,12 +12,12 @@ export const getQuestionCategoryInStepContext = () => {
     const validator = new CreateQuestionCategoryInStepValidator(validationUtils);
 
     const createQuestionCategoryInStepUseCase = new CreateQuestionCategoryInStepUseCase(questionCategoryInStepRepository, validator);
-    const deleteQuestionCategoryInStepUseCase = new DeleteQuestionCategoryInStepUseCase(questionCategoryInStepRepository);
     const getQuestionCategoriesInStepUseCase = new GetQuestionCategoryInStepUseCase(questionCategoryInStepRepository);
+    const deleteQuestionCategoryInStepUseCase = new DeleteQuestionCategoryInStepUseCase(questionCategoryInStepRepository);
 
     return {
         createQuestionCategoryInStepUseCase,
-        deleteQuestionCategoryInStepUseCase,
-        getQuestionCategoriesInStepUseCase
+        getQuestionCategoriesInStepUseCase,
+        deleteQuestionCategoryInStepUseCase
     }
 }

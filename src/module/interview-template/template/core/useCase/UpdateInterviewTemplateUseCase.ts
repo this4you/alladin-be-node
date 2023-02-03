@@ -5,10 +5,10 @@ import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
 
 export class UpdateInterviewTemplateUseCase implements CommandUseCase<InterviewTemplate> {
     constructor(
-        private  interviewTemplateRepository: InterviewTemplateRepository
+        private  repository: InterviewTemplateRepository
     ) {}
 
     async execute(data: InterviewTemplate): Promise<InterviewTemplate> {
-        return await this.interviewTemplateRepository.update(data);
+        return await this.repository.update(data);
     }
 }

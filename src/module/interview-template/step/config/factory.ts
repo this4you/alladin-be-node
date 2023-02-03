@@ -13,14 +13,14 @@ export const getInterviewTemplateStepContext = () => {
     const validator = new CreateInterviewTemplateStepValidator(validationUtils);
 
     const createInterviewTemplateStepUseCase = new CreateInterviewTemplateStepUseCase(interviewTemplateStepRepository, validator);
-    const deleteInterviewTemplateStepUseCase = new DeleteInterviewTemplateStepUseCase(interviewTemplateStepRepository);
-    const updateInterviewTemplateStepUseCase = new UpdateInterviewTemplateStepUseCase(interviewTemplateStepRepository);
     const getInterviewTemplateStepByInterviewTemplateUseCase = new GetInterviewTemplateStepByInterviewTemplateUseCase(interviewTemplateStepRepository);
+    const updateInterviewTemplateStepUseCase = new UpdateInterviewTemplateStepUseCase(interviewTemplateStepRepository);
+    const deleteInterviewTemplateStepUseCase = new DeleteInterviewTemplateStepUseCase(interviewTemplateStepRepository);
 
     return {
         createInterviewTemplateStepUseCase,
-        deleteInterviewTemplateStepUseCase,
-        updateInterviewTemplateStepUseCase,
         getInterviewTemplateStepByInterviewTemplateUseCase,
+        updateInterviewTemplateStepUseCase,
+        deleteInterviewTemplateStepUseCase,
     }
 }

@@ -10,9 +10,9 @@ import {CreateInterviewTemplateStep} from "./core/model/CreateInterviewTemplateS
 const interviewTemplateStepRouter = Router();
 const {
     createInterviewTemplateStepUseCase,
-    deleteInterviewTemplateStepUseCase,
-    updateInterviewTemplateStepUseCase,
     getInterviewTemplateStepByInterviewTemplateUseCase,
+    updateInterviewTemplateStepUseCase,
+    deleteInterviewTemplateStepUseCase,
 } = getInterviewTemplateStepContext();
 
 interviewTemplateStepRouter.post('/', auth, async (req: Request<{}, InterviewTemplateStep, CreateInterviewTemplateStep>, res, next) => {
@@ -21,7 +21,6 @@ interviewTemplateStepRouter.post('/', auth, async (req: Request<{}, InterviewTem
             name: req.body.name,
             interviewTemplateId: req.body.interviewTemplateId,
         });
-
         return res.send(interviewTemplateStep);
     });
 });
@@ -34,19 +33,19 @@ interviewTemplateStepRouter.get('/', auth, async (req, res, next) => {
     });
 });
 
-interviewTemplateStepRouter.delete('/:id', auth, async (req, res, next) => {
-    await tryExecute(next, async () => {
-        const interviewTemplateStep = await deleteInterviewTemplateStepUseCase.execute(req.params.id);
-        res.json(interviewTemplateStep);
-    });
-});
-
 interviewTemplateStepRouter.put('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplateStep = await updateInterviewTemplateStepUseCase.execute({
             id: req.params.id,
             name: req.body.name
         });
+        res.json(interviewTemplateStep);
+    });
+});
+
+interviewTemplateStepRouter.delete('/:id', auth, async (req, res, next) => {
+    await tryExecute(next, async () => {
+        const interviewTemplateStep = await deleteInterviewTemplateStepUseCase.execute(req.params.id);
         res.json(interviewTemplateStep);
     });
 });

@@ -29,18 +29,15 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         }
     }
 
-    async getByCompany(id: string): Promise<InterviewTemplate[]> {
-        return await interviewTemplateRepository.findBy({company: {id: id}});
+    async isExists(name: string, companyId: string): Promise<boolean> {
+        return !!await interviewTemplateRepository.findOneBy({
+            company: {id: companyId},
+            name: name
+        });
     }
 
-    async delete(id: string): Promise<void> {
-        const interviewTemplate = await interviewTemplateRepository.findOneBy({id: id});
-
-        if (interviewTemplate == null) {
-            throw new NotFoundException("InterviewTemplate is not found!")
-        }
-
-        await interviewTemplateRepository.delete(id);
+    async getByCompany(id: string): Promise<InterviewTemplate[]> {
+        return await interviewTemplateRepository.findBy({company: {id: id}});
     }
 
     async update(data: InterviewTemplate): Promise<InterviewTemplate> {
@@ -59,11 +56,14 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         }
     }
 
-    async isExists(name: string, companyId: string): Promise<boolean> {
-        return !!await interviewTemplateRepository.findOneBy({
-            company: {id: companyId},
-            name: name
-        });
+    async delete(id: string): Promise<void> {
+        const interviewTemplate = await interviewTemplateRepository.findOneBy({id: id});
+
+        if (interviewTemplate == null) {
+            throw new NotFoundException("InterviewTemplate is not found!")
+        }
+
+        await interviewTemplateRepository.delete(id);
     }
 
 }

@@ -21,7 +21,6 @@ interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplat
             name: req.body.name,
             companyId: req.user.companyId,
         });
-
         return res.send(interviewTemplate);
     });
 });
@@ -33,19 +32,19 @@ interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplate
     });
 });
 
-interviewTemplateRouter.delete('/:id', auth, async (req, res, next) => {
-    await tryExecute(next, async () => {
-        const interviewTemplate = await deleteInterviewTemplateUseCase.execute(req.params.id);
-        res.json(interviewTemplate);
-    });
-});
-
 interviewTemplateRouter.put('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplate = await updateInterviewTemplateUseCase.execute({
             id: req.params.id,
             name: req.body.name
         });
+        res.json(interviewTemplate);
+    });
+});
+
+interviewTemplateRouter.delete('/:id', auth, async (req, res, next) => {
+    await tryExecute(next, async () => {
+        const interviewTemplate = await deleteInterviewTemplateUseCase.execute(req.params.id);
         res.json(interviewTemplate);
     });
 });

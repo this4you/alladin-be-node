@@ -4,10 +4,10 @@ import {InterviewTemplateStepRepository} from "../port/InterviewTemplateStepRepo
 
 export class DeleteInterviewTemplateStepUseCase implements CommandUseCase<string, Promise<void>> {
     constructor(
-        private interviewTemplateStepRepository: InterviewTemplateStepRepository
-    ) {
-    }
+        private repository: InterviewTemplateStepRepository
+    ) {}
+
     async execute(id: string): Promise<void> {
-        await this.interviewTemplateStepRepository.delete(id)
+        await this.repository.delete(id)
     }
 }
