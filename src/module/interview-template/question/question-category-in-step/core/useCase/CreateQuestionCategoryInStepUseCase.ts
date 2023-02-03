@@ -1,6 +1,7 @@
-import {ValidateCommandUseCase} from "../../../../../../lib/model/ValidateCommandUseCase";
-import {Validator} from "../../../../../../lib/model/Validator";
-import {UniqueException} from "../../../../../../lib/model/app-exception/UniqueException";
+import {Validator} from "@lib/model/Validator";
+import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
+import {UniqueException} from "@lib/model/app-exception/UniqueException";
+
 import {QuestionCategoryInStep} from "../model/QuestionCategoryInStep";
 import {CreateQuestionCategoryInStep} from "../model/CreateQuestionCategoryInStep";
 import {QuestionCategoryInStepRepository} from "../port/QuestionCategoryInStepRepository";

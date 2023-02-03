@@ -1,5 +1,15 @@
 {
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
   "compilerOptions": {
+    "baseUrl": ".", // setting a value for baseUrl is required
+    "moduleResolution": "node", // was not set before, but is the default
+     "paths": {
+       "@db/*": ["src/db/*"],
+       "@infrastructure/*": ["src/infrastructure/*"],
+       "@lib/*": ["src/lib/*"],
+     },
     "plugins": [
       {
         "transform": "ts-auto-mock/transformer",
@@ -9,18 +19,19 @@
     "strictPropertyInitialization": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2022",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "module": "commonjs",                                /* Specify what module code is generated. */
-    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+    "target": "es2022" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "commonjs" /* Specify what module code is generated. */,
+    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
     "rootDir": "./",
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS module. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS module. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "resolveJsonModule": true,
     "typeRoots": ["./types", "node_modules/@types"],
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "strict": true /* Enable all strict type-checking options. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": [
+    "src/**/*",
     "test/**/*"
   ]
 }

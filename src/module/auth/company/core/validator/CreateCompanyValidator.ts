@@ -1,6 +1,7 @@
-import { Validator } from '../../../../../lib/model/Validator';
+import { Validator } from '@lib/model/Validator';
+import { ValidatorUtils } from '@lib/utils/ValidatorUtils';
+
 import { CreateCompany } from '../model/CreateCompany';
-import { ValidatorUtils } from '../../../../../lib/utils/ValidatorUtils';
 
 export class CreateCompanyValidator implements Validator<CreateCompany> {
     constructor(

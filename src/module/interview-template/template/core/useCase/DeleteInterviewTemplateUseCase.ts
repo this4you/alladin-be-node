@@ -1,4 +1,5 @@
-import {CommandUseCase} from "../../../../../lib/model/CommandUseCase";
+import {CommandUseCase} from "@lib/model/CommandUseCase";
+
 import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
 
 export class DeleteInterviewTemplateUseCase implements CommandUseCase<string, Promise<void>> {

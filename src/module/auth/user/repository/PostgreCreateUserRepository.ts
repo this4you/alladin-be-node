@@ -1,9 +1,10 @@
+import { NotFoundException } from '@lib/model/app-exception/NotFoundException';
+import userRepository from '@db/postgre/repositories/userRepository';
+import companyRepository from '@db/postgre/repositories/companyRepository';
+
 import { CreateUserRepository } from '../core/port/CreateUserRepository';
 import { User } from '../core/model/User';
 import { CreateUser } from '../core/model/CreateUser';
-import userRepository from '../../../../db/postgre/repositories/userRepository';
-import companyRepository from '../../../../db/postgre/repositories/companyRepository';
-import { NotFoundException } from '../../../../lib/model/app-exception/NotFoundException';
 
 export class PostgreCreateUserRepository implements CreateUserRepository {
     async createUser(user: CreateUser): Promise<Omit<User, 'password'>> {

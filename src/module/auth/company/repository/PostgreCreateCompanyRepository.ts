@@ -1,8 +1,9 @@
+import userRepository from '@db/postgre/repositories/userRepository';
+import companyRepository from '@db/postgre/repositories/companyRepository';
+
 import { CompanyRepository } from '../core/port/CompanyRepository';
 import { Company } from '../core/model/Company';
 import { CreateCompany } from '../core/model/CreateCompany';
-import companyRepository from '../../../../db/postgre/repositories/companyRepository';
-import userRepository from '../../../../db/postgre/repositories/userRepository';
 
 export class PostgreCreateCompanyRepository implements CompanyRepository {
     async createCompany(company: CreateCompany): Promise<Company> {

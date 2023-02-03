@@ -1,11 +1,12 @@
-import { ValidateCommandUseCase } from '../../../../../lib/model/ValidateCommandUseCase';
-import { CreateCompany } from '../model/CreateCompany';
+import { UserRole } from '@lib/model/UserRole';
+import { Validator } from '@lib/model/Validator';
+import { UniqueException } from '@lib/model/app-exception/UniqueException';
+import { ValidateCommandUseCase } from '@lib/model/ValidateCommandUseCase';
+
 import { CreateUserUseCase } from '../../../user/core/useCase/CreateUserUseCase';
-import { UserRole } from '../../../../../lib/model/UserRole';
+import { CreateCompany } from '../model/CreateCompany';
 import { CompanyRepository } from '../port/CompanyRepository';
-import { Validator } from '../../../../../lib/model/Validator';
 import { Company } from '../model/Company';
-import { UniqueException } from '../../../../../lib/model/app-exception/UniqueException';
 
 export class CreateCompanyUseCase extends ValidateCommandUseCase<CreateCompany, Promise<Company>> {
     constructor(

@@ -1,8 +1,9 @@
-import { ValidateCommandUseCase } from '../../../../../lib/model/ValidateCommandUseCase';
+import { Validator } from '@lib/model/Validator';
+import { ValidateCommandUseCase } from '@lib/model/ValidateCommandUseCase';
+import { NotFoundException } from '@lib/model/app-exception/NotFoundException';
+import { ValidationException } from '@lib/model/app-exception/ValidationException';
+
 import { AuthUser } from '../model/AuthUser';
-import { Validator } from '../../../../../lib/model/Validator';
-import { NotFoundException } from '../../../../../lib/model/app-exception/NotFoundException';
-import { ValidationException } from '../../../../../lib/model/app-exception/ValidationException';
 import { PasswordValidator } from '../port/PasswordValidator';
 import { UserRepository } from '../port/UserRepository';
 import { TokenGenerator } from '../port/TokenGenerator';
@@ -33,4 +34,5 @@ export class AuthUseCase extends ValidateCommandUseCase<AuthUser, Promise<Token>
 
         return this.tokenGenerator.generate(user);
     }
+
 }

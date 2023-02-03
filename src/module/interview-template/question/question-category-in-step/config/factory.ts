@@ -1,4 +1,5 @@
-import {ValidatorUtils} from "../../../../../lib/utils/ValidatorUtils";
+import {ValidatorUtils} from "@lib/utils/ValidatorUtils";
+
 import {PostgresQuestionCategoryInStepRepository} from "../repository/PostgresQuestionCategoryInStepRepository";
 import {CreateQuestionCategoryInStepUseCase} from "../core/useCase/CreateQuestionCategoryInStepUseCase";
 import {CreateQuestionCategoryInStepValidator} from "../core/validator/CreateQuestionCategoryInStepValidator";

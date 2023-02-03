@@ -1,6 +1,7 @@
-import { BaseException } from '../../lib/model/app-exception/BaseException';
 import { NextFunction, Request, Response } from 'express';
-import { ValidationException } from '../../lib/model/app-exception/ValidationException';
+
+import { BaseException } from '@lib/model/app-exception/BaseException';
+import { ValidationException } from '@lib/model/app-exception/ValidationException';
 
 export const errorHandler = (err: BaseException, req: Request, res: Response, next: NextFunction) => {
     let responseError;

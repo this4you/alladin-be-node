@@ -1,6 +1,8 @@
 import {Request, Router} from "express";
-import {auth} from "../../../../infrastructure/middleware/auth";
-import {tryExecute} from "../../../../infrastructure/utils/tryExecute";
+
+import {auth} from "@infrastructure/middleware/auth";
+import {tryExecute} from "@infrastructure/utils/tryExecute";
+
 import {getQuestionCategoryContext} from "./config/factory";
 import {QuestionCategory} from "./core/model/QuestionCategory";
 

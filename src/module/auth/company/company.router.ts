@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { Request } from 'express';
-import { CreateCompany } from './core/model/CreateCompany';
+import { Router, Request } from 'express';
+
 import { getCompanyContext } from './config/factory';
+import { CreateCompany } from './core/model/CreateCompany';
 import { Company } from './core/model/Company';
 
 const companyRouter = Router();

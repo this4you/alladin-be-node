@@ -4,8 +4,9 @@ import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger-output.json';
-import { connectToDb } from './db/postgre';
-import { errorHandler } from './infrastructure/middleware/errorHandler';
+
+import { connectToDb } from '@db/postgre';
+import { errorHandler } from '@infrastructure/middleware/errorHandler';
 
 import userRouter from './module/auth/user/user.router';
 import companyRouter from './module/auth/company/company.router';

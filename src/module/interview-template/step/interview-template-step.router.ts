@@ -1,8 +1,9 @@
 import {Request, Router} from "express";
-import {getInterviewTemplateStepContext} from "./config/factory";
-import {auth} from "../../../infrastructure/middleware/auth";
-import {tryExecute} from "../../../infrastructure/utils/tryExecute";
 
+import {auth} from "@infrastructure/middleware/auth";
+import {tryExecute} from "@infrastructure/utils/tryExecute";
+
+import {getInterviewTemplateStepContext} from "./config/factory";
 import {InterviewTemplateStep} from "./core/model/InterviewTemplateStep";
 import {CreateInterviewTemplateStep} from "./core/model/CreateInterviewTemplateStep";
 

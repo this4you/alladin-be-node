@@ -1,10 +1,11 @@
+import { Validator } from '@lib/model/Validator';
+import { ValidateCommandUseCase } from '@lib/model/ValidateCommandUseCase';
+import { UniqueException } from '@lib/model/app-exception/UniqueException';
+
 import { User } from '../model/User';
 import { CreateUser } from '../model/CreateUser';
-import { ValidateCommandUseCase } from '../../../../../lib/model/ValidateCommandUseCase';
 import { CreateUserRepository } from '../port/CreateUserRepository';
 import { PasswordHashing } from '../port/PasswordHashing';
-import { Validator } from '../../../../../lib/model/Validator';
-import { UniqueException } from '../../../../../lib/model/app-exception/UniqueException';
 
 export class CreateUserUseCase extends ValidateCommandUseCase<CreateUser, Promise<Omit<User, 'password'>>> {
     constructor(

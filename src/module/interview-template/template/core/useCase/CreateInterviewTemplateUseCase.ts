@@ -1,8 +1,9 @@
-import {ValidateCommandUseCase} from "../../../../../lib/model/ValidateCommandUseCase";
+import {Validator} from "@lib/model/Validator";
+import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
+import {UniqueException} from "@lib/model/app-exception/UniqueException";
+
 import {CreateInterviewTemplate} from "../model/CreateInterviewTemplate";
 import {InterviewTemplate} from "../model/InterviewTemplate";
-import {Validator} from "../../../../../lib/model/Validator";
-import {UniqueException} from "../../../../../lib/model/app-exception/UniqueException";
 import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
 
 export class CreateInterviewTemplateUseCase extends ValidateCommandUseCase<CreateInterviewTemplate, Promise<InterviewTemplate>> {

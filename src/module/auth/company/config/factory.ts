@@ -1,8 +1,9 @@
+import { ValidatorUtils } from '@lib/utils/ValidatorUtils';
+
 import { CreateCompanyUseCase } from '../core/useCase/CreateCompanyUseCase';
-import { getUserContext } from '../../user/config/factory';
-import { ValidatorUtils } from '../../../../lib/utils/ValidatorUtils';
 import { CreateCompanyValidator } from '../core/validator/CreateCompanyValidator';
 import { PostgreCreateCompanyRepository } from '../repository/PostgreCreateCompanyRepository';
+import { getUserContext } from '../../user/config/factory';
 
 export const getCompanyContext = () => {
     const { createUserUseCase } = getUserContext();

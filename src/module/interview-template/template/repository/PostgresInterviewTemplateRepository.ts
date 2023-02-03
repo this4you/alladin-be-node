@@ -1,10 +1,10 @@
+import {NotFoundException} from "@lib/model/app-exception/NotFoundException";
+import companyRepository from "@db/postgre/repositories/companyRepository";
+import interviewTemplateRepository from "@db/postgre/repositories/interviewTemplateRepository";
+
 import {InterviewTemplateRepository} from "../core/port/InterviewTemplateRepository";
 import {InterviewTemplate} from "../core/model/InterviewTemplate";
 import {CreateInterviewTemplate} from "../core/model/CreateInterviewTemplate";
-
-import {NotFoundException} from "../../../../lib/model/app-exception/NotFoundException";
-import companyRepository from "../../../../db/postgre/repositories/companyRepository";
-import interviewTemplateRepository from "../../../../db/postgre/repositories/interviewTemplateRepository";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
