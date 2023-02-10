@@ -16,17 +16,16 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
             throw new NotFoundException("InterviewTemplate is not found!")
         }
 
-        const interviewTemplateStepEntity = interviewTemplateStepRepository.create({
+        const step = interviewTemplateStepRepository.create({
             name: data.name,
             interviewTemplate: interviewTemplate,
         });
 
-        await interviewTemplateStepRepository.save(interviewTemplateStepEntity);
-        console.log('INTERVIEW-TEMPLATE WAS CREATED', interviewTemplateStepEntity);
+        await interviewTemplateStepRepository.save(step);
 
         return {
-            id: interviewTemplateStepEntity.id,
-            name: interviewTemplateStepEntity.name,
+            id: step.id,
+            name: step.name,
         }
 
     }

@@ -23,7 +23,6 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         });
 
         await interviewTemplateRepository.save(interviewTemplate);
-        console.log('INTERVIEW-TEMPLATE WAS CREATED', interviewTemplate);
 
         return {
             id: interviewTemplate.id,
