@@ -4,10 +4,10 @@ import {auth} from "@infrastructure/middleware/auth";
 import {tryExecute} from "@infrastructure/utils/tryExecute";
 
 import {getInterviewTemplateStepContext} from "./config/factory";
-import {InterviewTemplateStep} from "./core/model/InterviewTemplateStep";
-import {CreateInterviewTemplateStep} from "./core/model/CreateInterviewTemplateStep";
+import {Step} from "./core/model/Step";
+import {CreateStep} from "./core/model/CreateStep";
 
-const interviewTemplateStepRouter = Router();
+const stepRouter = Router();
 const {
     createInterviewTemplateStepUseCase,
     getInterviewTemplateStepByInterviewTemplateUseCase,
@@ -15,7 +15,7 @@ const {
     deleteInterviewTemplateStepUseCase,
 } = getInterviewTemplateStepContext();
 
-interviewTemplateStepRouter.post('/', auth, async (req: Request<{}, InterviewTemplateStep, CreateInterviewTemplateStep>, res, next) => {
+stepRouter.post('/', auth, async (req: Request<{}, Step, CreateStep>, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplateStep = await createInterviewTemplateStepUseCase.execute({
             name: req.body.name,
@@ -25,7 +25,7 @@ interviewTemplateStepRouter.post('/', auth, async (req: Request<{}, InterviewTem
     });
 });
 
-interviewTemplateStepRouter.get('/', auth, async (req, res, next) => {
+stepRouter.get('/', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplate = req.query.interviewTemplate && req.query.interviewTemplate.toString() || '';
         const stepsOfInterviewTemplate = await getInterviewTemplateStepByInterviewTemplateUseCase.execute(interviewTemplate);
@@ -33,7 +33,7 @@ interviewTemplateStepRouter.get('/', auth, async (req, res, next) => {
     });
 });
 
-interviewTemplateStepRouter.put('/:id', auth, async (req, res, next) => {
+stepRouter.put('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplateStep = await updateInterviewTemplateStepUseCase.execute({
             id: req.params.id,
@@ -44,11 +44,11 @@ interviewTemplateStepRouter.put('/:id', auth, async (req, res, next) => {
     });
 });
 
-interviewTemplateStepRouter.delete('/:id', auth, async (req, res, next) => {
+stepRouter.delete('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplateStep = await deleteInterviewTemplateStepUseCase.execute(req.params.id);
         res.json(interviewTemplateStep);
     });
 });
 
-export default interviewTemplateStepRouter;
+export default stepRouter;

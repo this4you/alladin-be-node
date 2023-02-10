@@ -2,14 +2,14 @@ import {NotFoundException} from "@lib/model/app-exception/NotFoundException";
 import interviewTemplateRepository from "@db/postgre/repositories/interviewTemplateRepository";
 import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
 
-import {InterviewTemplateStepRepository} from "../core/port/InterviewTemplateStepRepository";
-import {InterviewTemplateStep} from "../core/model/InterviewTemplateStep";
-import {CreateInterviewTemplateStep} from "../core/model/CreateInterviewTemplateStep";
+import {StepRepository} from "../core/port/StepRepository";
+import {Step} from "../core/model/Step";
+import {CreateStep} from "../core/model/CreateStep";
 import {InterviewTemplateStepEntity} from "@db/postgre/entities/InterviewTemplateStepEntity";
-import {UpdateInterviewTemplateStep} from "../core/model/UpdateInterviewTemplateStep";
+import {UpdateStep} from "../core/model/UpdateStep";
 
-export class PostgresInterviewTemplateStepRepository implements InterviewTemplateStepRepository {
-    async create(data: CreateInterviewTemplateStep): Promise<InterviewTemplateStep> {
+export class PostgresStepRepository implements StepRepository {
+    async create(data: CreateStep): Promise<Step> {
         const interviewTemplate = await interviewTemplateRepository.findOneBy({id: data.interviewTemplateId})
 
         if (interviewTemplate == null) {
@@ -37,13 +37,13 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
         });
     }
 
-    async getByInterviewTemplate(id: string): Promise<InterviewTemplateStep[]> {
+    async getByInterviewTemplate(id: string): Promise<Step[]> {
         return await interviewTemplateStepRepository.findBy({
             interviewTemplate: {id: id}
         });
     }
 
-    async update(data: UpdateInterviewTemplateStep): Promise<UpdateInterviewTemplateStep> {
+    async update(data: UpdateStep): Promise<UpdateStep> {
         const step = await interviewTemplateStepRepository.findOneBy({
             id: data.id
         });
@@ -52,7 +52,7 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
             await interviewTemplateStepRepository.save(step);
         }
         // if (step == null) {
-        //     throw new NotFoundException("Updatable InterviewTemplateStep is not found!")
+        //     throw new NotFoundException("Updatable Step is not found!")
         // }
         // await interviewTemplateStepRepository.update({id: data.id}, data)
 
@@ -67,7 +67,7 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
         const step = await interviewTemplateStepRepository.findOneBy({id: id});
 
         if (step == null) {
-            throw new NotFoundException("InterviewTemplateStep is not found!")
+            throw new NotFoundException("Step is not found!")
         }
 
         await interviewTemplateStepRepository.delete(id);

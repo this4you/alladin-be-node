@@ -11,7 +11,7 @@ import { errorHandler } from '@infrastructure/middleware/errorHandler';
 import userRouter from './module/auth/user/user.router';
 import companyRouter from './module/auth/company/company.router';
 import interviewTemplateRouter from "./module/interview-template/template/interview-template.router";
-import interviewTemplateStepRouter from "./module/interview-template/step/interview-template-step.router";
+import stepRouter from "./module/interview-template/step/step.router";
 import questionCategoryRouter from "./module/interview-template/question/question-category/question-category.router";
 import questionCategoryInStepRouter from "./module/interview-template/question/question-category-in-step/question-category-in-step.router";
 
@@ -32,7 +32,7 @@ const settingExpressApp = (): Express => {
     app.use('/company', companyRouter);
     app.use('/user', userRouter);
     app.use('/interview-template', interviewTemplateRouter);
-    app.use('/step', interviewTemplateStepRouter);
+    app.use('/step', stepRouter);
     app.use('/question-category', questionCategoryRouter)
     app.use('/question-category-in-step', questionCategoryInStepRouter)
 
