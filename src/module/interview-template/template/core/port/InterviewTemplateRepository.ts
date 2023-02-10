@@ -1,5 +1,6 @@
 import {CreateInterviewTemplate} from "../model/CreateInterviewTemplate";
 import {InterviewTemplate} from "../model/InterviewTemplate";
+import {UpdateInterviewTemplate} from "../model/UpdateInterviewTemplate";
 
 export interface InterviewTemplateRepository {
     create(data: CreateInterviewTemplate): Promise<InterviewTemplate>
@@ -8,7 +9,7 @@ export interface InterviewTemplateRepository {
 
     getByCompany(id: string): Promise<InterviewTemplate[]>
 
-    update(data: InterviewTemplate): Promise<InterviewTemplate>
+    update(data: UpdateInterviewTemplate): Promise<UpdateInterviewTemplate>
 
     delete(id: string): Promise<void>
 }

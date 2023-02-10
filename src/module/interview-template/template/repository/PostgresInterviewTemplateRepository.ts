@@ -1,10 +1,12 @@
 import {NotFoundException} from "@lib/model/app-exception/NotFoundException";
 import companyRepository from "@db/postgre/repositories/companyRepository";
 import interviewTemplateRepository from "@db/postgre/repositories/interviewTemplateRepository";
+import {InterviewTemplateEntity} from "@db/postgre/entities/InterviewTemplateEntity";
 
 import {InterviewTemplateRepository} from "../core/port/InterviewTemplateRepository";
 import {InterviewTemplate} from "../core/model/InterviewTemplate";
 import {CreateInterviewTemplate} from "../core/model/CreateInterviewTemplate";
+import {UpdateInterviewTemplate} from "../core/model/UpdateInterviewTemplate";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
@@ -40,20 +42,28 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         return await interviewTemplateRepository.findBy({company: {id: id}});
     }
 
-    async update(data: InterviewTemplate): Promise<InterviewTemplate> {
-        const updatableInterviewTemplate = await interviewTemplateRepository.findOneBy({id: data.id});
+    async update(data: UpdateInterviewTemplate): Promise<UpdateInterviewTemplate> {
+        const interviewTemplate = await interviewTemplateRepository.findOneBy({id: data.id});
 
-        if (updatableInterviewTemplate == null) {
-            throw new NotFoundException("Updatable InterviewTemplate is not found!")
+        if (interviewTemplate instanceof InterviewTemplateEntity) {
+            await interviewTemplateRepository.merge(interviewTemplate, {
+                name: data.name
+            });
+            await interviewTemplateRepository.save(interviewTemplate);
         }
 
-        const updatedInterviewTemplate = await interviewTemplateRepository.save(
-            Object.assign(updatableInterviewTemplate, data)
-        );
+        // if (updatableInterviewTemplate == null) {
+        //     throw new NotFoundException("Updatable InterviewTemplate is not found!")
+        // }
+        //
+        // const updatedInterviewTemplate = await interviewTemplateRepository.save(
+        //     Object.assign(updatableInterviewTemplate, data)
+        // );
 
         return {
-            id: updatedInterviewTemplate.id,
-            name: updatedInterviewTemplate.name,
+            id: data.id,
+            name: data.name,
+            companyId: data.companyId
         }
     }
 

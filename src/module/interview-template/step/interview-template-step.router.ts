@@ -21,7 +21,7 @@ interviewTemplateStepRouter.post('/', auth, async (req: Request<{}, InterviewTem
             name: req.body.name,
             interviewTemplateId: req.body.interviewTemplateId,
         });
-        return res.send(interviewTemplateStep);
+        res.json(interviewTemplateStep);
     });
 });
 
@@ -37,7 +37,8 @@ interviewTemplateStepRouter.put('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplateStep = await updateInterviewTemplateStepUseCase.execute({
             id: req.params.id,
-            name: req.body.name
+            name: req.body.name,
+            interviewTemplateId: req.body.interviewTemplateId
         });
         res.json(interviewTemplateStep);
     });

@@ -21,7 +21,7 @@ interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplat
             name: req.body.name,
             companyId: req.user.companyId,
         });
-        return res.send(interviewTemplate);
+        res.json(interviewTemplate);
     });
 });
 
@@ -36,7 +36,8 @@ interviewTemplateRouter.put('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplate = await updateInterviewTemplateUseCase.execute({
             id: req.params.id,
-            name: req.body.name
+            name: req.body.name,
+            companyId: req.user.companyId
         });
         res.json(interviewTemplate);
     });

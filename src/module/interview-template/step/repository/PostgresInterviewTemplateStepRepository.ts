@@ -5,6 +5,8 @@ import interviewTemplateStepRepository from "@db/postgre/repositories/interviewT
 import {InterviewTemplateStepRepository} from "../core/port/InterviewTemplateStepRepository";
 import {InterviewTemplateStep} from "../core/model/InterviewTemplateStep";
 import {CreateInterviewTemplateStep} from "../core/model/CreateInterviewTemplateStep";
+import {InterviewTemplateStepEntity} from "@db/postgre/entities/InterviewTemplateStepEntity";
+import {UpdateInterviewTemplateStep} from "../core/model/UpdateInterviewTemplateStep";
 
 export class PostgresInterviewTemplateStepRepository implements InterviewTemplateStepRepository {
     async create(data: CreateInterviewTemplateStep): Promise<InterviewTemplateStep> {
@@ -42,27 +44,30 @@ export class PostgresInterviewTemplateStepRepository implements InterviewTemplat
         });
     }
 
-    async update(data: InterviewTemplateStep): Promise<InterviewTemplateStep> {
-        const interviewTemplateStep = await interviewTemplateStepRepository.findOneBy({id: data.id});
-
-        if (interviewTemplateStep == null) {
-            throw new NotFoundException("Updatable InterviewTemplateStep is not found!")
+    async update(data: UpdateInterviewTemplateStep): Promise<UpdateInterviewTemplateStep> {
+        const step = await interviewTemplateStepRepository.findOneBy({
+            id: data.id
+        });
+        if (step instanceof InterviewTemplateStepEntity) {
+            await interviewTemplateStepRepository.merge(step, data);
+            await interviewTemplateStepRepository.save(step);
         }
-
-        const updatedInterviewTemplateStep = await interviewTemplateStepRepository.save(
-            Object.assign(interviewTemplateStep, data)
-        );
+        // if (step == null) {
+        //     throw new NotFoundException("Updatable InterviewTemplateStep is not found!")
+        // }
+        // await interviewTemplateStepRepository.update({id: data.id}, data)
 
         return {
-            id: updatedInterviewTemplateStep.id,
-            name: updatedInterviewTemplateStep.name
+            id: data.id,
+            name: data.name,
+            interviewTemplateId: data.interviewTemplateId
         };
     }
 
     async delete(id: string): Promise<void> {
-        const interviewTemplateStep = await interviewTemplateStepRepository.findOneBy({id: id});
+        const step = await interviewTemplateStepRepository.findOneBy({id: id});
 
-        if (interviewTemplateStep == null) {
+        if (step == null) {
             throw new NotFoundException("InterviewTemplateStep is not found!")
         }
 
