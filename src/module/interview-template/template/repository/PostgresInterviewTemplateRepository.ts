@@ -47,12 +47,13 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
             throw new NotFoundException("Updatable InterviewTemplate is not found!")
         }
 
-        updatableInterviewTemplate.name = data.name;
-        const updatedInterviewTemplate = await interviewTemplateRepository.save(updatableInterviewTemplate);
+        const updatedInterviewTemplate = await interviewTemplateRepository.save(
+            Object.assign(updatableInterviewTemplate, data)
+        );
 
         return {
             id: updatedInterviewTemplate.id,
-            name: updatableInterviewTemplate.name
+            name: updatedInterviewTemplate.name,
         }
     }
 

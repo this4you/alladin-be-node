@@ -1,6 +1,6 @@
 import {CommandUseCase} from "@lib/model/CommandUseCase";
 
-import {InterviewTemplate} from "../model/InterviewTemplate";
+import {InterviewTemplate} from "src/module/interview-template/template/core/model/InterviewTemplate";
 import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
 
 export class UpdateInterviewTemplateUseCase implements CommandUseCase<InterviewTemplate> {
