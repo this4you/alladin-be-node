@@ -5,7 +5,6 @@ import interviewTemplateStepRepository from "@db/postgre/repositories/interviewT
 import {StepRepository} from "../core/port/StepRepository";
 import {Step} from "../core/model/Step";
 import {CreateStep} from "../core/model/CreateStep";
-import {InterviewTemplateStepEntity} from "@db/postgre/entities/InterviewTemplateStepEntity";
 import {UpdateStep} from "../core/model/UpdateStep";
 
 export class PostgresStepRepository implements StepRepository {
@@ -47,14 +46,11 @@ export class PostgresStepRepository implements StepRepository {
         const step = await interviewTemplateStepRepository.findOneBy({
             id: data.id
         });
-        if (step instanceof InterviewTemplateStepEntity) {
-            await interviewTemplateStepRepository.merge(step, data);
-            await interviewTemplateStepRepository.save(step);
+
+        if (step == null) {
+            throw new NotFoundException("Updatable Step is not found!")
         }
-        // if (step == null) {
-        //     throw new NotFoundException("Updatable Step is not found!")
-        // }
-        // await interviewTemplateStepRepository.update({id: data.id}, data)
+        await interviewTemplateStepRepository.update({id: data.id}, data)
 
         return {
             id: data.id,

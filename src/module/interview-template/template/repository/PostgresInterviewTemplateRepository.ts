@@ -1,12 +1,12 @@
 import {NotFoundException} from "@lib/model/app-exception/NotFoundException";
 import companyRepository from "@db/postgre/repositories/companyRepository";
 import interviewTemplateRepository from "@db/postgre/repositories/interviewTemplateRepository";
-import {InterviewTemplateEntity} from "@db/postgre/entities/InterviewTemplateEntity";
 
 import {InterviewTemplateRepository} from "../core/port/InterviewTemplateRepository";
 import {InterviewTemplate} from "../core/model/InterviewTemplate";
 import {CreateInterviewTemplate} from "../core/model/CreateInterviewTemplate";
 import {UpdateInterviewTemplate} from "../core/model/UpdateInterviewTemplate";
+import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
@@ -44,20 +44,11 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
     async update(data: UpdateInterviewTemplate): Promise<UpdateInterviewTemplate> {
         const interviewTemplate = await interviewTemplateRepository.findOneBy({id: data.id});
 
-        if (interviewTemplate instanceof InterviewTemplateEntity) {
-            await interviewTemplateRepository.merge(interviewTemplate, {
-                name: data.name
-            });
-            await interviewTemplateRepository.save(interviewTemplate);
+        if (interviewTemplate == null) {
+            throw new NotFoundException("Updatable InterviewTemplate is not found!")
         }
 
-        // if (updatableInterviewTemplate == null) {
-        //     throw new NotFoundException("Updatable InterviewTemplate is not found!")
-        // }
-        //
-        // const updatedInterviewTemplate = await interviewTemplateRepository.save(
-        //     Object.assign(updatableInterviewTemplate, data)
-        // );
+        await interviewTemplateStepRepository.update({id: data.id}, data);
 
         return {
             id: data.id,

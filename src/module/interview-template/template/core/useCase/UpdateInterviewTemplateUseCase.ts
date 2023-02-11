@@ -1,11 +1,10 @@
-import {CommandUseCase} from "@lib/model/CommandUseCase";
-
-import {InterviewTemplate} from "src/module/interview-template/template/core/model/InterviewTemplate";
-import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
 import {UniqueException} from "@lib/model/app-exception/UniqueException";
-import {UpdateInterviewTemplate} from "../model/UpdateInterviewTemplate";
 import {Validator} from "@lib/model/Validator";
 import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
+
+import {InterviewTemplate} from "../model/InterviewTemplate";
+import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
+import {UpdateInterviewTemplate} from "../model/UpdateInterviewTemplate";
 
 export class UpdateInterviewTemplateUseCase extends ValidateCommandUseCase<UpdateInterviewTemplate, Promise<InterviewTemplate>> {
     constructor(
