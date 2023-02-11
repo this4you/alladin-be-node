@@ -5,6 +5,8 @@ import interviewTemplateRepository from "@db/postgre/repositories/interviewTempl
 import {InterviewTemplateRepository} from "../core/port/InterviewTemplateRepository";
 import {InterviewTemplate} from "../core/model/InterviewTemplate";
 import {CreateInterviewTemplate} from "../core/model/CreateInterviewTemplate";
+import {UpdateInterviewTemplate} from "../core/model/UpdateInterviewTemplate";
+import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
@@ -21,7 +23,6 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         });
 
         await interviewTemplateRepository.save(interviewTemplate);
-        console.log('INTERVIEW-TEMPLATE WAS CREATED', interviewTemplate);
 
         return {
             id: interviewTemplate.id,
@@ -40,19 +41,19 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
         return await interviewTemplateRepository.findBy({company: {id: id}});
     }
 
-    async update(data: InterviewTemplate): Promise<InterviewTemplate> {
-        const updatableInterviewTemplate = await interviewTemplateRepository.findOneBy({id: data.id});
+    async update(data: UpdateInterviewTemplate): Promise<UpdateInterviewTemplate> {
+        const interviewTemplate = await interviewTemplateRepository.findOneBy({id: data.id});
 
-        if (updatableInterviewTemplate == null) {
+        if (interviewTemplate == null) {
             throw new NotFoundException("Updatable InterviewTemplate is not found!")
         }
 
-        updatableInterviewTemplate.name = data.name;
-        const updatedInterviewTemplate = await interviewTemplateRepository.save(updatableInterviewTemplate);
+        await interviewTemplateStepRepository.update({id: data.id}, data);
 
         return {
-            id: updatedInterviewTemplate.id,
-            name: updatableInterviewTemplate.name
+            id: data.id,
+            name: data.name,
+            companyId: data.companyId
         }
     }
 

@@ -1,6 +1,7 @@
 import { Router, Request } from 'express';
 
-import { tryExecute } from "../../../infrastructure/utils/tryExecute";
+import { tryExecute } from "@infrastructure/utils/tryExecute";
+
 import { getCompanyContext } from './config/factory';
 import { CreateCompany } from './core/model/CreateCompany';
 import { Company } from './core/model/Company';

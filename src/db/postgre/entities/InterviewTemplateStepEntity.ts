@@ -6,9 +6,12 @@ import {InterviewTemplateEntity} from "./InterviewTemplateEntity";
 @Entity({name: 'InterviewTemplateSteps'})
 export class InterviewTemplateStepEntity extends BaseEntity {
     @Column()
-    name: string
+    name: string;
 
     @ManyToOne(type => InterviewTemplateEntity)
     @JoinColumn()
     interviewTemplate: InterviewTemplateEntity;
+
+    @Column()
+    position: number;
 }

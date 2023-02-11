@@ -19,8 +19,7 @@ questionCategoryInStepRouter.post('/', auth, async (req: Request<{}, QuestionCat
            questionCategoryId: req.body.questionCategoryId,
            interviewTemplateStepId: req.body.interviewTemplateStepId
        });
-
-       return res.send(questionCategoryInStep)
+       res.json(questionCategoryInStep)
    });
 });
 
