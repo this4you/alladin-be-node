@@ -1,16 +1,20 @@
-import {CommandUseCase} from "@lib/model/CommandUseCase";
 
 import {Step} from "../model/Step";
 import {StepRepository} from "../port/StepRepository";
 import {UniqueException} from "@lib/model/app-exception/UniqueException";
 import {UpdateStep} from "../model/UpdateStep";
+import {Validator} from "@lib/model/Validator";
+import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
 
-export class UpdateStepUseCase implements CommandUseCase<Step> {
+export class UpdateStepUseCase extends ValidateCommandUseCase<UpdateStep, Promise<Step>> {
     constructor(
-        private repository: StepRepository
-    ) {}
+        private repository: StepRepository,
+        private validateUtils: Validator<UpdateStep>
+    ) {
+        super(validateUtils);
+    }
 
-    async execute(data: UpdateStep): Promise<UpdateStep> {
+    protected async validatedExecute(data: UpdateStep): Promise<Step> {
         const isInterviewTemplate = await this.repository.isExists(data.name, data.interviewTemplateId);
 
         if (isInterviewTemplate) {
@@ -19,4 +23,5 @@ export class UpdateStepUseCase implements CommandUseCase<Step> {
 
         return await this.repository.update(data);
     }
+
 }

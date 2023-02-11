@@ -4,13 +4,18 @@ import {InterviewTemplate} from "src/module/interview-template/template/core/mod
 import {InterviewTemplateRepository} from "../port/InterviewTemplateRepository";
 import {UniqueException} from "@lib/model/app-exception/UniqueException";
 import {UpdateInterviewTemplate} from "../model/UpdateInterviewTemplate";
+import {Validator} from "@lib/model/Validator";
+import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
 
-export class UpdateInterviewTemplateUseCase implements CommandUseCase<InterviewTemplate> {
+export class UpdateInterviewTemplateUseCase extends ValidateCommandUseCase<UpdateInterviewTemplate, Promise<InterviewTemplate>> {
     constructor(
-        private  repository: InterviewTemplateRepository
-    ) {}
+        private  repository: InterviewTemplateRepository,
+        private validateUtils: Validator<UpdateInterviewTemplate>
+    ) {
+        super(validateUtils);
+    }
 
-    async execute(data: UpdateInterviewTemplate): Promise<InterviewTemplate> {
+    protected async validatedExecute(data: UpdateInterviewTemplate): Promise<InterviewTemplate> {
         const isInterviewTemplate = await this.repository.isExists(data.name, data.companyId);
 
         if (isInterviewTemplate) {
@@ -19,4 +24,5 @@ export class UpdateInterviewTemplateUseCase implements CommandUseCase<InterviewT
 
         return await this.repository.update(data);
     }
+
 }

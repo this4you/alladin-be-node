@@ -1,6 +1,7 @@
 import {ValidatorUtils} from "@lib/utils/ValidatorUtils";
 
 import {CreateStepValidator} from "../core/validator/CreateStepValidator";
+import {UpdateStepValidator} from "src/module/interview-template/step/core/validator/UpdateStepValidator";
 import {PostgresStepRepository} from "../repository/PostgresStepRepository";
 import {CreateStepUseCase} from "../core/useCase/CreateStepUseCase";
 import {DeleteStepUseCase} from "../core/useCase/DeleteStepUseCase";
@@ -10,11 +11,12 @@ import {GetStepByInterviewTemplateUseCase} from "../core/useCase/GetStepByInterv
 export const getInterviewTemplateStepContext = () => {
     const interviewTemplateStepRepository = new PostgresStepRepository();
     const validationUtils = new ValidatorUtils();
-    const validator = new CreateStepValidator(validationUtils);
+    const createValidator = new CreateStepValidator(validationUtils);
+    const updateValidator = new UpdateStepValidator(validationUtils);
 
-    const createInterviewTemplateStepUseCase = new CreateStepUseCase(interviewTemplateStepRepository, validator);
+    const createInterviewTemplateStepUseCase = new CreateStepUseCase(interviewTemplateStepRepository, createValidator);
     const getInterviewTemplateStepByInterviewTemplateUseCase = new GetStepByInterviewTemplateUseCase(interviewTemplateStepRepository);
-    const updateInterviewTemplateStepUseCase = new UpdateStepUseCase(interviewTemplateStepRepository);
+    const updateInterviewTemplateStepUseCase = new UpdateStepUseCase(interviewTemplateStepRepository, updateValidator);
     const deleteInterviewTemplateStepUseCase = new DeleteStepUseCase(interviewTemplateStepRepository);
 
     return {
