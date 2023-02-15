@@ -8,6 +8,9 @@ export class InterviewTemplateStepEntity extends BaseEntity {
     @Column()
     name: string;
 
+    @Column()
+    interviewTemplateId: string;
+
     @ManyToOne(type => InterviewTemplateEntity)
     @JoinColumn()
     interviewTemplate: InterviewTemplateEntity;
