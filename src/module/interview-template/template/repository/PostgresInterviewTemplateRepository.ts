@@ -6,7 +6,6 @@ import {InterviewTemplateRepository} from "../core/port/InterviewTemplateReposit
 import {InterviewTemplate} from "../core/model/InterviewTemplate";
 import {CreateInterviewTemplate} from "../core/model/CreateInterviewTemplate";
 import {UpdateInterviewTemplate} from "../core/model/UpdateInterviewTemplate";
-import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
 
 export class PostgresInterviewTemplateRepository implements InterviewTemplateRepository {
 
@@ -48,7 +47,9 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
             throw new NotFoundException("Updatable InterviewTemplate is not found!")
         }
 
-        await interviewTemplateStepRepository.update({id: data.id}, data);
+        await interviewTemplateRepository.update({id: data.id}, {
+            name: data.name
+        });
 
         return {
             id: data.id,

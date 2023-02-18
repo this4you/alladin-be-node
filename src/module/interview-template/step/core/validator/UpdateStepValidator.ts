@@ -12,8 +12,6 @@ export class UpdateStepValidator implements Validator<UpdateStep> {
         this.validateUtils.validate('name', data.name)
             .required()
             .maxLength(20);
-        this.validateUtils.validate('interviewTemplateId', data.interviewTemplateId)
-            .required();
     }
 
 }

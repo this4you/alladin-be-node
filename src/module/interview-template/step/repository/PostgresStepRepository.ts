@@ -1,5 +1,4 @@
 import {NotFoundException} from "@lib/model/app-exception/NotFoundException";
-import interviewTemplateRepository from "@db/postgre/repositories/interviewTemplateRepository";
 import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
 
 import {StepRepository} from "../core/port/StepRepository";
@@ -9,15 +8,9 @@ import {UpdateStep} from "../core/model/UpdateStep";
 
 export class PostgresStepRepository implements StepRepository {
     async create(data: CreateStep): Promise<Step> {
-        const interviewTemplate = await interviewTemplateRepository.findOneBy({id: data.interviewTemplateId})
-
-        if (interviewTemplate == null) {
-            throw new NotFoundException("InterviewTemplate is not found!")
-        }
-
         const step = interviewTemplateStepRepository.create({
             name: data.name,
-            interviewTemplate: interviewTemplate,
+            interviewTemplateId: data.interviewTemplateId,
         });
 
         await interviewTemplateStepRepository.save(step);
@@ -25,8 +18,8 @@ export class PostgresStepRepository implements StepRepository {
         return {
             id: step.id,
             name: step.name,
+            interviewTemplateId: step.interviewTemplateId
         }
-
     }
 
     async isExists(name: string, interviewTemplateId: string): Promise<boolean> {
@@ -38,11 +31,11 @@ export class PostgresStepRepository implements StepRepository {
 
     async getByInterviewTemplate(id: string): Promise<Step[]> {
         return await interviewTemplateStepRepository.findBy({
-            interviewTemplate: {id: id}
+            interviewTemplateId: id
         });
     }
 
-    async update(data: UpdateStep): Promise<UpdateStep> {
+    async update(data: UpdateStep): Promise<Step> {
         const step = await interviewTemplateStepRepository.findOneBy({
             id: data.id
         });
