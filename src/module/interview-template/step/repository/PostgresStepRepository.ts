@@ -1,64 +1,70 @@
-import {NotFoundException} from "@lib/model/app-exception/NotFoundException";
-import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
+import {Between, MoreThan} from "typeorm";
 
-import {StepRepository} from "../core/port/StepRepository";
 import {Step} from "../core/model/Step";
+import {StepRepository} from "../core/port/StepRepository";
 import {CreateStep} from "../core/model/CreateStep";
 import {UpdateStep} from "../core/model/UpdateStep";
+import {PatchPosition} from "src/module/interview-template/step/core/model/PatchPosition";
+
+import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
 
 export class PostgresStepRepository implements StepRepository {
     async create(data: CreateStep): Promise<Step> {
+        const stepTableSize = await interviewTemplateStepRepository.countBy( {interviewTemplateId: data.interviewTemplateId});
         const step = interviewTemplateStepRepository.create({
             name: data.name,
             interviewTemplateId: data.interviewTemplateId,
+            position: stepTableSize+1
         });
-
         await interviewTemplateStepRepository.save(step);
 
-        return {
-            id: step.id,
-            name: step.name,
-            interviewTemplateId: step.interviewTemplateId
-        }
+        return {...step}
     }
 
     async isExists(name: string, interviewTemplateId: string): Promise<boolean> {
         return !!await interviewTemplateStepRepository.findOneBy( {
-            interviewTemplate: {id: interviewTemplateId},
+            interviewTemplateId: interviewTemplateId,
             name: name
         });
     }
 
-    async getByInterviewTemplate(id: string): Promise<Step[]> {
-        return await interviewTemplateStepRepository.findBy({
-            interviewTemplateId: id
-        });
+    async getByInterviewTemplate(interviewTemplateId: string): Promise<Step[]> {
+        return await interviewTemplateStepRepository.findBy({interviewTemplateId: interviewTemplateId});
     }
 
-    async update(data: UpdateStep): Promise<Step> {
-        const step = await interviewTemplateStepRepository.findOneBy({
-            id: data.id
-        });
+    async getStep(id: string): Promise<Step> {
+        return await interviewTemplateStepRepository.findOneOrFail({where:{id: id}});
+    }
 
-        if (step == null) {
-            throw new NotFoundException("Updatable Step is not found!")
-        }
+    async update(data: UpdateStep): Promise<UpdateStep> {
         await interviewTemplateStepRepository.update({id: data.id}, data)
 
-        return {
-            id: data.id,
-            name: data.name,
-            interviewTemplateId: data.interviewTemplateId
-        };
+        return {...data};
     }
 
-    async delete(id: string): Promise<void> {
-        const step = await interviewTemplateStepRepository.findOneBy({id: id});
+    async delete(data: Step): Promise<void> {
+        await interviewTemplateStepRepository.decrement({
+            interviewTemplateId: data.interviewTemplateId,
+            position: MoreThan(data.position),
+        }, "position", 1);
+        await interviewTemplateStepRepository.delete(data.id);
+    }
 
-        if (step == null) {
-            throw new NotFoundException("Step is not found!")
-        }
+    async pathPosition(patchData: PatchPosition, stepData: Step): Promise<void>{
+        if (stepData.position > patchData.position)
+            await interviewTemplateStepRepository.increment({
+                interviewTemplateId: stepData.interviewTemplateId,
+                position: Between(patchData.position, stepData.position),
+            }, "position", 1);
+        if (stepData.position < patchData.position)
+            await interviewTemplateStepRepository.decrement({
+                interviewTemplateId: stepData.interviewTemplateId,
+                position: Between(stepData.position, patchData.position),
+            }, "position", 1);
 
-        await interviewTemplateStepRepository.delete(id);
+        await interviewTemplateStepRepository.update(
+            {id: patchData.id},
+            {position: patchData.position}
+        )
     }
 }

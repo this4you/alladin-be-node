@@ -8,6 +8,8 @@ export class DeleteStepUseCase implements CommandUseCase<string, Promise<void>> 
     ) {}
 
     async execute(id: string): Promise<void> {
-        await this.repository.delete(id);
+        const step = await this.repository.getStep(id);
+
+        await this.repository.delete(step);
     }
 }
