@@ -1,4 +1,4 @@
-import {Between} from "typeorm";
+import {Between, MoreThan} from "typeorm";
 
 import {Step} from "../core/model/Step";
 import {StepRepository} from "../core/port/StepRepository";
@@ -32,36 +32,39 @@ export class PostgresStepRepository implements StepRepository {
         return await interviewTemplateStepRepository.findBy({interviewTemplateId: interviewTemplateId});
     }
 
+    async getStep(id: string): Promise<Step> {
+        return await interviewTemplateStepRepository.findOneOrFail({where:{id: id}});
+    }
+
     async update(data: UpdateStep): Promise<UpdateStep> {
         await interviewTemplateStepRepository.update({id: data.id}, data)
 
-        return {
-            id: data.id,
-            name: data.name,
-            interviewTemplateId: data.interviewTemplateId
-        };
+        return {...data};
     }
 
-    async delete(id: string): Promise<void> {
-        await interviewTemplateStepRepository.delete(id);
+    async delete(data: Step): Promise<void> {
+        await interviewTemplateStepRepository.decrement({
+            interviewTemplateId: data.interviewTemplateId,
+            position: MoreThan(data.position),
+        }, "position", 1);
+        await interviewTemplateStepRepository.delete(data.id);
     }
 
-    async pathPosition(data: PatchPosition): Promise<void>{
-        const operatedStep = await interviewTemplateStepRepository.findOneBy({id: data.id});
-        const oldPosition = operatedStep?.position;
+    async pathPosition(patchData: PatchPosition, stepData: Step): Promise<void>{
+        if (stepData.position > patchData.position)
+            await interviewTemplateStepRepository.increment({
+                interviewTemplateId: stepData.interviewTemplateId,
+                position: Between(patchData.position, stepData.position),
+            }, "position", 1);
+        if (stepData.position < patchData.position)
+            await interviewTemplateStepRepository.decrement({
+                interviewTemplateId: stepData.interviewTemplateId,
+                position: Between(stepData.position, patchData.position),
+            }, "position", 1);
 
-        if (oldPosition != undefined) {
-            if (oldPosition > data.position)
-                await interviewTemplateStepRepository.increment({
-                    interviewTemplateId: operatedStep?.interviewTemplateId,
-                    position: Between(data.position, oldPosition),
-                }, "position", 1);
-            if (oldPosition < data.position)
-                await interviewTemplateStepRepository.decrement({
-                    interviewTemplateId: operatedStep?.interviewTemplateId,
-                    position: Between(oldPosition, data.position),
-                }, "position", 1);
-        }
-        await interviewTemplateStepRepository.update({id: data.id}, {position: data.position})
+        await interviewTemplateStepRepository.update(
+            {id: patchData.id},
+            {position: patchData.position}
+        )
     }
 }

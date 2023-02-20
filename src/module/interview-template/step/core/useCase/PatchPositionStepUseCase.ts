@@ -8,7 +8,9 @@ export class PatchPositionStepUseCase implements CommandUseCase<PatchPosition, P
         private repository: StepRepository
     ) {}
     async execute(data: PatchPosition): Promise<void> {
-        return await this.repository.pathPosition(data);
+        const step = await this.repository.getStep(data.id);
+
+        return await this.repository.pathPosition(data, step);
     }
 
 }

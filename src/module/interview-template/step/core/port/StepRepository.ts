@@ -10,9 +10,11 @@ export interface StepRepository {
 
     getByInterviewTemplate(id: string): Promise<Step[]>
 
+    getStep(id: string): Promise<Step>
+
     update(data: UpdateStep): Promise<UpdateStep>
 
-    delete(id: string): Promise<void>
+    delete(data: Step): Promise<void>
 
-    pathPosition(data: PatchPosition): Promise<void>
+    pathPosition(patchData: PatchPosition, stepData: Step): Promise<void>
 }
