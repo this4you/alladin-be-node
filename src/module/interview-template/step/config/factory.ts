@@ -7,6 +7,7 @@ import {CreateStepUseCase} from "../core/useCase/CreateStepUseCase";
 import {DeleteStepUseCase} from "../core/useCase/DeleteStepUseCase";
 import {UpdateStepUseCase} from "../core/useCase/UpdateStepUseCase";
 import {GetStepByInterviewTemplateUseCase} from "../core/useCase/GetStepByInterviewTemplateUseCase";
+import {PatchPositionStepUseCase} from "src/module/interview-template/step/core/useCase/PatchPositionStepUseCase";
 
 export const getInterviewTemplateStepContext = () => {
     const interviewTemplateStepRepository = new PostgresStepRepository();
@@ -19,10 +20,13 @@ export const getInterviewTemplateStepContext = () => {
     const updateInterviewTemplateStepUseCase = new UpdateStepUseCase(interviewTemplateStepRepository, updateValidator);
     const deleteInterviewTemplateStepUseCase = new DeleteStepUseCase(interviewTemplateStepRepository);
 
+    const patchPositionStepUseCase = new PatchPositionStepUseCase(interviewTemplateStepRepository);
+
     return {
         createInterviewTemplateStepUseCase,
         getInterviewTemplateStepByInterviewTemplateUseCase,
         updateInterviewTemplateStepUseCase,
         deleteInterviewTemplateStepUseCase,
+        patchPositionStepUseCase
     }
 }

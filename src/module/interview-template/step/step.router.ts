@@ -13,6 +13,7 @@ const {
     getInterviewTemplateStepByInterviewTemplateUseCase,
     updateInterviewTemplateStepUseCase,
     deleteInterviewTemplateStepUseCase,
+    patchPositionStepUseCase
 } = getInterviewTemplateStepContext();
 
 stepRouter.post('/', auth, async (req: Request<{}, Step, CreateStep>, res, next) => {
@@ -47,6 +48,16 @@ stepRouter.put('/:id', auth, async (req, res, next) => {
 stepRouter.delete('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplateStep = await deleteInterviewTemplateStepUseCase.execute(req.params.id);
+        res.json(interviewTemplateStep);
+    });
+});
+
+stepRouter.patch('/:id', auth, async (req, res, next) => {
+    await tryExecute(next, async () => {
+        const interviewTemplateStep = await patchPositionStepUseCase.execute({
+            id: req.params.id,
+            position: req.body.position
+        });
         res.json(interviewTemplateStep);
     });
 });
