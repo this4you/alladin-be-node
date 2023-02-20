@@ -15,6 +15,6 @@ export class InterviewTemplateStepEntity extends BaseEntity {
     @JoinColumn()
     interviewTemplate: InterviewTemplateEntity;
 
-    @Column()
-    position: number;
+    @Column({ nullable: false })
+    interviewTemplateId: string;
 }
