@@ -2,9 +2,9 @@ import {Validator} from "@lib/model/Validator";
 import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
 import {UniqueException} from "@lib/model/app-exception/UniqueException";
 
-import {QuestionCategoryInStep} from "../model/QuestionCategoryInStep";
-import {CreateQuestionCategoryInStep} from "../model/CreateQuestionCategoryInStep";
-import {QuestionCategoryInStepRepository} from "../port/QuestionCategoryInStepRepository";
+import {QuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/QuestionCategoryInStep";
+import {CreateQuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/CreateQuestionCategoryInStep";
+import {QuestionCategoryInStepRepository} from "src/module/interview-template/question-category-in-step/core/port/QuestionCategoryInStepRepository";
 
 export class CreateQuestionCategoryInStepUseCase extends ValidateCommandUseCase<CreateQuestionCategoryInStep, Promise<QuestionCategoryInStep>> {
     constructor(

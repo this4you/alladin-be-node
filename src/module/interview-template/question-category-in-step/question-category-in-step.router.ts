@@ -3,8 +3,8 @@ import {Request, Router} from "express";
 import {auth} from "@infrastructure/middleware/auth";
 import {tryExecute} from "@infrastructure/utils/tryExecute";
 
-import {getQuestionCategoryInStepContext} from "./config/factory";
-import {QuestionCategoryInStep} from "./core/model/QuestionCategoryInStep";
+import {getQuestionCategoryInStepContext} from "src/module/interview-template/question-category-in-step/config/factory";
+import {QuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/QuestionCategoryInStep";
 
 const questionCategoryInStepRouter = Router();
 const {

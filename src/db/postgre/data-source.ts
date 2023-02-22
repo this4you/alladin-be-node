@@ -6,6 +6,7 @@ import {InterviewTemplateEntity} from "./entities/InterviewTemplateEntity";
 import {InterviewTemplateStepEntity} from "./entities/InterviewTemplateStepEntity";
 import {QuestionCategoryEntity} from "./entities/QuestionCategoryEntity";
 import {QuestionCategoryInStepEntity} from "./entities/QuestionCategoryInStepEntity";
+import {QuestionEntity} from "./entities/QuestionEntity";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -22,7 +23,8 @@ export const AppDataSource = new DataSource({
         InterviewTemplateEntity,
         InterviewTemplateStepEntity,
         QuestionCategoryEntity,
-        QuestionCategoryInStepEntity
+        QuestionCategoryInStepEntity,
+        QuestionEntity
     ],
     subscribers: [],
     migrations: [],

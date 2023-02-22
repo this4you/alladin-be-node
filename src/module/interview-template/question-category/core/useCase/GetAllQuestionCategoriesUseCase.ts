@@ -1,7 +1,7 @@
 import {CommandUseCase} from "@lib/model/CommandUseCase";
 
-import {QuestionCategory} from "../model/QuestionCategory";
-import {QuestionCategoryRepository} from "../port/QuestionCategoryRepository";
+import {QuestionCategory} from "src/module/interview-template/question-category/core/model/QuestionCategory";
+import {QuestionCategoryRepository} from "src/module/interview-template/question-category/core/port/QuestionCategoryRepository";
 
 export class GetAllQuestionCategoriesUseCase implements CommandUseCase<string, Promise<QuestionCategory[]>> {
     constructor(

@@ -1,7 +1,7 @@
 import {CommandUseCase} from "@lib/model/CommandUseCase";
 
-import {QuestionCategoryInStep} from "../model/QuestionCategoryInStep";
-import {QuestionCategoryInStepRepository} from "../port/QuestionCategoryInStepRepository";
+import {QuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/QuestionCategoryInStep";
+import {QuestionCategoryInStepRepository} from "src/module/interview-template/question-category-in-step/core/port/QuestionCategoryInStepRepository";
 
 export class GetQuestionCategoryInStepUseCase implements CommandUseCase<string, Promise<QuestionCategoryInStep[]>> {
     constructor(

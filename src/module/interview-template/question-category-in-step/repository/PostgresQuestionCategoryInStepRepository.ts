@@ -3,9 +3,9 @@ import interviewTemplateStepRepository from "@db/postgre/repositories/interviewT
 import questionCategoryRepository from "@db/postgre/repositories/questionCategoryRepository";
 import questionCategoryInStepRepository from "@db/postgre/repositories/questionCategoryInStepRepository";
 
-import {QuestionCategoryInStep} from "../core/model/QuestionCategoryInStep";
-import {QuestionCategoryInStepRepository} from "../core/port/QuestionCategoryInStepRepository";
-import {CreateQuestionCategoryInStep} from "../core/model/CreateQuestionCategoryInStep";
+import {QuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/QuestionCategoryInStep";
+import {QuestionCategoryInStepRepository} from "src/module/interview-template/question-category-in-step/core/port/QuestionCategoryInStepRepository";
+import {CreateQuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/CreateQuestionCategoryInStep";
 
 export class PostgresQuestionCategoryInStepRepository implements QuestionCategoryInStepRepository {
     async create(data: CreateQuestionCategoryInStep): Promise<QuestionCategoryInStep> {

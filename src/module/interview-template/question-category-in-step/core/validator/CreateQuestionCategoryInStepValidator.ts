@@ -1,7 +1,7 @@
 import {Validator} from "@lib/model/Validator";
 import {ValidatorUtils} from "@lib/utils/ValidatorUtils";
 
-import {CreateQuestionCategoryInStep} from "../model/CreateQuestionCategoryInStep";
+import {CreateQuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/CreateQuestionCategoryInStep";
 
 export class CreateQuestionCategoryInStepValidator implements Validator<CreateQuestionCategoryInStep> {
     constructor(

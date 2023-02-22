@@ -1,6 +1,6 @@
 import {CommandUseCase} from "@lib/model/CommandUseCase";
 
-import {QuestionCategoryInStepRepository} from "../port/QuestionCategoryInStepRepository";
+import {QuestionCategoryInStepRepository} from "src/module/interview-template/question-category-in-step/core/port/QuestionCategoryInStepRepository";
 
 export class DeleteQuestionCategoryInStepUseCase implements CommandUseCase<string, Promise<void>> {
     constructor(

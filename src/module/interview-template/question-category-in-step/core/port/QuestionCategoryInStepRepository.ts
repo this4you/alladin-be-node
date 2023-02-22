@@ -1,5 +1,5 @@
-import {QuestionCategoryInStep} from "../model/QuestionCategoryInStep";
-import {CreateQuestionCategoryInStep} from "../model/CreateQuestionCategoryInStep";
+import {QuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/QuestionCategoryInStep";
+import {CreateQuestionCategoryInStep} from "src/module/interview-template/question-category-in-step/core/model/CreateQuestionCategoryInStep";
 
 export interface QuestionCategoryInStepRepository {
     create(data: CreateQuestionCategoryInStep): Promise<QuestionCategoryInStep>
