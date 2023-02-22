@@ -5,11 +5,12 @@
   "compilerOptions": {
     "baseUrl": ".", // setting a value for baseUrl is required
     "moduleResolution": "node", // was not set before, but is the default
-     "paths": {
-       "@db/*": ["src/db/*"],
-       "@infrastructure/*": ["src/infrastructure/*"],
-       "@lib/*": ["src/lib/*"],
-     },
+    "paths": {
+      "@module/*": ["src/module/*"],
+      "@db/*": ["src/db/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@lib/*": ["src/lib/*"],
+    },
     "plugins": [
       {
         "transform": "ts-auto-mock/transformer",

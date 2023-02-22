@@ -1,13 +1,14 @@
-import { CreateUserUseCase } from '../../../../../src/module/auth/user/core/useCase/CreateUserUseCase';
 import { anything, deepEqual, instance, mock, verify, when } from 'ts-mockito';
-import { CompanyRepository } from '../../../../../src/module/auth/company/core/port/CompanyRepository';
-import { Validator } from '../../../../../src/lib/model/Validator';
-import { CreateCompany } from '../../../../../src/module/auth/company/core/model/CreateCompany';
-import { CreateCompanyUseCase } from '../../../../../src/module/auth/company/core/useCase/CreateCompanyUseCase';
 import { createMock } from 'ts-auto-mock';
-import { Company } from '../../../../../src/module/auth/company/core/model/Company';
-import { CreateUser } from '../../../../../src/module/auth/user/core/model/CreateUser';
-import { UserRole } from '../../../../../src/lib/model/UserRole';
+
+import { Validator } from '@lib/model/Validator';
+import { UserRole } from '@lib/model/UserRole';
+import { CreateUser } from '@module/auth/user/core/model/CreateUser';
+import { CreateUserUseCase } from '@module/auth/user/core/useCase/CreateUserUseCase';
+import { Company } from '@module/auth/company/core/model/Company';
+import { CreateCompany } from '@module/auth/company/core/model/CreateCompany';
+import { CompanyRepository } from '@module/auth/company/core/port/CompanyRepository';
+import { CreateCompanyUseCase } from '@module/auth/company/core/useCase/CreateCompanyUseCase';
 
 describe('CreateCompanyUseCase test', function () {
     it('should create company', async () => {
