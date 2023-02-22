@@ -14,7 +14,7 @@ import interviewTemplateRouter from "./module/interview-template/template/interv
 import stepRouter from "./module/interview-template/step/step.router";
 import questionCategoryRouter from "./module/interview-template/question-category/question-category.router";
 import questionCategoryInStepRouter from "./module/interview-template/question-category-in-step/question-category-in-step.router";
-import questionRouter from "@module/interview-template/question/question-category.router";
+import questionRouter from "@module/interview-template/question/question.router";
 
 const configs = async () => {
     dotenv.config();
