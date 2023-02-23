@@ -30,11 +30,7 @@ export class PostgresQuestionRepository implements QuestionRepository {
 
     async update(data: UpdateQuestion): Promise<UpdateQuestion> {
         await questionRepository.update({id: data.id}, data)
-        return {
-            id: data.id,
-            text: data.text,
-            questionCategoryId: data.questionCategoryId
-        }
+        return {...data}
     }
 
     async delete(id: string): Promise<void> {

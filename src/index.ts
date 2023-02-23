@@ -13,7 +13,6 @@ import companyRouter from './module/auth/company/company.router';
 import interviewTemplateRouter from "./module/interview-template/template/interview-template.router";
 import stepRouter from "./module/interview-template/step/step.router";
 import questionCategoryRouter from "./module/interview-template/question-category/question-category.router";
-import questionCategoryInStepRouter from "./module/interview-template/question-category-in-step/question-category-in-step.router";
 import questionRouter from "@module/interview-template/question/question.router";
 
 const configs = async () => {
@@ -35,7 +34,6 @@ const settingExpressApp = (): Express => {
     app.use('/interview-template', interviewTemplateRouter);
     app.use('/step', stepRouter);
     app.use('/question-category', questionCategoryRouter);
-    app.use('/question-category-in-step', questionCategoryInStepRouter);
     app.use('/question', questionRouter);
 
     app.get('/', (req, res) => {
