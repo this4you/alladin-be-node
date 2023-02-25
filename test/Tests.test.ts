@@ -1,14 +1,14 @@
 import { createMock } from 'ts-auto-mock';
 
-import { QuestionsInStep } from '@module/interview-template/question/core/model/QuestionsInStep';
-
 import { StepQuestionEntity } from '@db/postgre/entities/StepQuestionEntity';
 import { QuestionCategoryEntity } from '@db/postgre/entities/QuestionCategoryEntity';
 import { QuestionEntity } from '@db/postgre/entities/QuestionEntity';
 
+import { QuestionsInStep } from '@module/interview-template/question/core/model/QuestionsInStep';
+
 function mapQuestionsByCategory(stepQuestions: StepQuestionEntity[]): QuestionsInStep[] {
-    return stepQuestions.reduce<QuestionsInStep[]>((previousValue: QuestionsInStep[], item: StepQuestionEntity) => {
-        let categoryItem = previousValue.find(it => it.categoryId === item.question.questionCategoryId);
+    return stepQuestions.reduce<QuestionsInStep[]>((accum: QuestionsInStep[], item: StepQuestionEntity) => {
+        let categoryItem = accum.find(it => it.categoryId === item.question.questionCategoryId);
 
         if (!categoryItem) {
             categoryItem = {
@@ -17,7 +17,7 @@ function mapQuestionsByCategory(stepQuestions: StepQuestionEntity[]): QuestionsI
                 categoryName: item.question.questionCategory.name,
                 questions: []
             };
-            previousValue.push(categoryItem);
+            accum.push(categoryItem);
         }
 
         categoryItem.questions.push({
@@ -25,7 +25,7 @@ function mapQuestionsByCategory(stepQuestions: StepQuestionEntity[]): QuestionsI
             text: item.question.text
         });
 
-        return previousValue;
+        return accum;
 
     }, []);
 }

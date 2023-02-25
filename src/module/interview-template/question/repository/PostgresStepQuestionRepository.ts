@@ -1,8 +1,8 @@
 import stepQuestionRepository from '@db/postgre/repositories/stepQuestionRepository';
-import { StepQuestionEntity } from '@db/postgre/entities/StepQuestionEntity';
+import {StepQuestionEntity} from "@db/postgre/entities/StepQuestionEntity";
 
-import { StepQuestionRepository } from '@module/interview-template/question/core/port/StepQuestionRepository';
-import { QuestionsInStep } from '@module/interview-template/question/core/model/QuestionsInStep';
+import {StepQuestionRepository} from '@module/interview-template/question/core/port/StepQuestionRepository';
+import {QuestionsInStep} from "@module/interview-template/question/core/model/QuestionsInStep";
 
 export class PostgresStepQuestionRepository implements StepQuestionRepository {
     async create(questionId: string, stepId: string): Promise<string> {
@@ -15,39 +15,37 @@ export class PostgresStepQuestionRepository implements StepQuestionRepository {
     }
 
     async getByStepId(stepId: string): Promise<QuestionsInStep[]> {
-        const questionInStep = await stepQuestionRepository.find({
-            where: { stepId: stepId },
+        const stepQuestion = await stepQuestionRepository.find({
+            where: {stepId: stepId},
             relations: {
                 question: {
                     questionCategory: true
                 }
             }
         });
-        return this.mapQuestionsByCategory(questionInStep)
+        return this.mapQuestionsByCategory(stepQuestion)
     }
 
     private mapQuestionsByCategory(stepQuestions: StepQuestionEntity[]): QuestionsInStep[] {
-        return stepQuestions.reduce<QuestionsInStep[]>((previousValue: QuestionsInStep[], item: StepQuestionEntity) => {
-            const categoryItem = previousValue.find(it => it.categoryId === item.question.questionCategoryId);
+        return stepQuestions.reduce<QuestionsInStep[]>((accum: QuestionsInStep[], item: StepQuestionEntity) => {
+            let categoryItem = accum.find(it => it.categoryId === item.question.questionCategoryId);
 
-            if (categoryItem) {
-                categoryItem.questions.push({
-                    id: item.questionId,
-                    text: item.question.text
-                })
-            } else {
-                previousValue.push({
+            if (!categoryItem) {
+                categoryItem = {
                     stepId: item.stepId,
                     categoryId: item.question.questionCategoryId,
                     categoryName: item.question.questionCategory.name,
-                    questions: [{
-                        id: item.questionId,
-                        text: item.question.text
-                    }]
-                })
+                    questions: []
+                };
+                accum.push(categoryItem);
             }
 
-            return previousValue;
+            categoryItem.questions.push({
+                id: item.questionId,
+                text: item.question.text
+            });
+
+            return accum;
 
         }, []);
     }
