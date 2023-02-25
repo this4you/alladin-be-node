@@ -1,6 +1,8 @@
-import { StepQuestionEntity } from '@db/postgre/entities/StepQuestionEntity';
-import { QuestionsInStep } from '@module/interview-template/question/core/model/QuestionsInStep';
 import { createMock } from 'ts-auto-mock';
+
+import { QuestionsInStep } from '@module/interview-template/question/core/model/QuestionsInStep';
+
+import { StepQuestionEntity } from '@db/postgre/entities/StepQuestionEntity';
 import { QuestionCategoryEntity } from '@db/postgre/entities/QuestionCategoryEntity';
 import { QuestionEntity } from '@db/postgre/entities/QuestionEntity';
 
@@ -25,7 +27,7 @@ function mapQuestionsByCategory(stepQuestions: StepQuestionEntity[]): QuestionsI
 
         return previousValue;
 
-    }, [] as QuestionsInStep[]);
+    }, []);
 }
 
 describe('Tests', () => {

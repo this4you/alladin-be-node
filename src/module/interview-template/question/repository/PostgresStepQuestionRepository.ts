@@ -2,7 +2,7 @@ import stepQuestionRepository from '@db/postgre/repositories/stepQuestionReposit
 import { StepQuestionEntity } from '@db/postgre/entities/StepQuestionEntity';
 
 import { StepQuestionRepository } from '@module/interview-template/question/core/port/StepQuestionRepository';
-import { Question, QuestionsInStep } from '@module/interview-template/question/core/model/QuestionsInStep';
+import { QuestionsInStep } from '@module/interview-template/question/core/model/QuestionsInStep';
 
 export class PostgresStepQuestionRepository implements StepQuestionRepository {
     async create(questionId: string, stepId: string): Promise<string> {
@@ -23,14 +23,11 @@ export class PostgresStepQuestionRepository implements StepQuestionRepository {
                 }
             }
         });
-        this.mapQuestionsByCategory(questionInStep)
-        return []
+        return this.mapQuestionsByCategory(questionInStep)
     }
 
     private mapQuestionsByCategory(stepQuestions: StepQuestionEntity[]): QuestionsInStep[] {
-        const categoryMap: Record<string, Question[]> = {};
-
-        stepQuestions.reduce<QuestionsInStep[]>((previousValue: QuestionsInStep[], item: StepQuestionEntity) => {
+        return stepQuestions.reduce<QuestionsInStep[]>((previousValue: QuestionsInStep[], item: StepQuestionEntity) => {
             const categoryItem = previousValue.find(it => it.categoryId === item.question.questionCategoryId);
 
             if (categoryItem) {
@@ -52,19 +49,6 @@ export class PostgresStepQuestionRepository implements StepQuestionRepository {
 
             return previousValue;
 
-        }, [] as QuestionsInStep[]);
-
-        // stepQuestions.forEach((it) => {
-        //     const categoryId = it.question.questionCategory.id;
-        //
-        //     categoryMap[categoryId] = (categoryMap[categoryId] || []).concat([{
-        //         id: it.questionId,
-        //         text: it.question.text
-        //     }]);
-        //
-        //
-        // });
-
-        return []
+        }, []);
     }
 }
