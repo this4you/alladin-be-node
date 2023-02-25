@@ -1,8 +1,11 @@
-import {Question} from "@module/interview-template/question/core/model/Question";
-
 export type QuestionsInStep = {
     stepId: string,
-    questionCategoryId: string,
-    questionCategoryName: string,
+    categoryId: string,
+    categoryName: string,
     questions: Question[]
+}
+
+export type Question = {
+    id: string;
+    text: string;
 }
