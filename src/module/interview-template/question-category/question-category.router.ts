@@ -8,8 +8,6 @@ import {QuestionCategory} from "src/module/interview-template/question-category/
 
 const questionCategoryRouter = Router();
 
-export default questionCategoryRouter;
-
 const {
     getAllQuestionCategories,
 } = getQuestionCategoryContext();
@@ -20,3 +18,5 @@ questionCategoryRouter.get('/', auth, async (req: Request<{}, QuestionCategory[]
         res.json(questionCategories);
     });
 });
+
+export default questionCategoryRouter;
