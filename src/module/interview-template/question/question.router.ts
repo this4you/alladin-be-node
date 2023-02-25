@@ -10,7 +10,8 @@ const questionRouter = Router();
 const {
     createQuestion,
     updateQuestion,
-    deleteQuestion
+    deleteQuestion,
+    getStepQuestion
 } = getQuestionContext();
 
 questionRouter.post('/', auth, async (req: Request<{}, Question>, res, next) => {
@@ -18,6 +19,7 @@ questionRouter.post('/', auth, async (req: Request<{}, Question>, res, next) => 
         const question = await createQuestion.execute({
             text: req.body.text,
             questionCategoryId: req.body.questionCategoryId,
+            stepId: req.body.stepId
         });
         res.json(question);
     });
@@ -38,6 +40,13 @@ questionRouter.delete('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const question = await deleteQuestion.execute(req.params.id);
         res.json(question);
+    });
+});
+
+questionRouter.get('/:stepId', auth, async (req, res, next) => {
+    await tryExecute(next, async () => {
+        const questions = await getStepQuestion.execute(req.params.stepId);
+        res.json(questions);
     });
 });
 

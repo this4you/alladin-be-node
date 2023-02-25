@@ -1,26 +1,28 @@
+import {Validator} from "@lib/model/Validator";
 import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
 import {CreateQuestion} from "@module/interview-template/question/core/model/CreateQuestion";
 import {Question} from "@module/interview-template/question/core/model/Question";
 import {QuestionRepository} from "@module/interview-template/question/core/port/QuestionRepository";
-import {Validator} from "@lib/model/Validator";
-import {UniqueException} from "@lib/model/app-exception/UniqueException";
+import {StepQuestionRepository} from "@module/interview-template/question/core/port/StepQuestionRepository";
 
 export class CreateQuestionUseCase extends ValidateCommandUseCase<CreateQuestion, Promise<Question>> {
     constructor(
-        private repository: QuestionRepository,
+        private questionRepository: QuestionRepository,
+        private stepQuestionRepository: StepQuestionRepository,
         private validateUtils: Validator<CreateQuestion>
     ) {
         super(validateUtils);
     }
 
     protected async validatedExecute(data: CreateQuestion): Promise<Question> {
-        const isQuestion = await this.repository.isExists(data.text, data.questionCategoryId);
+        let question = await this.questionRepository.getQuestionByText(data.text);
 
-        if (isQuestion) {
-            throw new UniqueException(`Question text ${data.text} in questionCategoryId ${data.questionCategoryId} already existed`)
+        if (!question) {
+            question = await this.questionRepository.create(data);
         }
 
-        return await this.repository.create(data);
-    }
+        await this.stepQuestionRepository.create(question.id, data.stepId);
 
+        return question;
+    }
 }

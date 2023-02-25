@@ -4,7 +4,7 @@ import {QuestionCategoryEntity} from "@db/postgre/entities/QuestionCategoryEntit
 
 @Entity({name: 'Question'})
 export class QuestionEntity extends BaseEntity {
-    @Column({ nullable: false })
+    @Column()
     text: string;
 
     @Column({ nullable: false })

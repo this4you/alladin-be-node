@@ -22,8 +22,8 @@ export const AppDataSource = new DataSource({
         CompanyEntity,
         InterviewTemplateEntity,
         InterviewTemplateStepEntity,
-        QuestionCategoryEntity,
         StepQuestionEntity,
+        QuestionCategoryEntity,
         QuestionEntity
     ],
     subscribers: [],

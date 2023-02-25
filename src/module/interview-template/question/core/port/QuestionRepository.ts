@@ -4,12 +4,8 @@ import {UpdateQuestion} from "@module/interview-template/question/core/model/Upd
 
 export interface QuestionRepository {
     create(data: CreateQuestion): Promise<Question>
-
-    isExists(text: string, questionCategoryId: string): Promise<boolean>
-
     getByQuestionCategoryId(id: string): Promise<Question[]>
-
+    getQuestionByText(text: string): Promise<Question | null>
     update(data: UpdateQuestion): Promise<UpdateQuestion>
-
     delete(id: string): Promise<void>
 }

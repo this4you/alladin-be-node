@@ -17,13 +17,6 @@ export class PostgresQuestionRepository implements QuestionRepository {
         return {...question};
     }
 
-    async isExists(text: string, questionCategoryId: string): Promise<boolean> {
-        return !!await questionRepository.findOneBy({
-            questionCategoryId: questionCategoryId,
-            text: text
-        });
-    }
-
     async getByQuestionCategoryId(questionCategoryId: string): Promise<Question[]> {
         return await questionRepository.findBy({questionCategoryId: questionCategoryId});
     }
@@ -35,6 +28,10 @@ export class PostgresQuestionRepository implements QuestionRepository {
 
     async delete(id: string): Promise<void> {
         await questionRepository.delete(id);
+    }
+
+    async getQuestionByText(text: string): Promise<Question | null> {
+        return questionRepository.findOneBy({text: text});
     }
 
 }
