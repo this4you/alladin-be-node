@@ -1,5 +1,3 @@
-export type CreateQuestion = {
-    text: string;
-    questionCategoryId: string;
-    stepId: string;
-}
+import {Question} from "@module/interview-template/question/core/model/Question";
+
+export type CreateQuestion = Omit<Question, "id">

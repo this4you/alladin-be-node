@@ -1,7 +1,7 @@
 import {CommandUseCase} from "@lib/model/CommandUseCase";
 
-import {StepRepository} from "../port/StepRepository";
-import {Step} from "../model/Step";
+import {StepRepository} from "src/module/interview-template/step/core/port/StepRepository";
+import {Step} from "src/module/interview-template/step/core/model/Step";
 
 export class GetStepByInterviewTemplateUseCase implements CommandUseCase<string, Promise<Step[]>> {
     constructor(

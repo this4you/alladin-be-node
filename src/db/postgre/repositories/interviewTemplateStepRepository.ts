@@ -1,6 +1,6 @@
 import { AppDataSource } from '../data-source';
-import {InterviewTemplateStepEntity} from "../entities/InterviewTemplateStepEntity";
+import {StepEntity} from "src/db/postgre/entities/StepEntity";
 
-const interviewTemplateStepRepository = AppDataSource.getRepository(InterviewTemplateStepEntity);
+const interviewTemplateStepRepository = AppDataSource.getRepository(StepEntity);
 
 export default interviewTemplateStepRepository;

@@ -1,7 +1,7 @@
 import {Validator} from "@lib/model/Validator";
 import {ValidatorUtils} from "@lib/utils/ValidatorUtils";
 
-import {UpdateStep} from "src/module/interview-template/step/core/model/UpdateStep";
+import {UpdateStep} from "@module/interview-template/step/core/model/UpdateStep";
 
 export class UpdateStepValidator implements Validator<UpdateStep> {
     constructor(

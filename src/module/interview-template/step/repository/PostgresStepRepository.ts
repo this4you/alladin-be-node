@@ -1,10 +1,10 @@
 import {Between, MoreThan} from "typeorm";
 
-import {Step} from "../core/model/Step";
-import {StepRepository} from "../core/port/StepRepository";
-import {CreateStep} from "../core/model/CreateStep";
-import {UpdateStep} from "../core/model/UpdateStep";
-import {PatchPosition} from "src/module/interview-template/step/core/model/PatchPosition";
+import {Step} from "src/module/interview-template/step/core/model/Step";
+import {StepRepository} from "src/module/interview-template/step/core/port/StepRepository";
+import {CreateStep} from "src/module/interview-template/step/core/model/CreateStep";
+import {UpdateStep} from "src/module/interview-template/step/core/model/UpdateStep";
+import {PatchPosition} from "@module/interview-template/step/core/model/PatchPosition";
 
 import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
 

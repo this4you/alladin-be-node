@@ -3,8 +3,8 @@ import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm'
 import {BaseEntity} from './BaseEntity';
 import {InterviewTemplateEntity} from "./InterviewTemplateEntity";
 
-@Entity({name: 'InterviewTemplateSteps'})
-export class InterviewTemplateStepEntity extends BaseEntity {
+@Entity({name: 'Step'})
+export class StepEntity extends BaseEntity {
     @Column()
     name: string;
 

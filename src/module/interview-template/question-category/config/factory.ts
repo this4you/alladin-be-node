@@ -1,5 +1,5 @@
-import {PostgresQuestionCategoryRepository} from "src/module/interview-template/question-category/repository/PostgresQuestionCategoryRepository";
-import {GetAllQuestionCategoriesUseCase} from "src/module/interview-template/question-category/core/useCase/GetAllQuestionCategoriesUseCase";
+import {PostgresQuestionCategoryRepository} from "@module/interview-template/question-category/repository/PostgresQuestionCategoryRepository";
+import {GetAllQuestionCategoriesUseCase} from "@module/interview-template/question-category/core/useCase/GetAllQuestionCategoriesUseCase";
 
 export const getQuestionCategoryContext = () => {
     const questionCategory = new PostgresQuestionCategoryRepository();

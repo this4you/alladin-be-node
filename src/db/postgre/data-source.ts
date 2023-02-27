@@ -3,10 +3,11 @@ import {DataSource} from 'typeorm';
 import {UserEntity} from './entities/UserEntity';
 import {CompanyEntity} from './entities/CompanyEntity';
 import {InterviewTemplateEntity} from "./entities/InterviewTemplateEntity";
-import {InterviewTemplateStepEntity} from "./entities/InterviewTemplateStepEntity";
+import {StepEntity} from "src/db/postgre/entities/StepEntity";
 import {QuestionCategoryEntity} from "./entities/QuestionCategoryEntity";
 import {QuestionEntity} from "./entities/QuestionEntity";
-import {StepQuestionEntity} from "@db/postgre/entities/StepQuestionEntity";
+import {QuestionInStepCategoryEntity} from "@db/postgre/entities/QuestionInStepCategory";
+import {StepCategoryEntity} from "@db/postgre/entities/StepCategory";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -21,10 +22,11 @@ export const AppDataSource = new DataSource({
         UserEntity,
         CompanyEntity,
         InterviewTemplateEntity,
-        InterviewTemplateStepEntity,
-        StepQuestionEntity,
+        StepEntity,
         QuestionCategoryEntity,
-        QuestionEntity
+        QuestionEntity,
+        QuestionInStepCategoryEntity,
+        StepCategoryEntity
     ],
     subscribers: [],
     migrations: [],
