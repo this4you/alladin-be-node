@@ -2,5 +2,4 @@ import {QuestionCategory} from "@module/interview-template/question-category/cor
 
 export interface QuestionCategoryRepository {
     getAll(): Promise<QuestionCategory[]>
-    get(data: Pick<QuestionCategory, "id">): Promise<QuestionCategory[]>
 }

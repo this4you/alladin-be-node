@@ -7,8 +7,4 @@ export class PostgresQuestionCategoryRepository implements QuestionCategoryRepos
     async getAll(): Promise<QuestionCategory[]> {
         return await questionCategoryRepository.find();
     }
-
-    async get(data: Pick<QuestionCategory, "id">): Promise<QuestionCategory[]> {
-        return await questionCategoryRepository.findBy(data);
-    }
 }

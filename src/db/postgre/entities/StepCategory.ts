@@ -23,13 +23,3 @@ export class StepCategoryEntity extends BaseEntity {
     @Column()
     position: number;
 }
-
-
-
-
-
-
-
-
-
-

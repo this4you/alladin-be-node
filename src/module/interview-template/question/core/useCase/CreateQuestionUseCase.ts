@@ -13,7 +13,7 @@ export class CreateQuestionUseCase extends ValidateCommandUseCase<CreateQuestion
     }
 
     protected async validatedExecute(data: CreateQuestion): Promise<Question> {
-        let question = await this.questionRepository.getQuestionByText(data);
+        let question = await this.questionRepository.getQuestionByText(data.text);
 
         if (!question) {
             question = await this.questionRepository.create(data);

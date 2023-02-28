@@ -1,10 +1,12 @@
-import { QuestionCategory } from "@module/interview-template/question-category/core/model/QuestionCategory";
-import {Step} from "@module/interview-template/step/core/model/Step";
+import {Question} from "@module/interview-template/question/core/model/Question";
+
+interface NewQuestion extends Question {
+    position: number;
+}
 
 export type StepCategory = {
-    stepId: string;
-    step: Step;
-    questionCategoryId: string;
-    questionCategory: QuestionCategory;
-    position: number;
+    stepCategoryId: string,
+    categoryName: string,
+    position: number,
+    questions: NewQuestion[]
 }

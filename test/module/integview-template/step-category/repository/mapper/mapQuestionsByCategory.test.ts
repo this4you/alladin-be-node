@@ -1,15 +1,16 @@
 import {createMock} from "ts-auto-mock";
+
 import {QuestionInStepCategoryEntity} from "@db/postgre/entities/QuestionInStepCategory";
 import {QuestionEntity} from "@db/postgre/entities/QuestionEntity";
 import {StepCategoryEntity} from "@db/postgre/entities/StepCategory";
 import {QuestionCategoryEntity} from "@db/postgre/entities/QuestionCategoryEntity";
 
-import {StepFrame} from "@module/interview-template/step-category/core/model/StepFrame";
-import {mapQuestionsByCategory} from "@module/interview-template/step-category/repository/mapQuestionsByCategory";
+import {StepCategory} from "@module/interview-template/step-category/core/model/StepCategory";
+import {mapQuestionsByCategory} from "@module/interview-template/step-category/repository/mapper/mapQuestionsByCategory";
 
 
-describe('Tests', () => {
-    it('Map value', () => {
+describe('mapQuestionsByCategory tests', () => {
+    it('Should map question by category', () => {
         //Given
         const stepId = '1';
         const enterData: QuestionInStepCategoryEntity[] = [
@@ -90,7 +91,7 @@ describe('Tests', () => {
                 position: 1,
             }),
         ];
-        const expected:StepFrame[] = [
+        const expected:StepCategory[] = [
             {
                 stepCategoryId: '1',
                 categoryName: 'CategoryName1',

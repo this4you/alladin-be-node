@@ -12,12 +12,12 @@ export class PostgresQuestionRepository implements QuestionRepository {
         return {...question};
     }
 
-    async getQuestionByText(data: Pick<Question, "text">): Promise<Question | null> {
-        return await questionRepository.findOneBy(data);
+    async getQuestionByText(text: string): Promise<Question | null> {
+        return await questionRepository.findOneBy({text: text});
     }
 
-    async getQuestions(data: Pick<Question, "id">): Promise<Question[]> {
-        return await questionRepository.findBy(data);
+    async getQuestions(id: string): Promise<Question[]> {
+        return await questionRepository.findBy({id: id});
     }
 
 }
