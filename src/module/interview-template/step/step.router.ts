@@ -3,9 +3,9 @@ import {Request, Router} from "express";
 import {auth} from "@infrastructure/middleware/auth";
 import {tryExecute} from "@infrastructure/utils/tryExecute";
 
-import {getInterviewTemplateStepContext} from "./config/factory";
-import {Step} from "./core/model/Step";
-import {CreateStep} from "./core/model/CreateStep";
+import {getInterviewTemplateStepContext} from "src/module/interview-template/step/config/factory";
+import {Step} from "src/module/interview-template/step/core/model/Step";
+import {CreateStep} from "src/module/interview-template/step/core/model/CreateStep";
 
 const stepRouter = Router();
 const {

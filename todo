@@ -1,5 +1,64 @@
-Add swagger
-Fix imports
-Add eslint
-../../../../../  // fix
-use ORM for all db types
+ALLADIN Question
+
+1. POST createQuestion
+{
+    text: string,
+    categoryId: string,
+    stepId: string
+}
+
+=>
+2. Check if question in system exist by this text
+
+if (exist) {
+    createQuestionInStep with this questionId and this stepId
+} else {
+    createNewQuestion()
+    createQuestionInStep with this questionId and this stepId
+}
+
+
+
+
+
+
+
+
+
+
+get question
+
+[
+    {
+        categoryId: string,
+        questions: [
+            {
+                id: string,
+                text: string
+            },
+        ]
+    },
+    {
+            categoryId: string,
+            questions: [
+                {
+                    id: string,
+                    text: string
+                }
+            ]
+    },
+    {
+            categoryId: string,
+            questions: [
+                {
+                    id: string,
+                    text: string
+                }
+            ]
+    },
+]
+
+
+
+
+

@@ -1,6 +1,6 @@
-import {StepRepository} from "../port/StepRepository";
+import {StepRepository} from "src/module/interview-template/step/core/port/StepRepository";
 import {UniqueException} from "@lib/model/app-exception/UniqueException";
-import {UpdateStep} from "../model/UpdateStep";
+import {UpdateStep} from "src/module/interview-template/step/core/model/UpdateStep";
 import {Validator} from "@lib/model/Validator";
 import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
 

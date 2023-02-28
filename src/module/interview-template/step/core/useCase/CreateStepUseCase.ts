@@ -2,9 +2,9 @@ import {Validator} from "@lib/model/Validator";
 import {UniqueException} from "@lib/model/app-exception/UniqueException";
 import {ValidateCommandUseCase} from "@lib/model/ValidateCommandUseCase";
 
-import {Step} from "../model/Step";
-import {CreateStep} from "../model/CreateStep";
-import {StepRepository} from "../port/StepRepository";
+import {Step} from "src/module/interview-template/step/core/model/Step";
+import {CreateStep} from "src/module/interview-template/step/core/model/CreateStep";
+import {StepRepository} from "src/module/interview-template/step/core/port/StepRepository";
 
 export class CreateStepUseCase extends ValidateCommandUseCase<CreateStep, Promise<Step>> {
     constructor(

@@ -5,7 +5,7 @@ import { UserRole } from '@lib/model/UserRole';
 import { CompanyEntity } from './CompanyEntity';
 import { BaseEntity } from './BaseEntity';
 
-@Entity({name: 'Users'})
+@Entity({name: 'User'})
 export class UserEntity extends BaseEntity {
     @Column()
     name: string
@@ -16,7 +16,7 @@ export class UserEntity extends BaseEntity {
     @Column()
     password: string
 
-    @ManyToOne(type => CompanyEntity)
+    @ManyToOne(() => CompanyEntity)
     @JoinColumn()
     company: CompanyEntity;
 

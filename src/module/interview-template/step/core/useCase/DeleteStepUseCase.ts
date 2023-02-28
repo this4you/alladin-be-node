@@ -1,6 +1,6 @@
 import {CommandUseCase} from "@lib/model/CommandUseCase";
 
-import {StepRepository} from "../port/StepRepository";
+import {StepRepository} from "src/module/interview-template/step/core/port/StepRepository";
 
 export class DeleteStepUseCase implements CommandUseCase<string, Promise<void>> {
     constructor(

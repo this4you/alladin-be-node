@@ -3,7 +3,7 @@ import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm'
 import {BaseEntity} from './BaseEntity';
 import {CompanyEntity} from "./CompanyEntity";
 
-@Entity({name: 'InterviewTemplates'})
+@Entity({name: 'InterviewTemplate'})
 export class InterviewTemplateEntity extends BaseEntity {
     @Column()
     name: string
@@ -11,7 +11,7 @@ export class InterviewTemplateEntity extends BaseEntity {
     @Column()
     companyId: string;
 
-    @ManyToOne(type => CompanyEntity)
+    @ManyToOne(() => CompanyEntity)
     @JoinColumn()
     company: CompanyEntity;
 }

@@ -1,13 +1,13 @@
 import {ValidatorUtils} from "@lib/utils/ValidatorUtils";
 
-import {CreateStepValidator} from "../core/validator/CreateStepValidator";
-import {UpdateStepValidator} from "src/module/interview-template/step/core/validator/UpdateStepValidator";
-import {PostgresStepRepository} from "../repository/PostgresStepRepository";
-import {CreateStepUseCase} from "../core/useCase/CreateStepUseCase";
-import {DeleteStepUseCase} from "../core/useCase/DeleteStepUseCase";
-import {UpdateStepUseCase} from "../core/useCase/UpdateStepUseCase";
-import {GetStepByInterviewTemplateUseCase} from "../core/useCase/GetStepByInterviewTemplateUseCase";
-import {PatchPositionStepUseCase} from "src/module/interview-template/step/core/useCase/PatchPositionStepUseCase";
+import {CreateStepValidator} from "src/module/interview-template/step/core/validator/CreateStepValidator";
+import {UpdateStepValidator} from "@module/interview-template/step/core/validator/UpdateStepValidator";
+import {PostgresStepRepository} from "src/module/interview-template/step/repository/PostgresStepRepository";
+import {CreateStepUseCase} from "src/module/interview-template/step/core/useCase/CreateStepUseCase";
+import {DeleteStepUseCase} from "src/module/interview-template/step/core/useCase/DeleteStepUseCase";
+import {UpdateStepUseCase} from "src/module/interview-template/step/core/useCase/UpdateStepUseCase";
+import {GetStepByInterviewTemplateUseCase} from "src/module/interview-template/step/core/useCase/GetStepByInterviewTemplateUseCase";
+import {PatchPositionStepUseCase} from "@module/interview-template/step/core/useCase/PatchPositionStepUseCase";
 
 export const getInterviewTemplateStepContext = () => {
     const interviewTemplateStepRepository = new PostgresStepRepository();
