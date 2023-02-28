@@ -12,6 +12,12 @@ export class PostgresStepCategoryRepository implements StepCategoryRepository {
                     stepId: stepId,
                 }
             },
+            order: {
+                position: "ASC",
+                stepCategory: {
+                    position: "ASC"
+                }
+            },
             relations: {
                 question: true,
                 stepCategory: {

@@ -3,7 +3,7 @@ import {StepCategory} from "@module/interview-template/step-category/core/model/
 
 export function mapQuestionsByCategory(stepQuestions: QuestionInStepCategoryEntity[]): StepCategory[] {
     return stepQuestions.reduce<StepCategory[]>((accum: StepCategory[], item: QuestionInStepCategoryEntity) => {
-        let categoryItem = accum.find(it => it.stepCategoryId === item.stepCategory.questionCategoryId);
+        let categoryItem = accum.find(it => it.stepCategoryId === item.stepCategoryId);
 
         if (!categoryItem) {
             categoryItem = {
