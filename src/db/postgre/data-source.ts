@@ -1,13 +1,12 @@
 import {DataSource} from 'typeorm';
 
-import {UserEntity} from './entities/UserEntity';
-import {CompanyEntity} from './entities/CompanyEntity';
-import {InterviewTemplateEntity} from "./entities/InterviewTemplateEntity";
-import {StepEntity} from "src/db/postgre/entities/StepEntity";
-import {QuestionCategoryEntity} from "./entities/QuestionCategoryEntity";
-import {QuestionEntity} from "./entities/QuestionEntity";
-import {QuestionInStepCategoryEntity} from "@db/postgre/entities/QuestionInStepCategory";
+import {UserEntity} from '@db/postgre/entities/UserEntity';
+import {CompanyEntity} from '@db/postgre/entities/CompanyEntity';
+import {InterviewTemplateEntity} from "@db/postgre/entities/InterviewTemplateEntity";
+import {TemplateStepEntity} from "@db/postgre/entities/TemplateStepEntity";
+import {QuestionCategoryEntity} from "@db/postgre/entities/QuestionCategoryEntity";
 import {StepCategoryEntity} from "@db/postgre/entities/StepCategory";
+import {QuestionEntity} from "@db/postgre/entities/QuestionEntity";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -22,10 +21,9 @@ export const AppDataSource = new DataSource({
         UserEntity,
         CompanyEntity,
         InterviewTemplateEntity,
-        StepEntity,
+        TemplateStepEntity,
         QuestionCategoryEntity,
         QuestionEntity,
-        QuestionInStepCategoryEntity,
         StepCategoryEntity
     ],
     subscribers: [],

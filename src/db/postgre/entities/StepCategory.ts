@@ -1,25 +1,25 @@
 import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
 import {BaseEntity} from "@db/postgre/entities/BaseEntity";
 import {QuestionCategoryEntity} from "@db/postgre/entities/QuestionCategoryEntity";
-import {StepEntity} from "@db/postgre/entities/StepEntity";
+import {TemplateStepEntity} from "@db/postgre/entities/TemplateStepEntity";
 
 
 @Entity({name: 'StepCategory'})
 export class StepCategoryEntity extends BaseEntity {
-    @Column()
-    stepId: string;
 
-    @ManyToOne(() => StepEntity)
-    @JoinColumn()
-    step: StepEntity;
+    @Column()
+    position: number;
 
     @Column()
     questionCategoryId: string;
-
     @ManyToOne(() => QuestionCategoryEntity)
     @JoinColumn()
     questionCategory: QuestionCategoryEntity;
 
     @Column()
-    position: number;
+    stepId: string;
+
+    @ManyToOne(() => TemplateStepEntity)
+    @JoinColumn()
+    step: TemplateStepEntity;
 }
