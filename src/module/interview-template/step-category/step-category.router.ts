@@ -7,7 +7,9 @@ import {tryExecute} from "@infrastructure/utils/tryExecute";
 const stepCategoryRouter = Router();
 const {
     createStepCategoryUseCase,
-    getStepCategoryUseCase
+    getStepCategoryUseCase,
+    deleteStepCategoryUseCase,
+    patchPositionStepCategoryUseCase
 } = getStepCategoryContext();
 
 stepCategoryRouter.post('/', auth, async (req, res, next) => {
@@ -19,11 +21,29 @@ stepCategoryRouter.post('/', auth, async (req, res, next) => {
         res.json(stepsOfInterviewTemplate);
     });
 });
+
 stepCategoryRouter.get('/:stepId', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const stepId = req.params.stepId && req.params.stepId.toString() || '';
         const stepsOfInterviewTemplate = await getStepCategoryUseCase.execute(stepId);
         res.json(stepsOfInterviewTemplate);
+    });
+});
+
+stepCategoryRouter.delete('/:id', auth, async (req, res, next) => {
+    await tryExecute(next, async () => {
+        const stepCategory = await deleteStepCategoryUseCase.execute(req.params.id);
+        res.json(stepCategory);
+    });
+});
+
+stepCategoryRouter.patch('/:id', auth, async (req, res, next) => {
+    await tryExecute(next, async () => {
+        const stepCategory = await patchPositionStepCategoryUseCase.execute({
+            id: req.params.id,
+            position: req.body.position
+        });
+        res.json(stepCategory);
     });
 });
 

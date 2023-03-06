@@ -4,12 +4,12 @@ import {StepCategoryQuestion} from "@module/interview-template/step-category/cor
 
 export class GetStepCategoryUseCase implements CommandUseCase<string, Promise<StepCategoryQuestion[]>> {
     constructor(
-        private stepFrameRepository: StepCategoryRepository,
+        private repository: StepCategoryRepository,
 
     ){};
 
     async execute(stepId: string): Promise<StepCategoryQuestion[]> {
-        return await this.stepFrameRepository.getByStep(stepId);
+        return await this.repository.getByStep(stepId);
     }
 
 }

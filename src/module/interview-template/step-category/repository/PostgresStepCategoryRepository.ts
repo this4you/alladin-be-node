@@ -1,34 +1,25 @@
+import {Between, MoreThan} from "typeorm";
 
 import {StepCategoryRepository} from "@module/interview-template/step-category/core/port/StepCategoryRepository";
-import {mapQuestionsByCategory} from "@module/interview-template/step-category/repository/mapper/mapQuestionsByCategory";
-import questionRepository from "@db/postgre/repositories/questionRepository";
 import {CreateStepCategory} from "@module/interview-template/step-category/core/model/CreateStepCategory";
-import stepCategoryRepository from "@db/postgre/repositories/stepCategoryRepository";
 import {StepCategory} from "@module/interview-template/step-category/core/model/StepCategory";
 import {StepCategoryQuestion} from "@module/interview-template/step-category/core/model/StepCategoryQuestion";
+import {PatchPosition} from "@module/interview-template/step/core/model/PatchPosition";
+import {mapStepCategory} from "@module/interview-template/step-category/repository/mapper/mapStepCategory";
+
+import stepCategoryRepository from "@db/postgre/repositories/stepCategoryRepository";
 
 export class PostgresStepCategoryRepository implements StepCategoryRepository {
     async getByStep(stepId: string): Promise<StepCategoryQuestion[]> {
-        const questionInStepCategories = await questionRepository.find({
+        const stepCategory = await stepCategoryRepository.find({
             where: {
-                stepCategory: {
-                    stepId: stepId,
-                }
-            },
-            order: {
-                position: "ASC",
-                stepCategory: {
-                    position: "ASC"
-                }
+                stepId: stepId,
             },
             relations: {
-                stepCategory: {
-                    questionCategory: true
-                }
+                questionCategory: true
             }
         });
-
-        return mapQuestionsByCategory(questionInStepCategories)
+        return mapStepCategory(stepCategory);
     }
 
     async create(data: CreateStepCategory): Promise<StepCategory> {
@@ -48,5 +39,35 @@ export class PostgresStepCategoryRepository implements StepCategoryRepository {
             stepId: data.stepId,
             questionCategoryId: data.questionCategoryId
         });
+    }
+
+    async delete(data: StepCategory): Promise<void> {
+        await stepCategoryRepository.decrement({
+            stepId: data.stepId,
+            position: MoreThan(data.position),
+        }, "position", 1);
+        await stepCategoryRepository.delete(data.id);
+    }
+
+    async getStepCategory(id: string): Promise<StepCategory> {
+        return await stepCategoryRepository.findOneOrFail({where:{id: id}});
+    }
+
+    async patchPosition(patchData: PatchPosition, stepCategoryData: StepCategory): Promise<void> {
+        if (stepCategoryData.position > patchData.position)
+            await stepCategoryRepository.increment({
+                stepId: stepCategoryData.stepId,
+                position: Between(patchData.position, stepCategoryData.position),
+            }, "position", 1);
+        if (stepCategoryData.position < patchData.position)
+            await stepCategoryRepository.decrement({
+                stepId: stepCategoryData.stepId,
+                position: Between(stepCategoryData.position, patchData.position),
+            }, "position", 1);
+
+        await stepCategoryRepository.update(
+            {id: patchData.id},
+            {position: patchData.position}
+        )
     }
 }

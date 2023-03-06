@@ -12,6 +12,7 @@ export class StepCategoryEntity extends BaseEntity {
 
     @Column()
     questionCategoryId: string;
+
     @ManyToOne(() => QuestionCategoryEntity)
     @JoinColumn()
     questionCategory: QuestionCategoryEntity;

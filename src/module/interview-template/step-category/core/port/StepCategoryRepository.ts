@@ -1,12 +1,13 @@
 import {StepCategory} from "@module/interview-template/step-category/core/model/StepCategory";
 import {CreateStepCategory} from "@module/interview-template/step-category/core/model/CreateStepCategory";
 import {StepCategoryQuestion} from "@module/interview-template/step-category/core/model/StepCategoryQuestion";
+import {PatchPosition} from "@module/interview-template/step/core/model/PatchPosition";
 
 export interface StepCategoryRepository {
     create(data: CreateStepCategory): Promise<StepCategory>
     isExists(data: CreateStepCategory): Promise<boolean>
-    // delete(id: string): Promise<void>
-    // patchPosition(patchData: PatchStepCategoryPosition, stepCategoryData: StepCategoryQuestion): Promise<void>
+    getStepCategory(id: string): Promise<StepCategory>
+    patchPosition(patchData: PatchPosition, stepCategoryData: StepCategory): Promise<void>
     getByStep(stepId: string): Promise<StepCategoryQuestion[]>
-
+    delete(data: StepCategory): Promise<void>
 }
