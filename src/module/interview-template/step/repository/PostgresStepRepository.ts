@@ -6,7 +6,7 @@ import {CreateStep} from "src/module/interview-template/step/core/model/CreateSt
 import {UpdateStep} from "src/module/interview-template/step/core/model/UpdateStep";
 import {PatchPosition} from "@module/interview-template/step/core/model/PatchPosition";
 
-import interviewTemplateStepRepository from "@db/postgre/repositories/interviewTemplateStepRepository";
+import interviewTemplateStepRepository from "@db/postgre/repositories/templateStepRepository";
 
 export class PostgresStepRepository implements StepRepository {
     async create(data: CreateStep): Promise<Step> {

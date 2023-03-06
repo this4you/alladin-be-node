@@ -1,8 +1,8 @@
-import {QuestionInStepCategoryEntity} from "@db/postgre/entities/QuestionInStepCategory";
-import {StepCategory} from "@module/interview-template/step-category/core/model/StepCategory";
+import {QuestionEntity} from "@db/postgre/entities/QuestionEntity";
+import {StepCategoryQuestion} from "@module/interview-template/step-category/core/model/StepCategoryQuestion";
 
-export function mapQuestionsByCategory(stepQuestions: QuestionInStepCategoryEntity[]): StepCategory[] {
-    return stepQuestions.reduce<StepCategory[]>((accum: StepCategory[], item: QuestionInStepCategoryEntity) => {
+export function mapQuestionsByCategory(stepQuestions: QuestionEntity[]): StepCategoryQuestion[] {
+    return stepQuestions.reduce<StepCategoryQuestion[]>((accum: StepCategoryQuestion[], item: QuestionEntity) => {
         let categoryItem = accum.find(it => it.stepCategoryId === item.stepCategoryId);
 
         if (!categoryItem) {
@@ -16,8 +16,8 @@ export function mapQuestionsByCategory(stepQuestions: QuestionInStepCategoryEnti
         }
 
         categoryItem.questions.push({
-            id: item.questionId,
-            text: item.question.text,
+            id: item.id,
+            text: item.text,
             position: item.position
         });
 
