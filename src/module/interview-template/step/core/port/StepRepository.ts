@@ -16,5 +16,5 @@ export interface StepRepository {
 
     delete(data: Step): Promise<void>
 
-    pathPosition(patchData: PatchPosition, stepData: Step): Promise<void>
+    patchPosition(patchData: PatchPosition, stepData: Step): Promise<void>
 }

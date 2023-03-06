@@ -50,7 +50,7 @@ export class PostgresStepRepository implements StepRepository {
         await interviewTemplateStepRepository.delete(data.id);
     }
 
-    async pathPosition(patchData: PatchPosition, stepData: Step): Promise<void>{
+    async patchPosition(patchData: PatchPosition, stepData: Step): Promise<void>{
         if (stepData.position > patchData.position)
             await interviewTemplateStepRepository.increment({
                 interviewTemplateId: stepData.interviewTemplateId,
