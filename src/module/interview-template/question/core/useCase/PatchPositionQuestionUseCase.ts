@@ -3,7 +3,7 @@ import {CommandUseCase} from "@lib/model/CommandUseCase";
 import {PatchPosition} from "@module/interview-template/step/core/model/PatchPosition";
 import {QuestionRepository} from "@module/interview-template/question/core/port/QuestionRepository";
 
-export class PatchPositionStepCategoryUseCase implements CommandUseCase<PatchPosition, Promise<void>> {
+export class PatchPositionQuestionUseCase implements CommandUseCase<PatchPosition, Promise<void>> {
 
     constructor(
         private repository: QuestionRepository
