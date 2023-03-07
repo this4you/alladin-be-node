@@ -5,23 +5,12 @@ import {CreateStepCategory} from "@module/interview-template/step-category/core/
 import {StepCategory} from "@module/interview-template/step-category/core/model/StepCategory";
 import {StepCategoryQuestion} from "@module/interview-template/step-category/core/model/StepCategoryQuestion";
 import {PatchPosition} from "@module/interview-template/step/core/model/PatchPosition";
-import {mapStepCategory} from "@module/interview-template/step-category/repository/mapper/mapStepCategory";
+import {mapStepCategoryQuestion} from "@module/interview-template/step-category/repository/mapper/mapStepCategoryQuestion";
 
 import stepCategoryRepository from "@db/postgre/repositories/stepCategoryRepository";
+import questionRepository from "@db/postgre/repositories/questionRepository";
 
 export class PostgresStepCategoryRepository implements StepCategoryRepository {
-    async getByStep(stepId: string): Promise<StepCategoryQuestion[]> {
-        const stepCategory = await stepCategoryRepository.find({
-            where: {
-                stepId: stepId,
-            },
-            relations: {
-                questionCategory: true
-            }
-        });
-        return mapStepCategory(stepCategory);
-    }
-
     async create(data: CreateStepCategory): Promise<StepCategory> {
         const stepCategoryTableSize = await stepCategoryRepository.countBy( {stepId: data.stepId});
         const stepCategory = stepCategoryRepository.create({
@@ -69,5 +58,36 @@ export class PostgresStepCategoryRepository implements StepCategoryRepository {
             {id: patchData.id},
             {position: patchData.position}
         )
+    }
+
+    async getCategoryQuestionByStep(stepId: string): Promise<StepCategoryQuestion[]> {
+        const stepCategory = await stepCategoryRepository.find({
+            where: {
+                stepId: stepId,
+            },
+            relations: {
+                questionCategory: true
+            },
+            order: {
+                position: "ASC"
+            }
+        });
+        const question = await questionRepository.find({
+            where: {
+                stepCategory: {
+                    stepId: stepId
+                }
+            },
+            relations: {
+                stepCategory: {
+                    step: true
+                }
+            },
+            order: {
+                position: "ASC"
+            }
+        });
+
+        return mapStepCategoryQuestion(stepCategory, question);
     }
 }

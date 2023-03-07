@@ -7,7 +7,7 @@ import {tryExecute} from "@infrastructure/utils/tryExecute";
 const stepCategoryRouter = Router();
 const {
     createStepCategoryUseCase,
-    getStepCategoryUseCase,
+    getStepCategoryQuestionUseCase,
     deleteStepCategoryUseCase,
     patchPositionStepCategoryUseCase
 } = getStepCategoryContext();
@@ -25,7 +25,7 @@ stepCategoryRouter.post('/', auth, async (req, res, next) => {
 stepCategoryRouter.get('/:stepId', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
         const stepId = req.params.stepId && req.params.stepId.toString() || '';
-        const stepsOfInterviewTemplate = await getStepCategoryUseCase.execute(stepId);
+        const stepsOfInterviewTemplate = await getStepCategoryQuestionUseCase.execute(stepId);
         res.json(stepsOfInterviewTemplate);
     });
 });

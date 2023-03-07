@@ -4,5 +4,5 @@ export type StepCategoryQuestion = {
     stepCategoryId: string,
     categoryName: string,
     position: number,
-    questions: (Question&{position: number})[]
+    questions: (Omit<Question, "stepCategoryId">)[]
 }

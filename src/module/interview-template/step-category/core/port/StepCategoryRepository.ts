@@ -8,6 +8,6 @@ export interface StepCategoryRepository {
     isExists(data: CreateStepCategory): Promise<boolean>
     getStepCategory(id: string): Promise<StepCategory>
     patchPosition(patchData: PatchPosition, stepCategoryData: StepCategory): Promise<void>
-    getByStep(stepId: string): Promise<StepCategoryQuestion[]>
     delete(data: StepCategory): Promise<void>
+    getCategoryQuestionByStep(stepId: string): Promise<StepCategoryQuestion[]>
 }
