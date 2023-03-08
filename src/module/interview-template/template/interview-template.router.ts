@@ -45,8 +45,8 @@ interviewTemplateRouter.put('/:id', auth, async (req, res, next) => {
 
 interviewTemplateRouter.delete('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
-        const interviewTemplate = await deleteInterviewTemplateUseCase.execute(req.params.id);
-        res.json(interviewTemplate);
+        await deleteInterviewTemplateUseCase.execute(req.params.id);
+        res.json();
     });
 });
 

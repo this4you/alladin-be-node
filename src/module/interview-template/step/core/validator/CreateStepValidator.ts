@@ -12,5 +12,7 @@ export class CreateStepValidator implements Validator<CreateStep> {
         this.validateUtils.validate('name', data.name)
             .required()
             .maxLength(20);
+        this.validateUtils.validate('interviewTemplateId', data.interviewTemplateId)
+            .required();
     }
 }

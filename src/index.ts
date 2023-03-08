@@ -14,6 +14,7 @@ import interviewTemplateRouter from "./module/interview-template/template/interv
 import stepRouter from "./module/interview-template/step/step.router";
 import questionCategoryRouter from "./module/interview-template/question-category/question-category.router";
 import stepCategoryRouter from "@module/interview-template/step-category/step-category.router";
+import questionRouter from "@module/interview-template/question/question-router";
 
 const configs = async () => {
     dotenv.config();
@@ -35,6 +36,7 @@ const settingExpressApp = (): Express => {
     app.use('/step', stepRouter);
     app.use('/question-category', questionCategoryRouter);
     app.use('/step-category', stepCategoryRouter);
+    app.use('/question', questionRouter);
 
     app.get('/', (req, res) => {
         res.send('SERVER WORKS!')
