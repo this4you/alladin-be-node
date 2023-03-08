@@ -1,7 +1,7 @@
 import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm'
 
-import {BaseEntity} from './BaseEntity';
-import {InterviewTemplateEntity} from "./InterviewTemplateEntity";
+import {BaseEntity} from "@db/postgre/entities/BaseEntity";
+import {InterviewTemplateEntity} from "@db/postgre/entities/InterviewTemplateEntity";
 
 @Entity({name: 'TemplateStep'})
 export class TemplateStepEntity extends BaseEntity {
@@ -14,7 +14,7 @@ export class TemplateStepEntity extends BaseEntity {
     @Column({ nullable: false })
     interviewTemplateId: string;
 
-    @ManyToOne(() => InterviewTemplateEntity)
+    @ManyToOne(() => InterviewTemplateEntity,  {onDelete:'CASCADE'})
     @JoinColumn()
     interviewTemplate: InterviewTemplateEntity;
 }

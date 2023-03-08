@@ -1,4 +1,5 @@
 import {Column, Entity, ManyToOne} from "typeorm";
+
 import {BaseEntity} from "@db/postgre/entities/BaseEntity";
 import {StepCategoryEntity} from "@db/postgre/entities/StepCategory";
 
@@ -13,6 +14,6 @@ export class QuestionEntity extends BaseEntity {
 
     @Column()
     stepCategoryId: string;
-    @ManyToOne(() => StepCategoryEntity)
+    @ManyToOne(() => StepCategoryEntity,  {onDelete:'CASCADE'})
     stepCategory: StepCategoryEntity;
 }

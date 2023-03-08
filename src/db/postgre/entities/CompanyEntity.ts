@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm'
 
-import { BaseEntity } from './BaseEntity';
+import { BaseEntity } from '@db/postgre/entities/BaseEntity';
 
 @Entity({name: 'Company'})
 export class CompanyEntity extends BaseEntity {
