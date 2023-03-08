@@ -8,7 +8,7 @@ export class DeleteQuestionUseCase implements CommandUseCase<string, Promise<voi
 
     async execute(id: string): Promise<void> {
         const question = await this.repository.getQuestion(id);
-
-        await this.repository.delete(question);
+        await this.repository.reducePositionsAfter(question.stepCategoryId, question.position);
+        await this.repository.delete(id);
     }
 }

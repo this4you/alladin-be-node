@@ -10,7 +10,14 @@ export class PatchPositionStepCategoryUseCase implements CommandUseCase<PatchPos
     async execute(data: PatchPosition): Promise<void> {
         const stepCategory = await this.repository.getStepCategory(data.id);
 
-        return await this.repository.patchPosition(data, stepCategory);
+        if (stepCategory.position > data.position) {
+            await this.repository.increasePositionBetween(stepCategory.stepId, stepCategory.position, data.position);
+        }
+        if (stepCategory.position < data.position) {
+            await this.repository.decreasePositionBetween(stepCategory.stepId, stepCategory.position, data.position);
+        }
+
+        return await this.repository.patchPosition(data);
     }
 
 }

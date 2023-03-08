@@ -8,10 +8,18 @@ export class PatchPositionQuestionUseCase implements CommandUseCase<PatchPositio
     constructor(
         private repository: QuestionRepository
     ) {}
+
     async execute(data: PatchPosition): Promise<void> {
         const question = await this.repository.getQuestion(data.id);
 
-        return await this.repository.patchPosition(data, question);
+        if (question.position > data.position) {
+            await this.repository.increasePositionBetween(question.stepCategoryId, question.position, data.position);
+        }
+        if (question.position < data.position) {
+            await this.repository.decreasePositionBetween(question.stepCategoryId, question.position, data.position);
+        }
+
+        return await this.repository.patchPosition(data);
     }
 
 }

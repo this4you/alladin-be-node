@@ -10,12 +10,12 @@ import questionRepository from "@db/postgre/repositories/questionRepository";
 
 export class PostgresQuestionRepository implements QuestionRepository {
     async create(data: CreateQuestion): Promise<Question> {
-        const stepCategoryTableSize = await questionRepository.countBy( {stepCategoryId: data.stepCategoryId});
+        const lastPosition = await questionRepository.countBy( {stepCategoryId: data.stepCategoryId});
 
         const question = questionRepository.create({
             text: data.text,
             stepCategoryId: data.stepCategoryId,
-            position: stepCategoryTableSize+1
+            position: lastPosition + 1
         });
 
         await questionRepository.save(question);
@@ -23,10 +23,12 @@ export class PostgresQuestionRepository implements QuestionRepository {
         return {...question};
     }
 
-    async isExists(data: CreateQuestion): Promise<boolean> {
-        return !!await questionRepository.findOneBy( {
-            stepCategoryId: data.stepCategoryId,
-            text: data.text
+    async isExists(text: string, stepCategoryId: string): Promise<boolean> {
+        return await questionRepository.exist({
+            where:{
+                stepCategoryId: stepCategoryId,
+                text: text
+            }
         });
     }
 
@@ -40,26 +42,32 @@ export class PostgresQuestionRepository implements QuestionRepository {
         return await questionRepository.findOneOrFail({where:{id: id}});
     }
 
-    async delete(data: Question): Promise<void> {
+    async reducePositionsAfter(stepCategoryId: string, position: number): Promise<void> {
         await questionRepository.decrement({
-            stepCategoryId: data.stepCategoryId,
-            position: MoreThan(data.position),
+            stepCategoryId: stepCategoryId,
+            position: MoreThan(position),
         }, "position", 1);
-        await questionRepository.delete(data.id);
     }
 
-    async patchPosition(patchData: PatchPosition, questionData: Question): Promise<void> {
-        if (questionData.position > patchData.position)
-            await questionRepository.increment({
-                stepCategoryId: questionData.stepCategoryId,
-                position: Between(patchData.position, questionData.position),
-            }, "position", 1);
-        if (questionData.position < patchData.position)
-            await questionRepository.decrement({
-                stepCategoryId: questionData.stepCategoryId,
-                position: Between(questionData.position, patchData.position),
-            }, "position", 1);
+    async delete(id: string): Promise<void> {
+        await questionRepository.delete(id);
+    }
 
+    async increasePositionBetween(stepCategoryId: string, currentPosition: number, newPosition: number): Promise<void> {
+        await questionRepository.increment({
+            stepCategoryId: stepCategoryId,
+            position: Between(newPosition, currentPosition),
+        }, "position", 1);
+    }
+
+    async decreasePositionBetween(stepCategoryId: string, currentPosition: number, newPosition: number): Promise<void> {
+        await questionRepository.decrement({
+            stepCategoryId: stepCategoryId,
+            position: Between(currentPosition, newPosition),
+        }, "position", 1);
+    }
+
+    async patchPosition(patchData: PatchPosition): Promise<void> {
         await questionRepository.update(
             {id: patchData.id},
             {position: patchData.position}

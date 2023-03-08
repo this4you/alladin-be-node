@@ -20,9 +20,11 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
     }
 
     async isExists(name: string, companyId: string): Promise<boolean> {
-        return !!await interviewTemplateRepository.findOneBy({
-            companyId: companyId,
-            name: name
+        return await interviewTemplateRepository.exist({
+            where: {
+                companyId: companyId,
+                name: name
+            },
         });
     }
 
@@ -33,11 +35,7 @@ export class PostgresInterviewTemplateRepository implements InterviewTemplateRep
     async update(data: UpdateInterviewTemplate): Promise<UpdateInterviewTemplate> {
         await interviewTemplateRepository.update({id: data.id}, data);
 
-        return {
-            id: data.id,
-            name: data.name,
-            companyId: data.companyId
-        }
+        return {...data}
     }
 
     async delete(id: string): Promise<void> {

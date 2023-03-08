@@ -22,9 +22,11 @@ export class PostgresStepRepository implements StepRepository {
     }
 
     async isExists(name: string, interviewTemplateId: string): Promise<boolean> {
-        return !!await interviewTemplateStepRepository.findOneBy( {
-            interviewTemplateId: interviewTemplateId,
-            name: name
+        return await interviewTemplateStepRepository.exist( {
+            where: {
+                interviewTemplateId: interviewTemplateId,
+                name: name
+            }
         });
     }
 
@@ -42,26 +44,32 @@ export class PostgresStepRepository implements StepRepository {
         return {...data};
     }
 
-    async delete(data: Step): Promise<void> {
+    async reducePositionsAfter(interviewTemplateId: string, position: number): Promise<void> {
         await interviewTemplateStepRepository.decrement({
-            interviewTemplateId: data.interviewTemplateId,
-            position: MoreThan(data.position),
+            interviewTemplateId: interviewTemplateId,
+            position: MoreThan(position),
         }, "position", 1);
-        await interviewTemplateStepRepository.delete(data.id);
     }
 
-    async patchPosition(patchData: PatchPosition, stepData: Step): Promise<void>{
-        if (stepData.position > patchData.position)
-            await interviewTemplateStepRepository.increment({
-                interviewTemplateId: stepData.interviewTemplateId,
-                position: Between(patchData.position, stepData.position),
-            }, "position", 1);
-        if (stepData.position < patchData.position)
-            await interviewTemplateStepRepository.decrement({
-                interviewTemplateId: stepData.interviewTemplateId,
-                position: Between(stepData.position, patchData.position),
-            }, "position", 1);
+    async delete(id: string): Promise<void> {
+        await interviewTemplateStepRepository.delete(id);
+    }
 
+    async increasePositionBetween(interviewTemplateId: string, currentPosition: number, newPosition: number): Promise<void> {
+        await interviewTemplateStepRepository.increment({
+            interviewTemplateId: interviewTemplateId,
+            position: Between(newPosition, currentPosition),
+        }, "position", 1);
+    }
+
+    async decreasePositionBetween(interviewTemplateId: string, currentPosition: number, newPosition: number): Promise<void> {
+        await interviewTemplateStepRepository.decrement({
+            interviewTemplateId: interviewTemplateId,
+            position: Between(currentPosition, newPosition),
+        }, "position", 1);
+    }
+
+    async patchPosition(patchData: PatchPosition): Promise<void>{
         await interviewTemplateStepRepository.update(
             {id: patchData.id},
             {position: patchData.position}

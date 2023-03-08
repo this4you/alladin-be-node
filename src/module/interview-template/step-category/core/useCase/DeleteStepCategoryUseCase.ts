@@ -8,7 +8,7 @@ export class DeleteStepCategoryUseCase implements CommandUseCase<string, Promise
 
     async execute(id: string): Promise<void> {
         const stepCategory = await this.repository.getStepCategory(id);
-
-        await this.repository.delete(stepCategory);
+        await this.repository.reducePositionsAfter(stepCategory.stepId, stepCategory.position);
+        await this.repository.delete(id);
     }
 }

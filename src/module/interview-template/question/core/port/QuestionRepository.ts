@@ -5,9 +5,12 @@ import {PatchPosition} from "@module/interview-template/step/core/model/PatchPos
 
 export interface QuestionRepository {
     create(data: CreateQuestion): Promise<Question>
-    isExists(data: CreateQuestion): Promise<boolean>
+    isExists(text: string, stepCategoryId: string): Promise<boolean>
     update(data: UpdateQuestion): Promise<UpdateQuestion>
     getQuestion(id: string): Promise<Question>
-    patchPosition(patchData: PatchPosition, questionData: Question): Promise<void>
-    delete(data: Question): Promise<void>
+    reducePositionsAfter(stepCategoryId: string, position: number): Promise<void>
+    delete(id: string): Promise<void>
+    patchPosition(patchData: PatchPosition): Promise<void>
+    increasePositionBetween(stepCategoryId: string, currentPosition: number, newPosition: number): Promise<void>
+    decreasePositionBetween(stepCategoryId: string, currentPosition: number, newPosition: number): Promise<void>
 }

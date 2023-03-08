@@ -12,48 +12,58 @@ import questionRepository from "@db/postgre/repositories/questionRepository";
 
 export class PostgresStepCategoryRepository implements StepCategoryRepository {
     async create(data: CreateStepCategory): Promise<StepCategory> {
-        const stepCategoryTableSize = await stepCategoryRepository.countBy( {stepId: data.stepId});
+        const lastPosition = await stepCategoryRepository.countBy( {stepId: data.stepId});
+
         const stepCategory = stepCategoryRepository.create({
             stepId: data.stepId,
             questionCategoryId: data.questionCategoryId,
-            position: stepCategoryTableSize+1
+            position: lastPosition + 1
         });
+
         await stepCategoryRepository.save(stepCategory);
 
         return {...stepCategory}
     }
 
-    async isExists(data: CreateStepCategory): Promise<boolean> {
-        return !!await stepCategoryRepository.findOneBy( {
-            stepId: data.stepId,
-            questionCategoryId: data.questionCategoryId
+    async isExists(stepId: string, questionCategoryId: string): Promise<boolean> {
+        return await stepCategoryRepository.exist({
+            where: {
+                stepId: stepId,
+                questionCategoryId: questionCategoryId
+            }
         });
-    }
-
-    async delete(data: StepCategory): Promise<void> {
-        await stepCategoryRepository.decrement({
-            stepId: data.stepId,
-            position: MoreThan(data.position),
-        }, "position", 1);
-        await stepCategoryRepository.delete(data.id);
     }
 
     async getStepCategory(id: string): Promise<StepCategory> {
         return await stepCategoryRepository.findOneOrFail({where:{id: id}});
     }
 
-    async patchPosition(patchData: PatchPosition, stepCategoryData: StepCategory): Promise<void> {
-        if (stepCategoryData.position > patchData.position)
-            await stepCategoryRepository.increment({
-                stepId: stepCategoryData.stepId,
-                position: Between(patchData.position, stepCategoryData.position),
-            }, "position", 1);
-        if (stepCategoryData.position < patchData.position)
-            await stepCategoryRepository.decrement({
-                stepId: stepCategoryData.stepId,
-                position: Between(stepCategoryData.position, patchData.position),
-            }, "position", 1);
+    async reducePositionsAfter(stepId: string, position: number): Promise<void> {
+        await stepCategoryRepository.decrement({
+            stepId: stepId,
+            position: MoreThan(position),
+        }, "position", 1);
+    }
 
+    async delete(id: string): Promise<void> {
+        await stepCategoryRepository.delete(id);
+    }
+
+    async increasePositionBetween(stepId: string, currentPosition: number, newPosition: number): Promise<void> {
+        await stepCategoryRepository.increment({
+            stepId: stepId,
+            position: Between(newPosition, currentPosition),
+        }, "position", 1);
+    }
+
+    async decreasePositionBetween(stepId: string, currentPosition: number, newPosition: number): Promise<void> {
+        await stepCategoryRepository.decrement({
+            stepId: stepId,
+            position: Between(currentPosition, newPosition),
+        }, "position", 1);
+    }
+
+    async patchPosition(patchData: PatchPosition): Promise<void> {
         await stepCategoryRepository.update(
             {id: patchData.id},
             {position: patchData.position}
