@@ -15,10 +15,10 @@ export class CreateQuestionUseCase extends ValidateCommandUseCase<CreateQuestion
     }
 
     protected async validatedExecute(data: CreateQuestion): Promise<Question> {
-        const isQuestion = await this.repository.isExists(data);
+        const isQuestion = await this.repository.isExists(data.text, data.stepCategoryId);
 
         if (isQuestion) {
-            throw new UniqueException(`Question ${data} already existed`);
+            throw new UniqueException(`Question text: '${data.text}' in StepCategory: '${data.stepCategoryId}' already existed`);
         }
 
         return await this.repository.create(data);

@@ -15,10 +15,10 @@ export class CreateStepUseCase extends ValidateCommandUseCase<CreateStep, Promis
     }
 
     protected async validatedExecute(data: CreateStep): Promise<Step> {
-        const isInterviewTemplateStep = await this.repository.isExists(data.name, data.interviewTemplateId);
+        const isStep = await this.repository.isExists(data.name, data.interviewTemplateId);
 
-        if (isInterviewTemplateStep) {
-            throw new UniqueException(`InterviewStep name ${data.name} already existed`);
+        if (isStep) {
+            throw new UniqueException(`Step name: '${data.name}' in InterviewTemplate: '${data.interviewTemplateId}' already existed`);
         }
 
         return await this.repository.create(data);

@@ -15,10 +15,10 @@ export class CreateStepCategoryUseCase extends ValidateCommandUseCase<CreateStep
     }
 
     protected async validatedExecute(data: CreateStepCategory): Promise<StepCategory> {
-        const isStepCategory = await this.repository.isExists(data);
+        const isStepCategory = await this.repository.isExists(data.stepId, data.questionCategoryId);
 
         if (isStepCategory) {
-            throw new UniqueException(`StepCategory ${data} already existed`);
+            throw new UniqueException(`StepCategory with Step: '${data.stepId}' and QuestionCategory: '${data.questionCategoryId}' already existed`);
         }
 
         return await this.repository.create(data);
