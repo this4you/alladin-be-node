@@ -36,8 +36,8 @@ questionRouter.put('/:id', auth, async (req, res, next) => {
 
 questionRouter.delete('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
-        const question = await deleteQuestionUseCase.execute(req.params.id);
-        res.json(question);
+        await deleteQuestionUseCase.execute(req.params.id);
+        res.json();
     });
 });
 

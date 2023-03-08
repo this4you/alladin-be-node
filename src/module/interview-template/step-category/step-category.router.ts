@@ -32,8 +32,8 @@ stepCategoryRouter.get('/:stepId', auth, async (req, res, next) => {
 
 stepCategoryRouter.delete('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
-        const stepCategory = await deleteStepCategoryUseCase.execute(req.params.id);
-        res.json(stepCategory);
+        await deleteStepCategoryUseCase.execute(req.params.id);
+        res.json();
     });
 });
 
