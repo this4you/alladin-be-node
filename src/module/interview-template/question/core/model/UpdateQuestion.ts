@@ -1,3 +1,3 @@
 import {Question} from "@module/interview-template/question/core/model/Question";
 
-export type CreateQuestion = Omit<Question, "id" | "position">
+export type UpdateQuestion = Pick<Question, "id" | "text" | "stepCategoryId">;

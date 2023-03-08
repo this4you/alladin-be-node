@@ -9,7 +9,7 @@ export class DeleteStepUseCase implements CommandUseCase<string, Promise<void>> 
 
     async execute(id: string): Promise<void> {
         const step = await this.repository.getStep(id);
-
-        await this.repository.delete(step);
+        await this.repository.reducePositionsAfter(step.interviewTemplateId, step.position);
+        await this.repository.delete(id);
     }
 }

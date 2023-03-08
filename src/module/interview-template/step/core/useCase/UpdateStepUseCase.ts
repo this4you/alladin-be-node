@@ -13,10 +13,10 @@ export class UpdateStepUseCase extends ValidateCommandUseCase<UpdateStep, Promis
     }
 
     protected async validatedExecute(data: UpdateStep): Promise<UpdateStep> {
-        const isInterviewTemplate = await this.repository.isExists(data.name, data.interviewTemplateId);
+        const isStep = await this.repository.isExists(data.name, data.interviewTemplateId);
 
-        if (isInterviewTemplate) {
-            throw new UniqueException(`Interview name ${data.name} in companyId ${data.interviewTemplateId} already existed`);
+        if (isStep) {
+            throw new UniqueException(`Step name: '${data.name}' in InterviewTemplate: '${data.interviewTemplateId}' already existed`);
         }
 
         return await this.repository.update(data);

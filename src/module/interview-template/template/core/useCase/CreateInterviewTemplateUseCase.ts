@@ -18,7 +18,7 @@ export class CreateInterviewTemplateUseCase extends ValidateCommandUseCase<Creat
         const isInterviewTemplate = await this.repository.isExists(data.name, data.companyId);
 
         if (isInterviewTemplate) {
-            throw new UniqueException(`Interview name ${data.name} already existed`)
+            throw new UniqueException(`InterviewTemplate name: '${data.name}' in Company: '${data.companyId}' already existed`)
         }
 
         return await this.repository.create(data);

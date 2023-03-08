@@ -12,5 +12,7 @@ export class CreateInterviewTemplateValidator implements Validator<CreateIntervi
         this.validateUtils.validate('name', data.name)
             .required()
             .maxLength(20);
+        this.validateUtils.validate('companyId', data.companyId)
+            .required();
     }
 }

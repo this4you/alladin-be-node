@@ -47,8 +47,8 @@ stepRouter.put('/:id', auth, async (req, res, next) => {
 
 stepRouter.delete('/:id', auth, async (req, res, next) => {
     await tryExecute(next, async () => {
-        const interviewTemplateStep = await deleteInterviewTemplateStepUseCase.execute(req.params.id);
-        res.json(interviewTemplateStep);
+        await deleteInterviewTemplateStepUseCase.execute(req.params.id);
+        res.json();
     });
 });
 
