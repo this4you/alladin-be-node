@@ -10,11 +10,7 @@ import {QuestionEntity} from "@db/postgre/entities/QuestionEntity";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'root',
-    password: 'root',
-    database: 'alladin',
+    url: process.env.DATABASE_URL,
     synchronize: true,
     logging: true,
     entities: [
@@ -28,4 +24,4 @@ export const AppDataSource = new DataSource({
     ],
     subscribers: [],
     migrations: [],
-})
+});

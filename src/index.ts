@@ -2,6 +2,8 @@ import "reflect-metadata"
 import cors from 'cors';
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
+import 'dotenv/config';
+
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger-output.json';
 
