@@ -4,6 +4,7 @@ import { User } from '../core/model/User';
 import { Token } from '../core/model/Token';
 import { TokenUser } from '../core/model/TokenUser';
 import { TokenGenerator } from '../core/port/TokenGenerator';
+import { JWT_SECRET } from "secret";
 
 export class JWTGenerator implements TokenGenerator {
     generate(user: User): Token {
@@ -14,7 +15,7 @@ export class JWTGenerator implements TokenGenerator {
         }
         const token = jwt.sign(
             payload,
-            process.env.JWT_SECRET || '',
+            JWT_SECRET || '',
             {
                 expiresIn: '1h'
             }

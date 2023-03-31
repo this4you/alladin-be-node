@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getUserContext } from '../../module/auth/user/config/factory';
+import { getUserContext } from '@module/auth/user/config/factory';
 
 const { verifyTokenUseCase } = getUserContext();
 
