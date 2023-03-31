@@ -13,7 +13,7 @@ const {
     patchPositionQuestionUseCase
 } = getQuestionContext();
 
-questionRouter.post('/', auth, async (req: Request<{}, Question, CreateQuestion>, res, next) => {
+questionRouter.post('/', auth, async (req: Request<CreateQuestion, Question>, res, next) => {
     await tryExecute(next, async () => {
         const question = await createQuestionUseCase.execute({
             text: req.body.text,

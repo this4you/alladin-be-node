@@ -12,7 +12,7 @@ const {
     getAllQuestionCategories,
 } = getQuestionCategoryContext();
 
-questionCategoryRouter.get('/', auth, async (req: Request<{}, QuestionCategory[]>, res, next) => {
+questionCategoryRouter.get('/', auth, async (req: Request<QuestionCategory, QuestionCategory[]>, res, next) => {
     await tryExecute(next, async () => {
         const questionCategories = await getAllQuestionCategories.execute();
         res.json(questionCategories);

@@ -16,7 +16,7 @@ export class GetUserUseCase implements CommandUseCase<string, Promise<ReturnUser
             throw new NotFoundException(`User with id: ${id} was not found!`)
         }
 
-        const { password, ...userWithoutPassword } = user;
+        const { ...userWithoutPassword } = user;
 
         return userWithoutPassword;
     }
