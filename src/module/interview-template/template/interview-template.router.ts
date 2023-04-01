@@ -15,7 +15,7 @@ const {
     deleteInterviewTemplateUseCase
 } = getInterviewTemplateContext();
 
-interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplate, Omit<CreateInterviewTemplate, 'companyId'>>, res, next) => {
+interviewTemplateRouter.post('/', auth, async (req: Request<InterviewTemplate, Omit<CreateInterviewTemplate, 'companyId'>>, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplate = await createInterviewTemplateUseCase.execute({
             name: req.body.name,
@@ -25,7 +25,7 @@ interviewTemplateRouter.post('/', auth, async (req: Request<{}, InterviewTemplat
     });
 });
 
-interviewTemplateRouter.get('/', auth, async (req: Request<{}, InterviewTemplate[]>, res, next) => {
+interviewTemplateRouter.get('/', auth, async (req: Request<InterviewTemplate, InterviewTemplate[]>, res, next) => {
     await tryExecute(next, async () => {
         const companyInterviewTemplates = await getInterviewTemplateByCompanyUseCase.execute(req.user.companyId);
         res.json(companyInterviewTemplates);

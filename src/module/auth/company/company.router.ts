@@ -9,7 +9,7 @@ import { Company } from './core/model/Company';
 const companyRouter = Router();
 const {createCompanyUseCase} = getCompanyContext();
 
-companyRouter.post('/', async (req: Request<{}, Company, CreateCompany>, res, next) => {
+companyRouter.post('/', async (req: Request<CreateCompany, Company>, res, next) => {
     await tryExecute(next, async () => {
         const company = await createCompanyUseCase.execute(req.body);
 

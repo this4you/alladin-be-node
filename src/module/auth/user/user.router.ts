@@ -10,7 +10,7 @@ import { Token } from './core/model/Token';
 const userRouter = Router();
 const { authUseCase, getUserUseCase } = getUserContext();
 
-userRouter.post('/auth', async (req: Request<{}, Token, AuthUser>, res, next) => {
+userRouter.post('/auth', async (req: Request<AuthUser, Token>, res, next) => {
     await tryExecute(next, async () => {
         const token = await authUseCase.execute(req.body);
 

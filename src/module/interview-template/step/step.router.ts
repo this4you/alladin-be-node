@@ -16,7 +16,7 @@ const {
     patchPositionStepUseCase
 } = getInterviewTemplateStepContext();
 
-stepRouter.post('/', auth, async (req: Request<{}, Step, CreateStep>, res, next) => {
+stepRouter.post('/', auth, async (req: Request<CreateStep, Step>, res, next) => {
     await tryExecute(next, async () => {
         const interviewTemplateStep = await createInterviewTemplateStepUseCase.execute({
             name: req.body.name,

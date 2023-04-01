@@ -8,13 +8,15 @@ import {QuestionCategoryEntity} from "@db/postgre/entities/QuestionCategoryEntit
 import {StepCategoryEntity} from "@db/postgre/entities/StepCategory";
 import {QuestionEntity} from "@db/postgre/entities/QuestionEntity";
 
+import {DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME} from "secret";
+
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'root',
-    password: 'root',
-    database: 'alladin',
+    host: DB_HOST,
+    port: Number(DB_PORT),
+    username: DB_USERNAME,
+    password: DB_PASSWORD,
+    database: DB_NAME,
     synchronize: true,
     logging: true,
     entities: [
@@ -28,4 +30,4 @@ export const AppDataSource = new DataSource({
     ],
     subscribers: [],
     migrations: [],
-})
+});

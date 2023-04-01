@@ -2,6 +2,8 @@ import "reflect-metadata"
 import cors from 'cors';
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
+import 'dotenv/config';
+
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger-output.json';
 
@@ -15,6 +17,7 @@ import stepRouter from "./module/interview-template/step/step.router";
 import questionCategoryRouter from "./module/interview-template/question-category/question-category.router";
 import stepCategoryRouter from "@module/interview-template/step-category/step-category.router";
 import questionRouter from "@module/interview-template/question/question-router";
+import {PORT} from "secret";
 
 const configs = async () => {
     dotenv.config();
@@ -48,7 +51,7 @@ const settingExpressApp = (): Express => {
 }
 
 const run = (app: Express) => {
-    const port = process.env.PORT;
+    const port = PORT;
 
     app.listen(port, () => {
         console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
